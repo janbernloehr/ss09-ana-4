@@ -1,0 +1,1597 @@
+\section{Fouriertransformation}
+
+\subsection{Grundlagen}
+
+\begin{defn}
+\label{defn:2.1}
+Für $f\in C^\infty(\R\to\C)$ und $j,k\in\N_0$ sei
+\begin{align*}
+\norm{f}_{j,k} := \sup\limits_{x\in\R} \abs{x^jf^{(k)}(x)}.
+\end{align*}
+Für $k\ge 1$ ist $\norm{f}_{j,k}$ eine Seminorm.
+Der \emph{Schwartzraum}\footnote{Laurent Schwartz (* 5. März 1915 in Paris; †
+4. Juli 2002 ebenda)} über $\R$ ist definiert als
+\begin{align*}
+\SS(\R) := \setdef{f\in C^\infty(\R\to\C)}{\forall j,k\in\N_0 :
+\norm{f}_{j,k}<\infty}.\fishhere
+\end{align*}
+\end{defn}
+
+\begin{bem}
+\label{bem:2.2}
+Mit
+\begin{align*}
+d(f,g) = \sum\limits_{j,k=0}^\infty
+\frac{1}{2^{j+k}}\frac{\norm{f-g}_{j,k}}{1-\norm{f-g}_{j,k}}
+\end{align*}
+wird $\SS(\R)$ zu einem vollständigen metrischen Raum.\maphere
+\end{bem}
+
+\begin{bsp}
+\label{bsp:2.3}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $f_1(x) = x^j e^{-x^2} \in \SS(\R)$, $\forall j\in\N_0$.
+  \item $f_2(x) = \frac{1}{(1+x^2)^j}\notin \SS(\R)$, $\forall j\in\N_0$.
+  \item Betrachten wir die Funktion,
+  
+\begin{align*}
+f_3(x) = \begin{cases}e^{-\frac{1}{1-x^2}}, &
+  x<1\\ 0, & x \ge 1\end{cases}.
+\end{align*}
+\begin{figure}[H]
+\centering
+\begin{pspicture}(-2.5,-1)(2.5,2)
+\psaxes[labels=none,ticks=none]{->}%
+ (0,0)(-2,-0.5)(2,1.5)%
+ [\color{gdarkgray}$x$,-90][\color{gdarkgray}$y$,0]
+
+ \psplot[linewidth=1.2pt,%
+	     linecolor=darkblue,%
+	     algebraic=true]%
+	     {-0.999}{0.999}{2.71828183^(-1/(1-x^2))}
+ \psline[linewidth=1.2pt,linecolor=darkblue](-1.5,0)(-1,0)
+ \psline[linewidth=1.2pt,linecolor=darkblue](1,0)(1.5,0)
+ 
+ \psxTick(-1){\color{gdarkgray}-1}
+ \psxTick(1){\color{gdarkgray}1}
+ \psyTick(0.367879441){}
+ \rput(-0.4,0.6){\color{gdarkgray}1/e}
+\end{pspicture} 
+  \caption{Graph der Funktion $f_3$.}
+\end{figure}
+
+Offensichtlich ist $f\in C^\infty(\R\to\C)$ und $\supp f = [-1,1]$. Damit haben
+auch alle Ableitungen kompakten Träger und es gilt $f\in\SS(\R)$.\bsphere
+\end{enumerate}
+\end{bsp}
+
+\begin{prop}[Eigenschaften]
+\label{prop:2.4}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $\SS(\R)$ ist eine $\R$-Algebra ohne Einselement.
+  \item Seien $f\in\SS(\R)$, $j,k\in\N_0$ und
+\begin{align*}
+g(x) = x^jf^{(k)}(x),
+\end{align*}
+so ist auch $g\in\SS(\R)$.\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+Der Beweis ist eine leichte Übung.\qedhere
+\end{proof}
+
+\begin{defn}
+\label{defn:2.5}
+Für $f: \R\to\C$ heißt
+\begin{align*}
+\supp f := \overline{\setdef{x\in\R}{f(x)\neq 0}}
+\end{align*}
+der \emph{Träger} bzw. \emph{Support} von $f$.
+\begin{align*}
+C_0^\infty(\R\to\C) := \setdef{f\in C^\infty(\R\to\C)}{\supp f\text{ ist
+kompakt}}.
+\end{align*}
+Offensichtlich ist $C_0^\infty(\R\to\C)\subseteq \SS(\R)$.\fishhere
+\end{defn}
+
+\begin{defn}[Fouriertransformation]
+\label{defn:2.6}
+Für $f\in\SS(\R)$ heißt
+\begin{align*}
+\FF f(x) = \hat{f}(\omega) := \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+f(x)e^{-i\omega x}\dx
+\end{align*}
+die \emph{Fouriertransformierte} von $f$.\fishhere
+\end{defn}
+
+\begin{bsp}
+\label{bsp:2.7}
+Wir wollen die Fouriertransformation der Funktion
+\begin{align*}
+f(x) = e^{-\frac{x^2}{2}}
+\end{align*}
+berechnen,
+\begin{align*}
+\sqrt{2\pi} \hat{f}(\omega) = \int\limits_{-\infty}^\infty
+e^{-\frac{x^2}{2}}e^{-i\omega x}\dx.
+\end{align*}
+Quadratische Ergänzung ergibt,
+\begin{align*}
+\sqrt{2\pi} \hat{f}(\omega) &= \int\limits_{-\infty}^\infty
+e^{-\frac{1}{2}(x^2 + 2i\omega x - \omega^2)}e^{-\frac{\omega^2}{2}}\dx
+= e^{-\frac{\omega^2}{2}} 
+\underbrace{\int\limits_{-\infty}^\infty
+e^{-\frac{1}{2}((x-i\omega)^2)}\dx}_{:= \sqrt{2\pi}\text{ (s.u.)}}\\
+&=\sqrt{2\pi}f(\omega).
+\end{align*}
+$f$ ist also Eigenfunktion der Fouriertransformation mit Eigenwert
+$1$.
+
+Wir wollen das $\sqrt{2\pi}$ nun Integral explizit berechnen. Dazu bedienen wir
+uns der Funktionentheorie, denn $f(z)$ ist ganze Funktion. Es gilt somit
+\begin{align*}
+\int_{\gamma_R} f(z)\dz = \int_{\gamma_1} f(z)\dz + \int_{\gamma_2} f(z)\dz +
+\int_{\tilde{\gamma}_R}f(z)\dz
+\end{align*}
+
+\begin{figure}[h]
+\centering
+\begin{pspicture}(0,-1.0589062)(4.5,1.0573437)
+\psline{->}(0.0,-0.68109375)(4.48,-0.6610938)
+\psline{->}(2.18,-0.86109376)(2.18,1.0189062)
+\psline[linecolor=darkblue]{->}(0.76,0.5389063)(3.28,0.5389063)
+\psline[linecolor=darkblue]{->}(0.78,0.5389063)(0.78,-0.12109375)
+\psline[linecolor=darkblue]{->}(0.78,-0.68109375)(1.36,-0.68109375)
+\psline[linecolor=darkblue]{->}(3.58,-0.68109375)(3.58,0.21890625)
+\psline[linecolor=darkblue](0.78,-0.02109375)(0.78,-0.68109375)
+\psline[linecolor=darkblue](3.04,0.5389063)(3.6,0.5389063)
+\psline[linecolor=darkblue](3.58,-0.04109375)(3.58,0.5389063)
+\psline[linecolor=darkblue](1.16,-0.68109375)(3.58,-0.6610938)
+
+\rput(2.0271876,0.76890624){\color{gdarkgray}$\omega$}
+\rput(3.4764063,0.8){\color{gdarkgray}$\gamma_R$}
+\rput(1.4357812,-0.9){\color{gdarkgray}$\tilde{\gamma}_R$}
+\rput(3.9571874,0.14890625){\color{gdarkgray}$\gamma_2$}
+\rput(0.40265626,0.1){\color{gdarkgray}$\gamma_1$}
+\end{pspicture} 
+  \caption{Konstruktion der geschlossenen Kurve}
+\end{figure}
+
+\begin{align*}
+\abs{\int_{\gamma_1} f(z)\dz} &\le \sup\limits_{z\in\im\gamma_1}
+\abs{f(z)}L(\gamma_1)
+= \sup\limits_{0\le t\le\omega} \abs{e^{-\frac{(it-R)^2}{2}}}\omega\\
+&= \sup\limits_{0\le t\le\omega} \abs{e^{\frac{-R^2+2iRt+t^2}{2}}}\omega
+= e^{-\frac{R^2}{2}}e^{\frac{\omega^2}{2}}\omega\overset{R\to\infty}{\longrightarrow}
+0.
+\end{align*}
+Analog erhält man
+\begin{align*}
+\abs{\int_{\gamma_2} f(z)\dz} \to 0,\quad \text{für } R\to\infty,
+\end{align*}
+somit gilt
+\begin{align*}
+\int_{\gamma_R} f(z)\dz = \int_{\tilde{\gamma}_R} f(z)\dz
+= \int\limits_{-\infty}^\infty e^{-\frac{t^2}{2}}\dt = \sqrt{2\pi}.\bsphere
+\end{align*}
+\end{bsp}
+
+\subsection{Eigenschaften der Fouriertransformation}
+
+\begin{prop}
+\label{prop:2.8}
+Für $f\in\SS(\R)$, $j,k\in\N_0$ gelten,
+\begin{align*}
+&\widehat{f^{(j)}}(\omega) = (i\omega)^j\hat{f}(\omega)\\
+&g(x) = x^kf(x) \Rightarrow \hat{g}(\omega) = i^k\hat{f}^{(k)}(\omega)\\
+&g(x) = x^kf^{(j)}(x) \Rightarrow \hat{g}(\omega) =
+i^{k+j}x^j\hat{f}^{(k)}(\omega).\fishhere
+\end{align*}
+\end{prop}
+\begin{proof}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Sei $j=1$.
+\begin{align*}
+\hat{f'}(\omega) &= \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+f'(x)e^{-i\omega x}\dx\\
+&\overset{\small\text{part.int.}} =
+\frac{1}{\sqrt{2\pi}} \left[ \underbrace{f(x)e^{-i\omega
+x}\bigg|_{-\infty}^\infty}_{=0} + i\omega \int\limits_{-\infty}^\infty
+f(x)e^{-i\omega x}\dx \right]\\
+&= i\omega \hat{f}(\omega).
+\end{align*}
+Rest folgt mit Induktion über $j$.
+\item Sei $k=1$.
+\begin{align*}
+&g(x) = xf(x)\\
+&\hat{g}(x) = \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+f(x)xe^{-i\omega x}\dx = i\frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+f(x)\frac{\diffd}{\domega} e^{-i\omega x}\dx.
+\end{align*}
+Der abgeleitete Integrand konvergiert gleichmäßig, wir können also Ableitung
+und Integral vertauschen,
+\begin{align*}
+\hat{g}(x) =
+i \frac{\diffd}{\domega} \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty f(x)
+e^{-i\omega x}\dx
+= i\frac{\diffd}{\domega} \hat{f}(\omega).
+\end{align*}
+Wir sehen also insbesondere, dass $\hat{f}$ differenzierbar ist. Rest folgt mit
+Induktion über $k$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{prop}
+\label{prop:2.9}
+$\FF: f\mapsto \hat{f}$ ist eine lineare Abbildung von $\SS(\R)$ nach
+$\SS(\R)$.\fishhere
+\end{prop}
+\begin{proof}
+Die Linearität folgt direkt aus der Linearität des Integrals. Sei nun $f\in
+\SS(\R)$,
+\begin{align*}
+\sup\limits_{\omega\in\R} \abs{\hat{f}(\omega)}
+&=  \sup\limits_{\omega\in\R} \frac{1}{\sqrt{2\pi}}
+\abs{\int\limits_{-\infty}^\infty f(x)e^{-i\omega x}\dx}\\
+&\le \sup\limits_{\omega\in\R} \frac{1}{\sqrt{2\pi}}
+\int\limits_{-\infty}^\infty \abs{f(x)}\dx <\infty
+\end{align*}
+Setze $g(x) = x^k f^{(j)}(x)$, so ist $g\in\SS(\R)$ und
+$\hat{g}(\omega)=i^j\omega^j \hat{f}^{(k)}(\omega)$, wobei
+\begin{align*}
+\sup\limits_{\omega\in\R} \abs{\omega^j\hat{f}^{(k)}(\omega)} 
+&= \sup\limits_{\omega\in\R} \abs{\hat{g}(\omega)} <\infty,
+\end{align*}
+also ist $f\in\SS(\R)$.\qedhere
+\end{proof}
+
+\begin{bem}
+\label{bem:2.10}
+$\FF: \SS(\R)\to\SS(\R)$ ist stetig.\maphere
+\end{bem}
+
+\begin{prop}
+\label{prop:2.11}
+$\FF: \SS(\R)\to\SS(\R)$ ist bijektiv mit,
+\begin{align*}
+\FF^{-1}g(x) = \check{g}(x) = \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+g(\omega)e^{+i\omega x}\domega.\fishhere
+\end{align*}
+\end{prop}
+\begin{proof}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item\label{proof:2.10:1} Sei zunächst $f\in C_0^\infty(\R)$. Wähle $\ep > 0$
+  so, dass
+\begin{align*}
+\supp f \subseteq \left(-\frac{1}{\ep},\frac{1}{\ep}\right).
+\end{align*}
+Dann kann $f$ $\frac{2}{\ep}$-periodisch fortgesetzt werden. Die Fortsetzung
+ist $\C^\infty(\R\to\C)$. Entwickeln wir $f$ in
+$\left[-\frac{1}{\ep},\frac{1}{\ep}\right]$ in seine Fourierreihe,
+\begin{align*}
+f(x) &= \sum\limits_{j=-\infty}^\infty \frac{1}{\frac{2}{\ep}}
+\int\limits_{-\frac{1}{\ep}}^{\frac{1}{\ep}}
+f(t)e^{ij\frac{\pi}{\frac{1}{\ep}}(x-t)}\dt\\
+&= \sum\limits_{j=-\infty}^\infty \frac{\ep}{2}
+\int\limits_{-\frac{1}{\ep}}^{\frac{1}{\ep}}
+f(t)e^{-ij\pi\ep t}\dt e^{ij\pi\ep x}
+\end{align*}
+Da $f$ kompakten Träger $\subseteq \left[-\frac{1}{\ep},\frac{1}{\ep}\right]$
+hat, können wir übergehen zu,
+\begin{align*}
+f(x) &= \sum\limits_{j=-\infty}^\infty \frac{\ep}{2}
+\underbrace{\int\limits_{-\infty}^{\infty}
+f(t)e^{-ij\pi\ep t}\dt}_{=\sqrt{2\pi}\hat{f}(j\pi\ep)} e^{ij\pi\ep x}\\
+&=\frac{1}{\sqrt{2\pi}}
+\sum\limits_{j=-\infty}^\infty \pi\ep
+\hat{f}(j\pi\ep)e^{ij\pi\ep x}.
+\end{align*}
+Diesen Ausdruck kann man als Riemannsumme mit Schrittweite
+$\pi\ep$ interpretieren. Für $\ep\to 0$ erhalten wir so,
+\begin{align*}
+f(x) = \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty \hat{f}(\omega)
+e^{i\omega x}\domega.
+\end{align*}
+\item Sei $f\in\SS(\R)$ und $\psi_R$ eine \emph{Abschneidefunktion} mit
+folgenden Eigenschaften,
+\begin{itemize}
+  \item $\psi_R\in C_0^\infty(\R)$.
+  \item $\psi_R(x) = \begin{cases}1, & \abs{x}\le R,\\ 0, & \abs{x}\ge R+2,\\
+  \in[0,1], & \text{sonst}\end{cases}$
+\item $\abs{\psi_R'}, \abs{\psi_R''} \le c$ unabhängig von $R$.
+\end{itemize}
+%TODO: Bild
+Wir werden im Anschluss an diesen Beweis zeigen, dass so eine Funktion überhaupt
+existiert.
+
+Für $f\in\SS(\R)$ sei
+\begin{align*}
+g_R := \psi_R \cdot f.
+\end{align*}
+Offensichtlich ist $g_R  \in C_0^\infty(\R)$. Wir können nun die Ergebnisse aus
+\ref{proof:2.10:1} verwenden. Für $\abs{x}\le R$ gilt,
+\begin{align*}
+&f(x) = g_R(x) = \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+\hat{g}_R(\omega)e^{i\omega x}\domega,\\
+&\hat{g}_R(\omega) = \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+\psi_R(x)f(x)e^{-i\omega x}\dx.
+\end{align*}
+Sei nun $\omega$ fest, dann gilt
+\begin{align*}
+e^{-i\omega x}\psi_R(x)f(x) \to e^{-i\omega x}f(x).
+\end{align*}
+Da außerdem $f\in\SS(\R)$ gilt weitherin,
+\begin{align*}
+\abs{\psi_R(x)f(x)} \le \abs{f(x)} \le \frac{c}{1+x^2}.
+\end{align*}
+Wir können somit den Satz über majorisierte Konvergenz anwenden und erhalten,
+\begin{align*}
+\int\limits_{-\infty}^\infty e^{-i\omega x}\psi_R(x)f(x)\dx 
+\to \int\limits_{-\infty}^\infty e^{-i\omega x}f(x)\dx.
+\end{align*}
+Für $\omega$ fest konvergiert also $\hat{g}_R(\omega)\to \hat{f}(\omega)$ für
+$R\to\infty$. Wir wollen nun noch einmal die Fouriertransformation ausführen
+und die majorisierte Konvergenz verwenden. Dazu benötigen wir eine
+weitere Majorante,
+\begin{align*}
+\abs{\hat{g}_R(\omega)} &=
+\frac{1}{\sqrt{2\pi}}\abs{\int\limits_{-\infty}^\infty \psi_R(x)f(x)e^{-i\omega
+x}\dx}\\ & \overset{\small\text{2x par.int.}}{=}
+\frac{1}{\sqrt{2\pi}}\abs{\frac{1}{\omega^2}\int\limits_{-\infty}^\infty
+(\psi_R(x)f(x))''e^{-i\omega x}\dx}.\tag{*}
+\end{align*}
+Nach Voraussetzung gilt,
+\begin{align*}
+&\abs{\psi_R}, \abs{\psi_R'}, \abs{\psi_R''} \le c,\\
+&\abs{f},\abs{f'},\abs{f''} \le \frac{c}{1+x^2},
+\end{align*}
+und damit ist %TODO: Der Schritt ist mir überhaupt nicht klar...
+\begin{align*}
+(\text{*}) \le \abs{\frac{d}{1+\omega^2}}.
+\end{align*}
+Mit dem Satz über majorisierte Konvergenz folgt,
+\begin{align*}
+f(x) = \lim\limits_{R\to\infty} \frac{1}{\sqrt{2\pi}}
+\int\limits_{-\infty}^\infty \hat{g}_R(\omega)e^{i\omega x}\dx
+= 
+\int\limits_{-\infty}^\infty \hat{f}(\omega)e^{i\omega x}\dx.
+\end{align*}
+Auf $\im\FF$ gilt also,
+\begin{align*}
+\FF^{-1}\hat{f} = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^\infty
+\hat{f}(\omega) e^{i\omega x}\domega.
+\end{align*}
+\item Wir erhalten das gleiche Ergebnis, wenn wir $e^{-i\omega x}$ und
+$e^{i\omega x}$ vertauschen,
+\begin{align*}
+&\check{f}(\omega) = \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+f(x)e^{+i\omega x}\dx\\
+\Rightarrow & f(x) = \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+\check{f}(x)e^{-i\omega x}\dx = \FF\check{f}.
+\end{align*}
+Ist also $f\in\im\FF$, so ist auch $f =
+\widehat{\left(\check{f}\right)}\in\im\FF$ und $\check{f}\in\SS(\R)$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{bsp}
+\label{bsp:2.12}
+Durchbiegung einer unendlich langen Schiene.
+\begin{figure}[!htbp]
+\centering
+\begin{pspicture}(0,-1.12)(3.94,1.1)
+\psline{->}(0.0,-0.82)(3.92,-0.84)
+\psline{->}(1.8,-0.94)(1.8,1.08)
+\psline{->}(1.5,0.16)(1.5,0.68)
+\psline{->}(2.4,-0.84)(2.4,-0.22)
+\psbezier[linecolor=darkblue](0.02,-0.8)(0.24,-0.3)(0.62,-0.6)(0.78,-0.2)(0.94,0.2)(1.3,0.16)(1.8,0.16)(2.3,0.16)(2.32,-0.28)(2.82,-0.42)(3.32,-0.56)(3.32,-0.12)(3.6,-0.82)
+
+\rput(1.2,0.81){\color{gdarkgray}$f(x)$}
+\rput(2.8,-0.63){\color{gdarkgray}$u(x)$}
+\rput(3.7254686,-0.97){\color{gdarkgray}$x$}
+\end{pspicture}
+\caption{Schiene mit Kraft $f(x)$ und Durchbiegung $u(x)$.}
+\end{figure}
+
+Beschreibe $u(x)$ die Durchbiegung einer Schiene hervorgerufen durch die 
+Kraft $f(x)$. $u(x)$ erfüllt folgende Differentialgleichung, 
+\begin{align*}
+ u^{(4)}(x) + \alpha^4 u(x) = f(x).
+\end{align*}
+
+Nehmen wir an, $f,u\in\SS(\R)$ und wenden die Fouriertransformation auf die
+Differentialgleichung an,
+\begin{align*}
+i^4\omega^4\hat{u}(\omega) + \alpha^4 \hat{u}(\omega) = \hat{f}(\omega).
+\end{align*}
+Für die Fouriertransformierte der Lösung gilt somit,
+\begin{align*}
+\hat{u}(\omega) = \frac{1}{\omega^4+\alpha^4}\hat{f}(\omega).
+\end{align*}
+Die Lösung ist gegeben durch,
+\begin{align*}
+u(x) = \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+\frac{\hat{f}(\omega)}{\omega^4+\alpha^4} e^{i\omega x}\domega.
+\end{align*}
+
+Wir wollen nun unsere Annhame überprüfen.
+\begin{align*}
+f\in\SS(\R)\Rightarrow \hat{f}\in\SS(\R) \Rightarrow
+\frac{\hat{f}}{\cdot^4+\alpha^4}\in\SS(\R) \Rightarrow u\in\SS(\R).
+\end{align*}
+Es muss also lediglich gefordert werden, dass $f\in\SS(\R)$.
+
+Dies ist eine lineare Differentialgleichung 4. Ordnung, der Lösungsraum ist
+also 4 Dimensional, unsere Lösung ist somit nicht eindeutig.  Man kann jedoch
+zeigen, dass man so die einzige Lösung erhält, die ``schnell abklingt''
+($\in\SS(\R)$). So lange wir also Schienen mit endlicher Ausdehnung betrachten
+ist diese Lösung die einzige.\bsphere
+\end{bsp}
+
+\begin{prop}[Abschneidefunktion]
+\label{prop:2.13}
+Es existiert eine Abschneidefunktion $\psi_R$ für $R>0$ mit den in
+\ref{prop:2.11} geforderten Eigenschaften,
+\begin{enumerate}[label=(\roman{*})]
+  \item $\psi_R\in C_0^\infty(\R)$.
+  \item $\psi_R(x) = \begin{cases}1, & \abs{x}\le R,\\ 0, & \abs{x}\ge R+2,\\
+  \in[0,1], & \text{sonst}\end{cases}$
+\item $\abs{\psi_R'}, \abs{\psi_R''} \le c$ unabhängig von $R$.\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+Sei dazu,
+\begin{align*}
+&j(x) = \begin{cases}
+       c e^{-\frac{1}{1-x^2}}, & \abs{x}<1,\\
+       0, & \text{sonst}.
+       \end{cases},\\
+&c = \frac{1}{\int\limits_{-1}^1 e^{-\frac{1}{1-x^2}}}.
+\end{align*}
+$j$ hat offensichtlich die Eigenschaften,
+\begin{align*}
+&\int\limits_{-\infty}^\infty j(x)\dx = \int\limits_{-1}^1 j(x)\dx = 1,\\
+&\supp j = [-1,1],\\
+& j\in C_0^\infty(\R\to\R),\\
+& j(x) \ge 0.
+\end{align*}
+Setze nun,
+\begin{align*}
+\psi_R(x) := \int\limits_{-\infty}^\infty j(x-y)\chi_{[-R-1,R+1]}(y)\dy
+= \int\limits_{-R-1}^{R+1} j(x-y)\dy,
+\end{align*}
+so folgt unmittelbar
+\begin{align*}
+\psi_R\in C^\infty(\R\to\R).
+\end{align*}
+Für $\abs{x}\le R$ gilt,
+\begin{align*}
+\psi_R(x) = \int\limits_{x-1}^{x+1} j(x-y)\dy = 1.
+\end{align*}
+Für $\abs{x}\ge R+2$ gilt,
+\begin{align*}
+\psi_R(x) = \int\limits_{-R-1}^{R+1} 0\dy = 0.
+\end{align*}
+$j$ ist positiv, also ist auch $\psi_R$ positiv und
+\begin{align*}
+\psi_R(x) \le \int\limits_{-\infty}^\infty j(x-y)\dy = 1.
+\end{align*}
+Außerdem gilt,
+\begin{align*}
+\abs{\psi_R^{(k)}} &\le \abs{\int\limits_{-\infty}^\infty j^{(k)}(x-y)\dy}
+\overset{z=x-y}{=} \abs{\int\limits_{-\infty}^\infty j^{(k)}(z)\dz}
+\\&= \int\limits_{-1}^1 \abs{j^{(k)}(z)}\dz \le 2\max\limits_{\abs{z}\le 1}
+\abs{j^{(k)}(z)}
+\end{align*}
+und die rechte Seite ist unabhängig von $R$.\qedhere
+\end{proof}
+\begin{figure}[!htbp]
+\centering
+\begin{pspicture}(0,-1.2421875)(3.94,1.2221875)
+\psline{->}(0.0,-0.6978125)(3.92,-0.6978125)
+\psline{->}(1.82,-0.8178125)(1.82,1.2021875)
+
+\psbezier[linecolor=darkblue]%
+(0.2,-0.6978125)(0.48,-0.6978125)%
+(0.64,-0.6978125)(0.82,-0.6978125)%
+(1.0,-0.6978125)(1.3,0.3021875)%
+(1.82,0.3021875)(2.34,0.3021875)%
+(2.66,-0.6978125)(2.82,-0.6978125)%
+(2.98,-0.6978125)(3.14,-0.6978125)(3.42,-0.6978125)
+\psline(0.8,-0.6978125)(0.8,-0.8978125)
+\psline(2.82,-0.6978125)(2.82,-0.8978125)
+
+\rput(3.7254686,-0.8478125){\color{gdarkgray}$x$}
+\rput(0.780625,-1.0878125){\color{gdarkgray}$-1$}
+\rput(1.7770313,-1.0878125){\color{gdarkgray}$0$}
+\rput(2.846875,-1.0878125){\color{gdarkgray}$1$}
+\rput(1.5896875,-0.4278125){\color{gdarkgray}$F$}
+\rput(3,0.2121875){\color{gdarkgray}$y=j(x)$}
+\rput(0.985,0.4121875){\color{gdarkgray}$F=1$}
+\end{pspicture} 
+\begin{pspicture}(-0.3,-1.21)(5.9,1.19)
+\psline{->}(0.03375,-0.67)(5.03375,-0.67)
+\psline{->}(2.03375,-0.85)(2.03375,1.17)
+\psline(2.29375,-0.67)(2.29375,-0.87)
+\psline(4.25375,-0.67)(4.25375,-0.87)
+\psline(0.11375,-0.67)(0.11375,-0.87)
+\psline(3.73375,0.07)(3.73375,-0.87)
+\psbezier[linecolor=darkblue](1.65375,-0.67)(1.93375,-0.67)(2.09375,-0.67)(2.27375,-0.67)(2.45375,-0.67)(2.75375,0.33)(3.27375,0.33)(3.79375,0.33)(4.11375,-0.67)(4.27375,-0.67)(4.43375,-0.67)(4.59375,-0.67)(4.87375,-0.67)
+
+\rput(5.059219,-0.9){\color{gdarkgray}$x$}
+\rput(2.319375,-1.06){\color{gdarkgray}$x-1$}
+\rput(1.8707813,-0.9){\color{gdarkgray}$0$}
+\rput(4.35,-1.06){\color{gdarkgray}$x+1$}
+\rput(4.8,0.28){\color{gdarkgray}$y=j(x-y)$}
+\rput(0.23859376,-1.06){\color{gdarkgray}$-R-1$}
+\rput(3.55,-1.06){\color{gdarkgray}$R+1$}
+\rput(2.6225,0.42){\color{gdarkgray}$\psi_R$}
+
+\end{pspicture} 
+\caption{Verschiebung.}
+\end{figure}
+
+\begin{prop}[Plancherel Gleichung]
+\label{prop:2.14}
+Für $f\in\SS(\R)$ gilt,
+\begin{align*}
+\norm{\hat{f}}_{\LL^2(\R)} = \norm{f}_{\LL^2(\R)}.\fishhere
+\end{align*}
+\end{prop}
+\begin{proof}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Sei zunächst $f\in C_0^\infty(\R)$. Wie in \ref{prop:2.11} sei 
+\begin{align*}
+\supp f \subseteq \left(-\frac{1}{\ep},\frac{1}{\ep}\right).
+\end{align*}
+Mithilfe der Parsevall-Gleichung in
+$\LL^2\left(-\frac{1}{\ep},\frac{1}{\ep}\right)$ und dem  VONS
+\begin{align*}
+e_j(x) = \sqrt{\frac{\ep}{2}}e^{ij\pi\ep x},
+\end{align*}
+erhalten wir
+\begin{align*}
+\norm{f}_{\LL^2\left(-\frac{1}{\ep},\frac{1}{\ep}\right)} &= 
+\sum\limits_{j=-\infty}^\infty \abs{\lin{f,e_j}}^2 = 
+\sum\limits_{j=-\infty}^\infty \abs{\int\limits_{-\frac{1}{\ep}}^{\frac{1}{\ep}}
+f(t)\sqrt{\frac{\ep}{2}}e^{ij\pi\ep t}\dt}^2\\
+&= \sum\limits_{j=-\infty}^\infty
+\frac{\ep}{2}2\pi\abs{\hat{f}(j\pi\ep)}^2 
+\end{align*}
+Dies können wir wieder als Riemann-Summe interpretieren. Für $\ep\to0$ erhalten
+wir so,
+\begin{align*}
+\ldots = \int\limits_{-\infty}^\infty \abs{\hat{f}(\omega)}^2\domega.
+\end{align*}
+\item Verwende nun die Abschneidefunktion $\psi_R$ und zeige für $f\in\SS(\R)$, 
+\begin{align*}
+&\norm{\psi_R f} \to\norm{f},\\
+&\norm{\widehat{\psi_R f}} \to\norm{\hat{f}}.\qedhere
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{cor}
+\label{prop:2.15}
+Für $f,g\in\SS(\R)$ gilt,
+\begin{align*}
+\lin{f,g}_{\LL^2(\R)} = \lin{\hat{f},\hat{g}}_{\LL^2(\R)}.\fishhere
+\end{align*}
+\end{cor}
+\begin{proof}
+Wir führen das Skalarprodukt mittels folgender Identität auf seine erzeugte
+Norm zurück,
+\begin{align*}
+\lin{f,g} = \frac{1}{4}\left(\norm{f+g}^2 - \norm{f-g}^2 - i\norm{f+ig}^2 -
+\norm{f-ig}^2 \right).\qedhere
+\end{align*}
+\end{proof}
+
+\addtocounter{prop}{1}
+Die Fouriertransformation ist also eine bijektive in beide Richtungen stetige
+Abbildung, die Norm und Skalarprodukt erhält.
+
+Wir wollen die Fouriertransformation von Produkten von Funktionen betrachten.
+Dazu benötigen wir noch den Begriff der Faltung.
+\begin{defn}
+\label{defn:2.17}
+Für $f,g\in\SS(\R)$ ist
+\begin{align*}
+(f*g)(x) = \int\limits_{-\infty}^\infty f(x-y)g(y)\dy,
+\end{align*}
+die \emph{Faltung} von $f$ mit $g$.\fishhere
+\end{defn}
+
+\begin{bspn}
+$\psi_R  = j*\chi_{[-R-1,R+1]}$.\bsphere
+\end{bspn}
+
+\begin{prop}
+\label{prop:2.18}
+Seien $f,g\in\SS(\R)$. Dann gilt,
+\begin{enumerate}[label=\arabic{*}.)]
+  \item\label{prop:2.18:1} $f*g\in\SS(\R)$.
+  \item\label{prop:2.18:2} $\widehat{f\cdot g} = \frac{1}{\sqrt{2\pi}}
+  \hat{f}*\hat{g}$,\\
+  $\widehat{f*g} = \sqrt{2\pi} \hat{f}\cdot\hat{g}$.
+  \item\label{prop:2.18:3} Die Faltung ist kommutativ und assoziativ,
+\begin{align*}
+f*g = g*f,\qquad f*(g*h) = (f*g)*h.\fishhere
+\end{align*}
+\end{enumerate}
+\end{prop}
+\begin{proof}
+``\ref{prop:2.18:2}'':
+\begin{align*}
+\sqrt{2\pi} \widehat{f\cdot g}(\omega) &=
+\int\limits_{-\infty}^\infty f(x)g(x)e^{-i\omega x}\dx
+= \lin{g,\overline{e^{-i\cdot\omega}f}}_{\LL^2(\R)}
+\\ &= \lin{\hat{g},\widehat{\overline{e^{-i\cdot\omega}f}}}_{\LL^2(\R)}
+=  \int\limits_{-\infty}^\infty \hat{g}(\omega')
+\overline{\int\limits_{-\infty}^\infty \overline{e^{-ix\omega}f(x)}
+e^{-ix\omega'}\dx}\domega'
+\end{align*}
+Nun ist
+\begin{align*}
+\overline{\int\limits_{-\infty}^\infty \overline{e^{-ix\omega}f(x)}
+e^{-ix\omega'}\dx}
+= 
+\int\limits_{-\infty}^\infty f(x)e^{-ix(\omega-\omega')}
+\dx = \hat{f}(\omega-\omega').
+\end{align*}
+Wir erhalten so,
+\begin{align*}
+\sqrt{2\pi} \widehat{f\cdot g}(\omega) = 
+\int\limits_{-\infty}^\infty \hat{g}(\omega')
+\hat{f}(\omega-\omega')\domega' = \hat{f}*\hat{g}.
+\end{align*}
+Analog folgt, $\FF^{-1}\left(\hat{f}\cdot\hat{g}\right) =
+\frac{1}{\sqrt{2\pi}} f* g \Rightarrow \hat{f}\cdot\hat{g} =
+\frac{1}{\sqrt{2\pi}} \widehat{f*g}$.
+
+``\ref{prop:2.18:1}'':
+\begin{align*}
+f,g\in\SS(\R) &\overset{\ref{prop:2.9}}{\Rightarrow} \hat{f},\hat{g}\in\SS(\R)
+\Rightarrow \hat{f}\cdot\hat{g}\in\SS(\R)\\
+&\overset{\ref{prop:2.9}}{\Rightarrow} f*g =
+\frac{1}{\sqrt{2\pi}}\FF^{-1}\left(\hat{f}\cdot\hat{g}\right) \in\SS(\R)
+\end{align*}
+
+``\ref{prop:2.18:3}'':
+\begin{align*}
+f*g &= \frac{1}{\sqrt{2\pi}}\FF^{-1}\left(\hat{f}\hat{g}\right) =
+\frac{1}{\sqrt{2\pi}}\FF^{-1}\left(\hat{g}\hat{f}\right) = g*f\\
+\left(f*g\right)*h &= 
+\frac{1}{\sqrt{2\pi}}\FF^{-1}\left(\widehat{f*g}\cdot \hat{h}\right)=
+\frac{1}{\sqrt{2\pi}}\FF^{-1}\left(\frac{1}{\sqrt{2\pi}}\hat{f}\cdot\hat{g}\cdot
+\hat{h}\right) \\ &= 
+\frac{1}{\sqrt{2\pi}}\FF^{-1}\left(\hat{f}\cdot \widehat{g*h}\cdot
+\right)= f*\left(g*h\right).\qedhere
+\end{align*}
+\end{proof}
+
+\subsection{Dichte Mengen}
+
+\begin{prop}
+\label{prop:2.19}
+Sei $1\le p <\infty$. Dann ist $C_0^\infty(\R)$ dicht in $\LL^p(\R)$.\fishhere
+\end{prop}
+
+Wir benötigen für diesen Beweis noch etwas Vorbereitung.
+
+\begin{defn}
+\label{defn:2.20}
+
+Sei $j\in C_0^\infty(\R)$ mit
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $j(x) \ge 0$,
+  \item $j(x) = 0$ für $\abs{x}\ge 1$,
+  \item $\int_\R j(x)\dx = 1$.
+\end{enumerate}
+(vgl \ref{prop:2.13} $j(x) = ce^{-\frac{1}{1-x^2}}$). Setze für $\ep>0$,
+\begin{align*}
+j_\ep(x) = \frac{1}{\ep}j\left(\frac{x}{\ep} \right).
+\end{align*}
+Offensichtlich gilt
+\begin{align*}
+\begin{cases}
+j_\ep(x)\ge 0,\\
+j_\ep(x) = 0,& \text{für }\abs{x}\ge\ep,\\
+j_\ep\in C_0^\infty(\R),\\
+\int_\R j_\ep(x)\dx \overset{y=\frac{x}{\ep}}{=} \int_\R j(y)\dy = 1.
+\end{cases}
+\end{align*}
+Für $f\in\LL^p(\R)$ setze
+\begin{align*}
+J_\ep f := j_\ep * f = \int_\R j_\ep(\cdot -y)f(y)\dy.
+\end{align*}
+$J_\ep f$ heißt \emph{Glättungsoperator} oder \emph{Mollifier}.\fishhere
+\end{defn}
+
+\begin{bsp}
+\label{bsp:2.21}
+$f(x) = \chi_{[-1,1]}$.
+%TODO: Schaubild
+\begin{align*}
+J_\ep f(x) &= 
+\int\limits_{-\infty}^\infty j_\ep(x-y)\chi_{[-1,1]}(y)\dy
+= \int\limits_{-1}^1 j_\ep(x-y)\dy\\
+&= \begin{cases}
+  0, & x\le 1-\ep\lor x\ge 1+\ep,\\
+  1 & -1+\ep\le x \le 1-\ep\\
+  \in[0,1], & \text{sonst}.
+  \end{cases}
+\end{align*}
+%TODO: Skizzen
+\end{bsp}
+
+\begin{prop}
+\label{prop:2.22}
+Sei $1\le p<\infty$, $u\in\LL^p(\R)$. Dann gilt
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $j_\ep * u\in C^\infty(\R\to\C)$.
+  \item $\supp u$ beschränkt $\Rightarrow j_\ep * u \in C_0^\infty(\R)$ 
+  \item $j_\ep * u\in\LL^p(\R)$, $\norm{j_\ep*u}_{\LL^p(\R)}\le
+  \norm{u}_{\LL^p(\R)}$.
+  \item $\norm{j_\ep*u-u}_{\LL^p(\R)} \to 0$ für $\ep\downarrow 0$.\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Übung.
+  \item $\supp u\subseteq [-A,A]\Rightarrow \supp j_\ep * u \subseteq [-A-\ep,
+  A+\ep]$.
+  \item Zeige die Hilfsungleichung,
+\begin{align*}
+\abs{j_\ep* u(x)} \le \left(\int_\R j_\ep(x-y) \abs{u(y)}^p \dy\right)^{1/p}.
+\end{align*}
+Für $p=1$ folgt die Behauptung sofort. Sei nun $p> 1$ und
+\begin{align*}
+\frac{1}{p}+\frac{1}{q} = 1.
+\end{align*}
+Dann gilt,
+\begin{align*}
+\abs{j_\ep*u(x)}
+&\le \int\limits_{-\infty}^\infty j_\ep(x-y)^{1/q}\left(j_\ep(x-y)^{1/p}u(y)
+\right)\dy\\
+&\le \underbrace{\left(\int\limits_{-\infty}^\infty j_\ep(x-y)\dy\right)^{1/q}}_{=1}
+\left(\int\limits_{-\infty}^\infty j_\ep(x-y) \abs{u(y)}^p\dy \right)^{1/p}.
+\end{align*}
+Nun ist
+\begin{align*}
+&\int_\R \abs{j_\ep*u(x)}^p \dx
+\le \int_\R \left(\int_\R \underbrace{j_\ep(x-y)}_{\ge 0}
+\underbrace{\abs{u(y)}^p}_{\ge 0} \dy\right)\dx\\
+&\overset{\small\text{Fubini I}}{=}
+\int_\R\underbrace{\left(\int_\R  j_\ep(x-y)\dx\right)}_{=1} \abs{u(y)}^p\dy
+= \norm{u}_p^p.
+\end{align*}
+\item
+\begin{enumerate}[label=\alph{*})]
+\item Für $u=\chi_{(a,b)}$ ist
+\begin{align*}
+&j_e*u(x) = \begin{cases}
+1, & a+\ep \le x \le b-\ep,\\
+0, & x\le a-\ep \land x\ge b+\ep,\\
+\in[0,1], & \text{sonst}. 
+\end{cases}
+\end{align*}
+Setzen wir $I=[a-\ep,a+\ep]\cup[b-\ep,b+\ep]$, so erhalten wir,
+\begin{align*}
+\Rightarrow \norm{u-j_\ep*u}_p^p &=
+\int_I
+\underbrace{\abs{u(x)-j_\ep*u(x)}^p}_{\le 2^p}\dx \\
+&\le 2^p 4\ep \to 0
+\end{align*}
+\item Für $u=\chi_O$ mit $O\subseteq\R$ offen, gilt
+\begin{align*}
+O = \dot{\bigcup}_{j\in\N} (a_j,b_j).
+\end{align*}
+Setze $u_j = \sum\limits_{k=1}^j \chi_{(a_j,b_j)} \Rightarrow 0\le u_j(x) \le
+u(x)$, $u_j(x)\uparrow u(x)$.
+\begin{align*}
+&\Rightarrow 0 \le (u(x)-u_j(x))^p \le u(x)^p,\qquad (u(x)-u_j(x))^p \to 0.
+\end{align*}
+Mit majorisierter Konvergenz folgt,
+\begin{align*}
+\norm{u-u_j}_p^p = \int_\R \abs{u(x)-u_j(x)}^p\dx \to 0.
+\end{align*}
+\begin{align*}
+\norm{u-j_\ep*u}_p
+&\le \norm{u-u_j}_p + \norm{u_j-j_\ep*u_j}_p + \norm{j_\ep*(u_j-u)}_p\\
+&\le \underbrace{2\norm{u-u_j}_p}_{<\delta \text{ für }j>J_\delta} + 
+\underbrace{\norm{u_j - j_\ep * u_j}_p}_{\small\text{endl. Summe } <\delta,\;
+\ep<\ep_{\delta,j}}  \\
+&\to 0,\quad\text{für }\ep\downarrow0.
+\end{align*}
+\item Sei $u=\chi_B$ mit $B\subseteq\R$ Borel-Menge. Zu $\delta > 0$ existiert
+$O$ offen in $\R$ mit $B\subseteq O$ und $\mu(O\setminus B)<\delta$.
+\begin{align*}
+\Rightarrow \norm{\chi_B - j_\ep*\chi_B}_p \le
+2\underbrace{\norm{\chi_B-\chi_O}_p}_{2\mu(O\setminus B)\;<\;2\delta^{1/p}} +
+\underbrace{\norm{\chi_O-j_\ep*\chi_O}}_{\to 0,\;\ep\downarrow 0}.
+\end{align*}
+\item Sei $u\in\LL^p(\R)$. Ohne Einschränkung ist $u(x)\ge 0$, denn $u$ ist
+messbar und daher $u(x) = u_+(x) + u_-(x)$. Es existiert nun eine Folge $(s_n)$
+von einfachen Funktionen mit,
+\begin{align*}
+0\le s_n(x)\le u(x),\quad s_n(x)\uparrow u(x).
+\end{align*}
+Mit monotoner Konvergenz folgt,
+\begin{align*}
+&\norm{u-s_n}_p \to 0.\\
+\Rightarrow&
+\norm{u-j_\ep*u}_p \le 2\norm{u-s_n}_p + \norm{s_n-j_\ep*s_n}_p \to 0.\qedhere
+\end{align*}
+\end{enumerate}
+\end{enumerate}
+\end{proof}
+
+\begin{proof}[Beweis von Satz \ref{prop:2.19}.]
+Sei $u\in\LL^p(\R)$. Zu zeigen ist,
+\begin{align*}
+\forall\delta > 0 \exists \ph_\delta \in C_0^\infty(\R) : \norm{\ph_\delta-u}_p
+<\delta.
+\end{align*}
+Sei zunächst,
+\begin{align*}
+u_j := \chi_{[-j,j]}u = \begin{cases}
+                        u(x), & \abs{x}\le j,\\
+                        0, &\abs{x} >j.
+                        \end{cases}
+\end{align*}
+Offensichtlich gilt dann,
+\begin{align*}
+&\abs{u(x)-u_j(x)}^p \to 0,\quad \text{für }j\to\infty,\\
+&\abs{u(x)-u_j(x)}^p \le \abs{u(x)}^p,\quad \int_\R \abs{u(x)}^p \dx <\infty.
+\end{align*}
+Wir können also majorisierte Konvergenz auf $\abs{u-u_j}^p$ anwenden und
+erhalten,
+\begin{align*}
+\norm{u_j-u}_p \to 0.
+\end{align*}
+Sei nun $\delta > 0$. Wähle $j\in\N$ fest mit
+$\norm{u-u_j}<\frac{\delta}{2}$. Nun ist $\supp u_j = [-j,j]$ also beschränkt.
+Mit \ref{prop:2.22} folgt daher,
+\begin{align*}
+&j_\ep*u\in C^\infty,\\
+&\norm{j_\ep*u_j - u_j}_p \to 0,\quad \text{für }\ep\downarrow 0. 
+\end{align*}
+Wähle $\ep >0$ fest mit $\norm{j_\ep*u_j - u_j}_p<\frac{\delta}{2}$, dann gilt
+\begin{align*}
+\ph_\delta := j_\ep*u_j \in C_0^\infty(\R).
+\end{align*}
+Wir erhalten,
+\begin{align*}
+\norm{u-\ph_\delta}_p \le \norm{u-u_j}_p + \norm{u_j-\ph_\delta}<
+\delta.\qedhere
+\end{align*}
+\end{proof}
+
+\subsection{Fortsetzung der Fouriertransformation}
+
+Die Fouriertransformation ist eine lineare invertierbare Abbildung. Die 
+Plancharell Gleichung besagt außerdem, dass sie die $\LL^2$-Norm erhält,
+\begin{align*}
+\norm{\hat{f}}_2 = \norm{f}_2.
+\end{align*}
+$D(F)=\SS(\R)$ liegt dicht in $\LL^2(\R)$. Dies wollen wir nun ausnutzen, um
+die Fouriertransformation auf ganz $\LL^2(\R)$ fortzusetzten. Dazu benötigen
+wir zunächst ein Hilfsmittel aus der Funktionalanalysis.
+
+\begin{prop}[Fortsetzungssatz]
+\label{prop:2.23}
+Sei $(L,\norm{\cdot}_L)$ ein normierter Raum, $(B,\norm{\cdot}_B)$ Banachraum,
+\begin{align*}
+T:D(T)\to B,\qquad D(T)\subseteq L,
+\end{align*}
+linear und beschränkt und $D(T)$ dicht in $L$. Dann besitzt $T$
+genau eine Fortsetzung $\tilde{T} : L\to B$. Diese ist beschränkt und linear.
+Außerdem gilt
+\begin{align*}
+\norm{T} = \norm{\tilde{T}}.\fishhere
+\end{align*}
+\end{prop}
+\begin{proof}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item \textit{Konstruktion von $\tilde{T}$}.
+
+Sei $x_0\in L$, $(x_n)$ Folge in $D(T)$ mit $x_n\to x_0$. Setze
+\begin{align*}
+\tilde{T}x_0 := \lim\limits_{n\to\infty} Tx_n.
+\end{align*}
+\begin{enumerate}[label=\alph{*})]
+  \item\label{proof:2.23:1:1} $D(T)$ liegt dicht in $L$, also existiert $(x_n)$.
+  \item\label{proof:2.23:1:2} $(Tx_n)$ konvergiert.
+\begin{align*}
+\norm{Tx_n - Tx_m}_B \le \norm{T}\norm{x_n-x_m}_L <\norm{T}\ep,
+\end{align*}
+für $n,m>N_\ep$. $(x_n)$ ist konvergent und daher Cauchyfolge, also ist $(Tx_n)$
+konvergent.
+\item\label{proof:2.23:1:3} Die Definition von $\tilde{T}x_0$ ist unabhängig
+von der Folge $(x_n)$, denn seien $x_n\to x_0$ und $x_n'\to x_0$, dann gilt
+\begin{align*}
+&\norm{x_n-x_n'}_L\le \norm{x_n-x_0}_L+\norm{x_0-x_n'}_L\to 0\\
+\Rightarrow & \norm{Tx_n-Tx_n'}_B\le \norm{T}\norm{x_n-x_n'}_L \to 0.
+\end{align*}
+\end{enumerate}
+\ref{proof:2.23:1:1}-\ref{proof:2.23:1:3} $\Rightarrow$ $\tilde{T}x_0$ ist
+definiert für beliebige $x_0\in L$.
+\item \textit{$\tilde{T}$ besitzt die geforderten Eigenschaften.}
+\begin{enumerate}[label=\alph{*})]
+\item $\tilde{T}$ ist linear.
+\begin{align*}
+\tilde{T}(ax+by) &= \lim\limits_{n\to\infty} T(ax_n+by_n) =
+\lim\limits_{n\to\infty} aTx_n + \lim\limits_{n\to\infty} bTy_n 
+\\ &= a\tilde{T}x + b\tilde{T}y.  
+\end{align*}
+\item $\tilde{T}$ ist Fortsetzung von $T$. Für $x\in D(T)$ gilt aufgrund der
+Stetigkeit von $T$,
+\begin{align*}
+\tilde{T}x = Tx,\qquad \text{wähle z.B. }x_n = x.
+\end{align*}
+\item $\tilde{T}$ ist beschränkt.
+\begin{align*}
+\norm{\tilde{T}x}_B &= \norm{\lim\limits_{n\to\infty}Tx_n}_B =
+\lim\limits_{n\to\infty}\norm{Tx_n}_B \le
+\lim\limits_{n\to\infty}\norm{T}\norm{x_n}_L \\ &= \norm{T}\norm{x}_L.
+\end{align*}
+Also gilt $\norm{\tilde{T}}\le\norm{T}$. Insbesondere ist $\tilde{T}$
+beschränkt.
+\item $\norm{\tilde{T}}=\norm{T}$.
+\begin{align*}
+\norm{\tilde{T}} = \sup\limits_{\atop{x\neq 0}{x\in L}}
+\frac{\norm{\tilde{T}x}_B}{\norm{x}_L} \ge
+\sup\limits_{\atop{x\neq 0}{x\in D(T)}}
+\frac{\norm{\tilde{T}x}_B}{\norm{x}_L} =\norm{T}.
+\end{align*}
+\end{enumerate}
+\item \textit{$\tilde{T}$ ist eindeutig}. $\tilde{T}$ ist beschränkt also
+stetig, sei $x_0\in L$, $(x_n)$ in $D(T)$ mit $x_n\to x_0$, dann gilt
+\begin{align*}
+\tilde{T}x_n = \lim\limits_{n\to\infty} \tilde{T}x_n \lim\limits_{n\to\infty}
+Tx_n. 
+\end{align*}
+Es gibt also nur eine Möglichkeit, $T$ fortzusetzen.
+Also ist $\tilde{T}$ eindeutig.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{prop}
+\label{prop:2.24}
+Die Fouriertransformation
+\begin{align*}
+\FF: \SS(\R)\to \SS(\R),\; f\mapsto \hat{f}
+\end{align*}
+besitzt eine eindeutige lineare beschränkte Fortsetzung,
+\begin{align*}
+F: \LL^2(\R)\to \LL^2(\R).
+\end{align*}
+Die Fortsetzung ist unitär, d.h. bijektiv und Skalarprodukt-erhaltend, und es
+gilt $\norm{\FF}=\norm{F}$. Die dazu inverse Abbildung
+$F^{-1}$ ist die Fortsetzung der ursprünglichen inversen Abbildung $f\mapsto
+\check{f}$.\fishhere
+\end{prop}
+\begin{proof}
+Wir führen den Beweis in drei Schritten.
+\begin{enumerate}[label=\arabic{*}. Schritt]
+  \item $L=B=\LL^2(\R)$, $T=\FF$, $D(T)=\SS(\R)$. Mit \ref{prop:2.23} folgt, es
+  existiert eine eindeutige lineare beschränkte Fortsetzung $F$ der
+  Fouriertransformation auf $\LL^2(\R)$ mit $\norm{F}=\norm{\FF}=1$.
+  
+  Analog folgt, es existiert eine eindeutige lineare beschränkte Fortsetzung
+  $G$ der Umkehrtransformation mit $\norm{G}=\norm{\FF^{-1}}=1$.
+  \item \textit{Zeige $G=F^{-1}$.} Sei $f\in\LL^2(\R)$, $(f_n)\in\SS(\R)$ mit
+  $\norm{f_n-f}\to 0$.
+\begin{align*}
+(G\circ F)(f) = G(Ff) = G\left(\lim\limits_{n\to\infty} \hat{f}_n\right)
+= \lim\limits_{n\to\infty} \left(\hat{f}_n\right)^{\lor} =
+\lim\limits_{n\to\infty} f_n = f.
+\end{align*}
+Also ist $G\circ F = \id$. Analog folgt $F\circ G=\id$.
+\item $\norm{Ff}_2 = \norm{f}_2$.
+\begin{align*}
+\norm{f}_2 = \norm{G(Ff)}_2 \le \norm{Ff}_2 \le \norm{f}_2.
+\end{align*}
+Mit Polarisation folgt,
+\begin{align*}
+\lin{Ff,Fg} = \lin{f,g}.\qedhere
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{bem}[Achtung.]
+\label{bem:2.25}
+Für $f\in\LL^2(\R)$ konvergiert das Integral
+\begin{align*}
+\int\limits_{-\infty}^\infty f(x)e^{i\omega x}\dx = 
+\lim\limits_{a\to-\infty} \int\limits_a^0 f(x)e^{i\omega x}\dx
++ \lim\limits_{b\to\infty} \int\limits_0^b f(x)e^{i\omega x}\dx
+\end{align*}
+im Allgemeinen nicht. Abhilfe leistet
+\begin{align*}
+Ff = \frac{1}{\sqrt{2\pi}}\lim\limits_{R\to\infty}\int\limits_{-R}^R
+f(x)e^{i\omega x}\dx,
+\end{align*}
+wobei es sich hier lediglich um $\LL^2$-Konvergenz handelt.\maphere
+\end{bem}
+
+\begin{prop}
+\label{prop:2.26}
+Für $f\in\LL^2(\R)$ gilt,
+\begin{align*}
+\norm{Ff - \frac{1}{2\pi}\int\limits_{-R}^R f(x)e^{-i\omega x}\dx}_2 \to
+0.\fishhere
+\end{align*}
+\end{prop}
+\begin{proof}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Setze $f_R := \chi_{[-R,R]}f$, dann gilt
+\begin{align*}
+&\norm{f-f_R}_2 \to 0,\quad\text{für }R\to\infty,\\
+\Rightarrow & \norm{Ff-Ff_R}_2 \to 0.
+\end{align*}
+\item Wähle nun $R$ fest. Zeige 
+\begin{align*}
+Ff_R = \frac{1}{\sqrt{2\pi}}\int\limits_{-R}^R f_R(x)e^{-i\omega x}\dx =:
+\hat{f}_R(\omega).
+\end{align*}
+Setze $f_n = j_{1/n}*f_R\in C_0^\infty(\R)\subseteq\SS(\R)$.
+\begin{enumerate}[label=\alph{*})]
+  \item $\norm{\hat{f}_n-Ff_R}_2 = \norm{f_n - f_R}_2 \to 0$.
+  \item 
+\begin{align*}
+\abs{\hat{f}_n(\omega) - \hat{f}_R(\omega)}
+&\le \frac{1}{\sqrt{2\pi}}\int\limits_{-R-1/n}^{R+1/n}
+\abs{f_n(x)-f_R(x)}\abs{e^{-i\omega x}}\dx\\
+&\overset{\small\text{Hölder}}{\le}
+\frac{1}{\sqrt{2\pi}}\norm{f_n-f_R}_2\sqrt{2R+\frac{2}{n}} \to 0,
+\end{align*}
+gleichmäßig bezüglich $\omega$.
+\item $\forall \ph\in C_0^\infty(\R) : \lin{Ff_R-\hat{f}_R,\ph}_2 = 0$, denn
+\begin{align*}
+&\lin{Ff_R,\ph}_2 = \lim\limits_{n\to\infty} \lin{\hat{f}_n,\ph},\\
+&\lin{\hat{f}_R,\ph}_2 = 
+\int\limits_{\supp \ph} \hat{f}_R(\omega)\overline{\ph(\omega)}\domega =
+\lim\limits_{n\to\infty} \int\limits_{\supp\ph}
+\hat{f}_n(\omega)\overline{\ph(\omega)}\domega,\\
+\Rightarrow & \lin{Ff_r,\ph} = \lin{f_R,\ph}.
+\end{align*}
+\item Da $C_0^\infty(\R)$ dicht in $\LL^2(\R)$ existiert eine Folge $(\ph_j)$
+in $C_0^\infty$ mit
+\begin{align*}
+\norm{\ph_j - Ff_R}_2 \to 0.
+\end{align*}
+Daher gilt
+\begin{align*}
+&0 = \lin{Ff_R-\hat{f}_R,\ph_j} \to 
+\lin{Ff_R-\hat{f}_R,Ff_R-\hat{f}_R}\\
+\Rightarrow &\norm{Ff_r-\hat{f}_R}_2 \to 0\\
+ \Rightarrow& Ff_R = \hat{f}_R.\qedhere
+\end{align*}
+\end{enumerate}
+\end{enumerate}
+\end{proof}
+
+\begin{bsp}
+\label{bsp:2.27}
+Betrachte die Funktion
+\begin{align*}
+f(x) = \frac{x}{x^2+a^2}.
+\end{align*}
+$f$ ist stetig also messbar und $\abs{f}^2$ fällt wie $x^2$, also ist $f\in
+\LL^2(\R)$. Wir können die Fouriertransformation
+\begin{align*}
+\lim\limits_{R\to\infty}\int\limits_{-R}^R \frac{x}{x^2+a^2}e^{-i\omega x}\dx
+\end{align*}
+berechnen, indem wir den Residuensatz verwenden. Setze
+\begin{align*}
+g(z) = \frac{ze^{i\omega z}}{z^2+a^2} = 
+\frac{ze^{i\omega z}}{(z+ia)(z-ia)}. 
+\end{align*}
+Wir müssen eine Fallunterscheidung für $\omega$ machen.
+Für $\omega > 0$
+
+\begin{figure}[!htbp]
+\begin{pspicture}(-0.1,-1.3092188)(2.8496876,1.3292187)
+\psline{->}(0.0,-0.08921875)(2.54,-0.08921875)
+\psline{->}(1.22,-1.2892188)(1.22,1.0707812)
+\psline(1.12,-0.76921874)(1.34,-0.76921874)
+\psline(2.22,0.03078125)(2.22,-0.30921876)
+\psline(0.22,0.05078125)(0.22,-0.28921875)
+\psbezier[linecolor=darkblue](0.22,-0.08921875)(0.22,-0.08921875)(2.22,-0.08921875)(2.22,-0.08921875)(2.22,-0.08921875)(2.22,-1.0492188)(1.22,-1.0692188)(0.22,-1.0892187)(0.22,-0.08921875)(0.22,-0.08921875)
+
+\rput(2.6117187,-0.31921875){\color{gdarkgray}$\Re$}
+\rput(1.0770313,-0.29921874){\color{gdarkgray}$0$}
+\rput(0.85,-0.7392188){\color{gdarkgray}$-a$}
+\rput(2.2785938,0.18078125){\color{gdarkgray}$R$}
+\rput(0.1,0.18078125){\color{gdarkgray}$-R$}
+\rput(2.4,-0.69921875){\color{gdarkgray}$\gamma_R$}
+\rput(0.9546875,1.1607813){\color{gdarkgray}$\Im$}
+\end{pspicture} 
+\end{figure}
+
+
+\begin{align*}
+\int_{\gamma_R} g(z)\dz &= 
+2\pi\nu(\gamma, -ia)\Res(g,-ia)
+= -2\pi i\frac{-ia e^{-i\omega(-ia)}}{-ia-ia}\\
+&= -\pi ie^{-\omega a}.
+\end{align*}
+Zeige nun, dass das Integral über den Kreisbogen verschwindet,
+\begin{align*}
+\Rightarrow
+\lim\limits_{R\to\infty}\int\limits_{-R}^R \frac{x}{x^2+a^2}e^{-i\omega x}\dx
+= -\pi ie^{-\omega a}.
+\end{align*}
+Verfahre analog für $\omega < 0$,
+\begin{align*}
+Ff(\omega) =-\pi ie^{-\abs{\omega} a}.\bsphere
+\end{align*}
+\end{bsp}
+
+\begin{cor}
+\label{prop:2.28}
+Für $f\in\SS(\R)$ gilt
+\begin{align*}
+\norm{\hat{f}}_\infty \le \frac{1}{\sqrt{2\pi}}\norm{f}_1.\fishhere
+\end{align*}
+\end{cor}
+\begin{proof} Für $\omega\in\R$ gilt,
+\begin{align*}
+\abs{\hat{f}(\omega)} \le \frac{1}{\sqrt{2\pi}}\int_\R
+\abs{f(x)}\abs{e^{-i\omega x}}\dx = \frac{1}{\sqrt{2\pi}}\norm{f}_1.
+\end{align*}
+Die rechte Seite hängt nicht mehr von $\omega$ ab, also gilt auch,
+\begin{align*}
+\norm{\hat{f}}_\infty \le\frac{1}{\sqrt{2\pi}}\norm{f}_1.\qedhere
+\end{align*}
+\end{proof}
+
+Nun stellt sich die Frage, ob $\frac{1}{\sqrt{2\pi}}$ die optimale Konstante
+ist.
+
+\begin{prop}
+\label{prop:2.29}
+Für $F: (\SS(\R),\norm{\cdot}_1)\to (\SS(\R),\norm{\cdot}_\infty),\; f\mapsto
+\hat{f}$, gilt $\norm{F}=\frac{1}{\sqrt{2\pi}}$.\fishhere
+\end{prop}
+\begin{proof}
+Sei $f_n = j_{1/n}$, so gilt
+\begin{align*}
+\hat{f}_n(\omega) &= \frac{1}{\sqrt{2\pi}}
+\int\limits_{-\infty}^\infty j_{1/n}(x)e^{-i\omega x}\dx
+\overset{y=-x}{=} \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+j_{1/n}(-y)e^{i\omega y}\dy\\
+&= \frac{1}{\sqrt{2\pi}}j_{1/n}*e^{i\omega \cdot}(0)
+\overset{n\to\infty}{\longrightarrow} \frac{e^{i\omega 0}}{\sqrt{2\pi}} =
+\frac{1}{\sqrt{2\pi}}.
+\end{align*}
+Nun ist $\norm{f_n}_1 = 1$, somit folgt
+\begin{align*}
+\frac{\norm{f_n}_\infty}{\norm{f_n}_1} =
+\frac{1}{\sqrt{2\pi}}j_{1/n}*e^{i\omega \cdot}(0) \to \frac{1}{\sqrt{2\pi}}
+\end{align*}
+Daher ist auch
+\begin{align*}
+\sup\limits_{f\neq 0} \frac{\norm{f}_\infty}{\norm{f}_1}
+\ge \frac{1}{\sqrt{2\pi}}.\qedhere
+\end{align*}
+\end{proof}
+
+\begin{prop}
+\label{prop:2.30}
+Die Fouriertransformation besitzt genau eine lineare beschränkte Fortsetzung
+\begin{align*}
+F: \LL^1(\R)\to C_B(\R) :=\setdef{f\in C(\R\to\C)}{\sup_\R \abs{f} <\infty},
+\end{align*}
+und es gilt $\norm{F}=\frac{1}{\sqrt{2\pi}}$.\fishhere
+\end{prop}
+\begin{proof}
+Fortsetzungssatz $L=\LL^1(\R)$, $B=(C_B(\R),\norm{\cdot}_\infty)$, $T=\FF$,
+$D(T)=\SS(\R)$.\qedhere
+\end{proof}
+
+\begin{prop}
+\label{prop:2.31}
+\begin{enumerate}
+  \item Für $f\in\LL^1(\R)$ gilt,
+\begin{align*}
+Ff(\omega) = \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty f(x)e^{-i\omega
+x}\dx.
+\end{align*}
+\item $\im F\subseteq \setdef{f\in C(\R\to\C)}{f(x)\to0,x\to\pm\infty}$.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Sei $(f_n)$ Folge in $\SS(\R)$ mit $\norm{f_n-f}_1 \to 0$.
+\begin{enumerate}[label=\alph{*})]
+  \item $\forall \omega\in\R: \hat{f}_n(\omega) \to Ff(\omega)$, denn
+\begin{align*}
+\norm{\hat{f}_n - Ff}_\infty \le \frac{1}{\sqrt{2\pi}}\norm{f_n-f}_1 \to 0.
+\end{align*}
+  \item $\forall \omega\in\R: \hat{f}_n(\omega) \to \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+f(x)e^{-i\omega x}\dx$, denn
+\begin{align*}
+&\abs{\hat{f}_n(\omega)-\frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+f(x)e^{-i\omega x}\dx }\\
+&\le
+\frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+\abs{f_n(x)-f(x)}\abs{e^{-i\omega x}}\dx = \frac{1}{\sqrt{2\pi}}\norm{f_n-f}_1.
+\end{align*}
+\end{enumerate}
+  \item Sei $f\in\LL^1(\R)$, $\ep >0$, dann
+\begin{align*}
+&\exists \ph_\ep\in \SS(\R) : \norm{f-\ph_\ep}_1<\ep,\\
+\Rightarrow &
+\abs{Ff(\omega)-\hat{\ph}_\ep(\omega)} = 
+\frac{1}{\sqrt{2\pi}}\norm{f-\ph_\ep}_1
+< \frac{\ep}{\sqrt{2\pi}}.
+\end{align*}
+Wegen $\hat{\ph}_\ep\in\SS(\R)$ existiert ein  $M_\ep > 0$, sodass für
+$\abs{\omega}>M_\ep$ folgt,
+\begin{align*}
+&\abs{\ph_\ep(\omega)} < \frac{\ep}{2}.
+\end{align*}
+Für $\omega$ mit $\abs{\omega}>M_\ep$ gilt somit,
+\begin{align*}
+\Rightarrow &
+\abs{Ff(\omega)} \le \abs{Ff(\omega)-\hat{\ph}(\omega)} +
+\abs{\hat{\ph}(\omega)} < \frac{\ep}{\sqrt{2\pi}} + \frac{\ep}{2} < \ep,\\
+\Rightarrow&
+Ff(\omega) \to 0,\quad \text{für }\omega\to\pm\infty.\qedhere
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{prop}
+\label{prop:2.32}
+Sei $f\in\LL^1(\R)$, $x\in\R$ und
+\begin{align*}
+\exists \delta > 0 \int\limits_{-\delta}^\delta 
+\abs{\frac{f(t+x)-f(x)}{t}}\dt < \infty.\quad\text{Dini Bedingung}
+\end{align*}
+Dann konvergiert das uneigentliche Integral
+\begin{align*}
+f(x) = \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty Ff(\omega)e^{i\omega
+x}\domega.\fishhere
+\end{align*}
+\end{prop}
+\begin{proof}
+Wir zeigen nur $f(x) = \lim\limits_{R\to\infty} \frac{1}{\sqrt{2\pi}}
+\int\limits_{-R}^R Ff(\omega)e^{i\omega
+x}\domega$.
+\begin{align*}
+&\frac{1}{\sqrt{2\pi}}\int\limits_{-R}^R Ff(\omega)e^{i\omega x}\domega =
+\frac{1}{2\pi} \int\limits_{-R}^R \int_\R f(y)e^{-i\omega y}\dy e^{i\omega
+x}\domega
+\\ &
+\overset{\text{Fubini II}}{=} \frac{1}{2\pi} 
+\int\limits_{-\infty}^\infty f(y) 
+\int\limits_{-R}^R e^{i\omega(x-y)}\domega \dy
+= \frac{1}{\pi}\int\limits_{-\infty}^\infty f(y)\frac{\sin(R(y-x))}{y-x}\dy\\
+&\overset{t=y-x}{=} \frac{1}{\pi} \int\limits_{-\infty}^\infty f(t+x)\frac{\sin
+Rt}{t}\dt.
+\end{align*}
+Nun ist
+\begin{align*}
+&\int\limits_{-\infty}^\infty \frac{\sin Rt}{t}\dt = \pi,\quad \text{für }R>0.\\
+\end{align*}
+\begin{align*}
+\Rightarrow & 
+\abs{\frac{1}{\pi}\int\limits_{-\infty}^\infty f(t+x)\frac{\sin Rt}{t}} =
+\abs{\frac{1}{\pi} \int\limits_{-\infty}^\infty \left(f(t+x)-f(x)\right)
+\frac{\sin Rt}{t}\dt} < \ep,
+\end{align*}
+für $R > R_\ep$. Wegen
+\begin{align*}
+&\abs{\int\limits_{\abs{t}\ge M} f(t+x)\frac{\sin Rt}{t}\dt }
+\le \frac{1}{M} \norm{f}_1 < \frac{\ep}{3},\qquad\text{für }M>M_\ep.\\
+&\abs{\int\limits_{\abs{t}\ge M} f(x)\frac{\sin Rt}{t}\dt}  = 
+\abs{f(x)}\abs{\int\limits_{\abs{t}\ge M} \frac{\sin Rt}{t} \dt} <
+\frac{\ep}{3},\quad\text{für } M>M_\ep,
+\end{align*}
+da $\int\limits_0^\infty \frac{\sin Rt}{t}\dt $ konvergiert.
+\begin{align*}
+\int\limits_{\abs{t}\le M}\frac{f(t+x)-f(x)}{t}\sin Rt\dt \to 0,\quad \text{für
+}R\to\infty.
+\end{align*}
+Siehe \ref{prop:1.51}\qedhere
+\end{proof}
+
+\begin{prop}
+\label{prop:2.33}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Falls $f\in\LL^1(\R)$ und $x\mapsto x^j f(x)\in\LL^1(\R)$, dann gilt
+\begin{align*}
+&Ff \in C^j(\R\to\C),\\
+&Ff^{(k)}(\omega) \to 0,&& \text{für }\abs{\omega}\to\infty,\quad
+k=0,1,\ldots,j.
+\end{align*}
+\item Falls $f\in C^{j-1}(\R\to\C)$ und $f^{(j)}\in\LL^1(\R)$ und
+\begin{align*}
+f^{(k)}(x)\to 0,&& \text{für } \abs{x}\to\infty,\quad k=0,1,\ldots,j,
+\end{align*}
+dann gilt
+\begin{align*}
+Ff^{(k)}(\omega) = i\omega^k Ff(\omega),&& k=0,1,\ldots,j,
+\end{align*}
+insbesondere gilt $\omega^j Ff(\omega)\to 0$ für $\omega\to\pm\infty$.\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Sei $j=1$. Der Differenzenquotient ist
+\begin{align*}
+\frac{Ff(\omega+h)-Ff(\omega)}{h} =
+\frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+f(x)\frac{e^{-ix(\omega+h)}-e^{i\omega x}}{h}\dx.
+\end{align*}
+Der Integrand konvergiert punktweise gegen $-ixe^{-ix\omega}$. Es gilt
+\begin{align*}
+\abs{f(x)\frac{e^{-ix(\omega+h)}-e^{-i\omega x}}{h}}
+\overset{\text{MWS}}{=}
+\abs{f(x)(-ix)e^{-ix\th}} = \abs{x f(x)}.
+\end{align*}
+$xf(x)\in\LL^1$, wir können also majorisierte Konvergenz anwenden und
+erhalten,
+\begin{align*}
+\ldots \to \frac{1}{\sqrt{2\pi}}\int\limits_{-\infty}^\infty
+(-ix)f(x)e^{-i\omega x}\dx = F((-ix)f(x)).
+\end{align*}
+Mit \ref{prop:2.30} und \ref{prop:2.31} folgt
+\begin{align*}
+(Ff)'(\omega) = F(\LL^1\text{-Funktion}) \in C(\R\to\C). 
+\end{align*}
+\item Sei $j=1$.
+\begin{align*}
+\sqrt{2\pi} (Ff')(\omega) &= \int\limits_{-\infty}^\infty f'(x)e^{-i\omega x}\dx
+\\ &\overset{\small\text{part.int.}}{=} \underbrace{f(x)e^{i\omega
+x}\bigg|_{-\infty}^\infty}_{=0} + \int\limits_{-\infty}^\infty
+f(x)(-i\omega)e^{-i\omega x}\dx \\ &= i\omega Ff(\omega)\sqrt{2\pi}.\qedhere
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\subsection{Fouriertransformation im $\R^n$}
+Wir haben bisher alle Sätze und Beweise in $\R$ geführt, man kann sie jedoch 
+problemlos auf den $\R^n$ verallgemeinern.
+
+\begin{bemn}[Erinnerung.]
+Sei $f:\R^n\to\C$, dann
+\begin{align*}
+&\partial_{x_j}f(x) = \frac{\partial f}{\partial x_j}(x) = \lim\limits_{h\to 0}
+\frac{f(x+he_j)-f(x)}{h}.\\
+&\frac{\partial^2f}{\partial x_j \partial x_j} = \frac{\partial }{\partial
+x_j}\frac{\partial f}{\partial x_k}.
+\end{align*}
+Für $\alpha_1,\ldots,\alpha_n\in\N_0$ ist dann
+\begin{align*}
+\frac{\partial^{\alpha_1+\alpha_2+\ldots+\alpha_n}}{\partial
+x_1^{\alpha_1}\partial x_2^{\alpha_2}\cdots \partial x_n^{\alpha_n}}.
+\end{align*}
+\end{bemn}
+Da diese Schreibweise sehr aufwändig ist, wollen wir eine Abkürzung einführen.
+\begin{defn}
+\label{defn:2.34}
+$\alpha\in\N_0^n$ heißt \emph{Multiindex}. Setze
+\begin{align*}
+\abs{\alpha} = \alpha_1 + \alpha_2 + \ldots + \alpha_n.
+\end{align*}
+Für $\alpha,\beta\in\N_0^n$ und $\alpha,\beta$ vergleichbar gilt,
+\begin{align*}
+\alpha\le \beta \Leftrightarrow \alpha_1\le \beta_1, \ldots, \alpha_n\le.
+\beta_n.
+\end{align*}
+Die Multiindize-Potenz ist definiert als,
+\begin{align*}
+x^\alpha := x_1^{\alpha_1} \cdot x_2^{\alpha_2} \cdots x_n^{\alpha_n},\qquad
+x\in\R^n.
+\end{align*}
+Die Ableitung hat nun die Form,
+\begin{align*}
+D^\alpha f = \frac{\partial^{\abs{\alpha}}f}{\partial x_1^{\alpha_1}\cdots
+\partial x_2^{\alpha_2}\cdots x_n^{\alpha_n}}.
+\end{align*}
+Der Multiindize-Binominalkoeffizient ist
+\begin{align*}
+\binom{\alpha}{\beta} =
+\binom{\alpha_1}{\beta_1}\binom{\alpha_2}{\beta_2}\cdots
+\binom{\alpha_n}{\beta_n}.
+\end{align*}
+\end{defn}
+
+\begin{bspn}
+Im $\R^3$ sei $\alpha=(0,1,4)$, dann ist
+\begin{align*}
+D^\alpha f = \frac{\partial^5}{\partial^1 x_1\partial^4 x_3}.\bsphere
+\end{align*}
+\end{bspn}
+
+\begin{prop}[Anwendung]
+\label{prop:2.35}
+\begin{align*}
+&\abs{\alpha}+\abs{\beta}\\
+&(\lambda x)^\alpha = \lambda^{\abs{\alpha}}x^\alpha\\
+&D^\alpha D^\beta f = D^{\alpha+\beta}f,\qquad f\in C^{\abs{\alpha+\beta}}.
+\end{align*}
+\emph{Leibniz Regel}
+\begin{align*}
+D^\alpha (f\cdot g) = \sum\limits_{\beta\le \alpha} \binom{\alpha}{\beta}
+\left(D^{\alpha-\beta}f\right)\left(D^\beta g\right).\fishhere
+\end{align*}
+\end{prop}
+
+\begin{defn}
+\label{defn:2.36}
+Der Schwarzraum im $\R^n$ ist gegeben durch,
+\begin{align*}
+\SS(\R^n) := \setdef{f\in C^\infty(\R^n\to\C)}{\forall x\in\N_0^n \forall
+f\in\N : \sup\limits_{x\in\R^n} \abs{x}^j \abs{D^\alpha f(x)}<\infty}.
+\end{align*}
+Für $f\in\SS(\R)$ gilt
+\begin{align*}
+\hat{f}(\omega) = \frac{1}{(2\pi)^{n/2}} \int_{\R^n} f(x)e^{-i\omega\cdot
+x}\dx.\fishhere
+\end{align*}
+\end{defn}
+
+\begin{prop}
+\label{prop:2.37}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $\FF: \SS(\R^n)\to\SS(\R^n),\; f\mapsto \hat{f}$ ist bijektiv mit
+  Umkehrabbildung,
+\begin{align*}
+&\FF^{-1}: \SS(\R^n)\to\SS(\R^n),\; f\mapsto \check{f},\quad\\
+&\check{f}(x) = \frac{1}{(2\pi)^{n/2}} \int_{\R^n} f(x)e^{i\omega\cdot
+x}\domega.
+\end{align*}
+\item
+\begin{align*}
+&\widehat{D^\alpha f}(\omega) = (i\omega)^\alpha \hat{f}(\omega) =
+i^{\abs{\alpha}} \omega^\alpha \hat{f}(\omega),\\
+&\widehat{x^\alpha f} = i^{\abs{\alpha}}D^\alpha \hat{f}.
+\end{align*}
+\item Mit $f*g(x) \int_\R^n f(x-y)g(y)\dy$ folgt,
+\begin{align*}
+&\widehat{f\cdot g} = \frac{1}{(2\pi)^{n/2}}\hat{f}*\hat{g},\\
+&\widehat{f*g} = (2\pi)^{n/2} \hat{f}\cdot\hat{g}.\fishhere
+\end{align*}
+\end{enumerate}
+\end{prop}
+
+\begin{bsp}
+\label{bsp:2.38}
+Sei $f\in\SS(\R^n)$. Löse die inhomogene Laplace Gleichung,
+\begin{align*}
+-\Delta u + u = f,\qquad u\in\SS(\R^n).
+\end{align*}
+Wenden wir die Fouriertransforamtion auf die Diffrentialgleichung an,
+\begin{align*}
+&-\sum\limits_{j=1}^n i^2 \omega_j^2 \hat{u} + \hat{u} = \hat{f}\\
+\Leftrightarrow & \left(\abs{\omega}^2 +1\right)\hat{u} =\hat{f},\\
+\Rightarrow &\hat{u} = \frac{1}{\abs{\omega}^2 + 1}\\
+\Rightarrow &u(x) = \frac{1}{(2\pi)^{n/2}}\int\limits_{\R^n}
+\frac{1}{\abs{\omega}^2+1}\hat{f}(\omega) e^{i\omega x}\dx.
+\end{align*}
+Man kann zeigen, dass höchstens eine Lösung $u\in\SS(\R^n)$ existiert.\bsphere
+\end{bsp}
+
+\begin{prop}[Fortsetzung]
+\label{prop:2.39}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $F: \LL^2(\R^n)\to \LL^2(\R^n)$ ist unitär, d.h.
+\begin{align*}
+\lin{Ff,Fg} = \lin{f,g}.
+\end{align*}
+Es gilt
+\begin{align*}
+Ff = \LL^2(\R^n)-\lim\limits_{R\to\infty}
+\frac{1}{(2\pi)^{n/2}}\int\limits_{\abs{x}\le R}f(x)e^{-ix\cdot}\dx.
+\end{align*}
+\item $F: \LL^1(\R^n)\to C_\infty(\R^n) := \setdef{f\in
+C^\infty(\R^n\to\C)}{f(x)\to 0\text{ für }\abs{x}\to\infty}$ und es gilt,
+\begin{align*}
+\norm{F}_\infty := \max\limits_{\omega\in\R^n}\abs{Ff(\omega)} \le
+\frac{1}{(2\pi)^{n/2}}\norm{f}_1.\fishhere
+\end{align*}
+\end{enumerate}
+\end{prop}
+
+\subsection{Interpolation}
+
+Wir wollen jetzt die Frage stellen, ob man die
+Fouriertransformation noch weiter fortsetzen kann (z.B. auf $\LL^p$)? Um den
+Fortsetzungssatz anwenden zu können, benötigen wir, dass $F$ beschränkt ist. Für
+$\LL^p$ und $1<p<2$ können wir dies aus Satz \ref{prop:2.39} gewinnen. Dazu
+kann man den $\LL^p$ aus $\LL^1$ und $\LL^2$ \emph{interpolieren}.
+
+Die Interpolation von Banachräumen ist sehr wichtiges Konzept für das Lösen von
+partiellen Differentialgleichungen. Man definiert dazu banachwertige
+Funktionen, die von komplexen Parametern abhängen. Sie ist stark mit der
+Funktionentheorie verknüpft.
+
+\begin{prop}[Interpolation von Banachräumen]
+\label{prop:2.40}
+\begin{align*}
+&B_0 = L^q(\R^n), && 1\le 1\le \infty,\\
+&B_1 = L^p(\R^n), && 1\le p\le \infty,\\
+\Rightarrow & B_t = L^{r_t}(\R^n), &&
+\frac{1}{r_t} = \frac{t}{p} + \frac{1-t}{q},\; \SS(\R^n)\text{ dicht in
+}L^{r_t}(\R^n).\fishhere
+\end{align*}
+\end{prop}
+%TODO: Bild Interpolation
+
+\begin{bspn}
+Setze $q=2$, $p=1$, dann ist
+\begin{align*}
+\frac{1}{r_t} = \frac{t}{1}+\frac{1-t}{2} = \frac{1+t}{2} \Leftrightarrow r_t =
+\frac{2}{1+t}.
+\end{align*}
+Im Fall $q=2$, $p=\infty$, ist
+\begin{align*}
+\frac{1}{r_t} = \frac{t}{\infty} + \frac{1-t}{2} = \frac{1-t}{2}
+\Leftrightarrow r_t = \frac{2}{1-t}.\bsphere
+\end{align*}
+\end{bspn}
+
+\begin{prop}[Satz von Riesz-Thorin]
+\label{prop:2.41}
+Sei $T: \LL^q(\R^n) \to \LL^{\tilde{q}}(\R^n)$ linear und beschränkt,
+\begin{align*}
+\norm{T}_{q,\tilde{q}} = M_0,
+\end{align*}
+und $T: \LL^p(\R^n) \to \LL^{\tilde{p}}(\R^n)$ linear und beschränkt,
+\begin{align*}
+\norm{T}_{p,\tilde{p}} = M_1,
+\end{align*}
+dann ist $T$ von $\LL^p\cap \LL^q\supseteq \SS(\R)$ auf $B_t$ eindeutig
+fortsetzbar,
+\begin{align*}
+T: B_t \to \tilde{B}_t
+\end{align*}
+ist linear und beschränkt und
+\begin{align*}
+\norm{T}_{B_t\to \tilde{B}_t} \le M_0^{1-t}M_1^t.\fishhere
+\end{align*}
+\end{prop}
+
+\begin{bemn}[Anwendung.]
+\begin{align*}
+&F : \LL^2(\R^n)\to \LL^2(\R^n),\quad \norm{T}_{2,2} = 1\\
+&F : \LL^1(\R^n)\to \LL^\infty(\R^n),\quad \norm{T}_{1,\infty} =
+\frac{1}{(2\pi)^{n/2}}\\
+\Rightarrow & F: B_t\to \tilde{B}_t,
+\end{align*}
+mit
+\begin{align*}
+&B_t = \LL^{r_t}(\R^n), r_t = \frac{2}{1+t}\\
+&\tilde{B}_t = \LL^{\tilde{r}_t}(\R^n), \tilde{r}_t = \frac{2}{1-t},\\
+&\norm{B_t\to \tilde{B}_t} \le 1^{1-t}\left(\frac{1}{(2\pi)^{n/2}}\right)^t.
+\end{align*}
+\textit{Beachte.}
+\begin{align*}
+&\frac{1}{r_t} + \frac{1}{\tilde{r}_t} = \frac{1+t}{2} + \frac{1-t}{2} = 1,\quad
+1\le r_t\le 2,\\
+&p = r_t \Leftrightarrow \frac{1}{p} = \frac{1+t}{2} \Leftrightarrow t = 2p-1
+\end{align*}
+Es gilt somit
+\begin{align*}
+\Rightarrow &F: \LL^p(\R^n) \to \LL^q(\R^n),\quad 1\le p\le
+2,\quad \frac{1}{p}+\frac{1}{q} = 1\\
+&\norm{F}_{\LL^p\to\LL^{q}} \le \left(\frac{1}{(2\pi)^{n/2}}\right)^{2p-1} =
+\frac{1}{(2\pi){n(p-1/2)}}.\maphere
+\end{align*}
+\end{bemn}
+
+\begin{prop}[Satz von Hausdorff-Young]
+\label{prop:2.42}
+Sei $1\le p\le 2$, $\frac{1}{p}+\frac{1}{q}=1$. Die Fouriertransformation
+besitzt eine eindeutige lineare beschränkte Fortsetzung
+\begin{align*}
+F: \LL^p(\R^n)\to \LL^q(\R^n)
+\end{align*}
+und es gilt $\norm{F}\le\dfrac{1}{(2\pi)^{n(1/p-1/2)}}$.\fishhere
+\end{prop}

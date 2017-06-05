@@ -1,0 +1,2131 @@
+\section{Fourierreihen}
+
+Fourierreihen sind eine Verallgemeinerung von orthonormalen Basen auf unendlich
+dimensionale Vektorräume. Im Folgenden wollen wir untersuchen, wie sich
+bekannte Aussagen aus der Linearen Algebra auf unendlich dimensionale
+Vektorräume übertragen lassen.
+
+\subsection{Orthonormalsysteme}
+
+\begin{defn}
+\label{defn:1.1}
+Sei $L$ ein linearer Raum über $\C$. Eine Abbildung
+\begin{align*}
+\lin{\cdot,\cdot} : L\times L \to \C,
+\end{align*}
+heißt \emph{Skalarprodukt}, falls die folgenden Eigenschaften erfüllt sind.
+\begin{enumerate}[label=(S\arabic{*})]
+  \item\label{defn:1.1:1} $\lin{\alpha x_1+\beta x_2,y} =
+  \alpha\lin{x_1,y}+\beta\lin{x_2,y}, \forall x_1,x_2,y\in L,\;
+  \alpha,\beta\in\C$.
+  \item\label{defn:1.1:2} $\lin{x,y} = \overline{\lin{y,x}}, \forall x,y\in L$.
+  \item\label{defn:1.1:3} $\lin{x,x} > 0$, $\forall x\in L\setminus\{0\}$.
+\end{enumerate}
+$(L,\lin{\cdot,\cdot})$ heißt \emph{Prähilbertraum}.\fishhere
+\end{defn}
+
+\begin{bem}
+\label{bem:1.2}
+$\ref{defn:1.1:2}\Rightarrow \lin{x,x} = \overline{\lin{x,x}} \in\R$.
+$\ref{defn:1.1:1}\Rightarrow \lin{0,0} = 0$.\\
+$\ref{defn:1.1:1}\land\ref{defn:1.1:2}\Rightarrow \lin{x,\alpha y_1+\beta y_2}
+= \overline{\alpha}\lin{x,y_1} + \overline{\beta}\lin{x,y_2}$.\maphere
+\end{bem}
+
+\begin{prop}
+\label{prop:1.3}
+Durch $\norm{x} := \sqrt{\lin{x,x}}$ wird eine Norm auf $L$ definiert. Es gilt
+die Cauchy-Schwartz-Bounjakowski Ungleichung,
+\begin{align*}
+\abs{\lin{x,y}} \le \norm{x}\norm{y}.\fishhere
+\end{align*}
+\end{prop}
+\begin{proof}
+Der Nachweis der Normeigenschaften ist eine leichte Übung. Die
+Cauchy-Schwartz-Bounjakowski Ungleichung ist ein Spezialfall der
+Hölder-Ungleichung.\qedhere
+\end{proof}
+
+\begin{cor}
+\label{prop:1.4}
+Das Skalarprodukt ist stetig bezüglich der induzierten Norm, d.h. für
+\begin{align*}
+\norm{x-x_n}, \norm{y-y_n}\to0\quad\Rightarrow\quad
+\abs{\lin{x,y}-\lin{x_n,y_n}}\to0.\fishhere
+\end{align*}
+\end{cor}
+\begin{proof}
+Seien $(x_n), (y_n)$ Folgen und $x_n\to x, y_n\to y$, dann gilt
+\begin{align*}
+\abs{\lin{x_n,y_n}-\lin{x,y}} &= \abs{\lin{x_n-x,y_n}-\lin{x,y-y_n}}\\
+&\le \abs{\lin{x_n-x,y_n}} + \abs{\lin{x,y-y_n}}\\
+&\le \norm{x_n-x}\norm{y_n} + \norm{x}\norm{y-y_n} < \ep,
+\end{align*}
+für $n$ hinreichend groß, da $y_n$ konvergent und daher beschränkt.\qedhere
+\end{proof}
+
+\begin{defn}
+\label{defn:1.5}
+$(L,\lin{\cdot,\cdot})$ heißt \emph{Hilbertraum}, falls $L$
+vollständig bezüglich der durch $\lin{\cdot,\cdot}$ induzierten Norm
+ist.\fishhere
+\end{defn}
+
+\begin{bsp}
+\label{bsp:1.6}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Das Standardbeispiel für den Hilbertraum ist der Raum der
+  quadratsummierbaren Folgen,
+\begin{align*}
+L = \setdef{(x_j)}{\sum\limits_{j=1}^\infty \abs{x_j}^2 < \infty},
+\end{align*}
+mit dem Skalarprodukt
+\begin{align*}
+\lin{(x_j),(y_j)} = \sum\limits_{j=1}^\infty x_j\overline{y_j}.
+\end{align*}
+\item $L:= C([a,b]\to\C)$ mit
+\begin{align*}
+\lin{f,g} := \int_a^b f(x)\overline{g(x)}\dx,
+\end{align*} 
+ist lediglich ein Prähilbertraum, man kann $L$ jedoch zu $\LL^2$
+erweitern mit,
+\begin{align*}
+\lin{f,g}_{\LL^2} = \int_{[a,b]} f\overline{g}\dmu.
+\end{align*}
+$(\LL^2,\lin{\cdot,\cdot}_{\LL^2})$ ist ein Hilbertraum und es gilt,
+$L\subseteq\LL^2$, $\lin{f,g}_{\LL^2} = \lin{f,g}$ für $f,g\in L$ und $L$ liegt
+dicht in $\LL^2$.
+\bsphere
+\end{enumerate}
+\end{bsp}
+
+\begin{prop}
+\label{prop:1.7}
+Zu jedem Prähilbertraum $(L,\lin{\cdot,\cdot})$ existiert ein bis auf
+Isomorphie eindeutiger Hilbertraum $(H,\lin{\cdot,\cdot}_H)$ mit $L\subseteq
+H$, $\lin{\cdot,\cdot}_H\big|_L = \lin{\cdot,\cdot}$ und $L$ liegt dicht in
+$H$.
+$(H,\lin{\cdot,\cdot}_H)$ heißt die \emph{Vervollständigung} von $L$.\fishhere
+\end{prop}
+
+\begin{defn}
+\label{defn:1.8}
+Eine Folge $(e_j)$ im Prähilbertraum $(L,\lin{\cdot,\cdot})$ heißt
+\emph{Orthonormalsystem (ONS)}, falls $\lin{e_k,e_j} = \delta_{kj}$.\fishhere
+\end{defn}
+
+\begin{prop}
+\label{prop:1.9}
+Sei $(e_j)$ ein ONS. Dann gilt,
+\begin{enumerate}
+  \item $x=\sum\limits_{j=1}^\infty x_j e_j \Rightarrow x_j = \lin{x,e_j}$.
+  \item $\{e_j\}$ ist linear unabhängig, d.h. jede endliche Teilmenge ist
+  linear unabhängig.\fishhere
+\end{enumerate}
+\end{prop}
+
+\begin{prop}
+\label{prop:1.10}
+Sei $(e_j)$ ein ONS im Prähilbertraum $(L,\lin{\cdot,\cdot})$, $x\in L$. Dann
+gilt
+\begin{enumerate}[label=\arabic{*}.)]
+\item\label{prop:1.10:1} \emph{Besselsche Ungleichung}
+\begin{align*}
+\sum\limits_{j=1}^\infty \abs{\lin{x,e_j}}^2 \le \norm{x}^2,
+\end{align*}
+insbesondere ist die Reihe konvergent.
+\item\label{prop:1.10:2} \emph{Parsevallsche Gleichung}
+\begin{align*}
+x = \sum\limits_{j=1}^\infty \lin{x,e_j}e_j \Leftrightarrow \norm{x}^2 =
+\sum\limits_{j=1}^\infty \abs{\lin{x,e_j}}^2.
+\end{align*}
+\item\label{prop:1.10:3} $M:= \setdef{x\in L}{x = \sum\limits_{j=1}^\infty
+\lin{x,e_j}e_j}$ ist abgeschlossen in $L$.
+\item\label{prop:1.10:4} Ist $L$ ein Hilbertraum, so ist
+$\sum\limits_{j=1}^\infty \lin{x,e_j}e_j$ immer konvergent (nicht zwangsläufig gegen $x$).\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+\ref{prop:1.10:1}+\ref{prop:1.10:2}
+\begin{align*}
+0 &\le \norm{x-\sum\limits_{j=1}^N\lin{x,e_j}e_j}^2 = \lin{x,x} -
+\sum\limits_{j=1}^N \overline{\lin{x,e_j}}\lin{x,e_j} \\
+&- \sum\limits_{j=1}^N
+\lin{x,e_j}\overline{\lin{x,e_j}} + \sum\limits_{j=1}^N
+\lin{x,e_j}\overline{\lin{x,e_j}}
+ =\norm{x}^2 - \sum\limits_{j=1}^N \abs{\lin{x,e_j}}^2.
+\end{align*}
+\ref{prop:1.10:4}
+\begin{align*}
+\norm{\sum\limits_{j=N}^M \lin{x,e_j}e_j}^2 \overset{\ref{prop:1.10:2}}{=}
+\sum\limits_{j=N}^M \abs{\lin{x,e_j}}^2 < \ep, 
+\end{align*}
+für $N,M > N_\ep$.
+
+\ref{prop:1.10:3}
+Sei nun $x\in\overline{M}^L$. Zeige $x\in M$ bzw. $x=\sum\limits_{j=1}^\infty
+\lin{x,e_j}e_j$. Die Reihe,
+\begin{align*}
+\sum\limits_{j=1}^\infty
+\underbrace{\lin{x,e_j}e_j}_{\in M}
+\end{align*}
+konvergiert in $H$ und daher ist $y:=x-\sum\limits_{j=1}^\infty
+\lin{x,e_j}e_j\in\overline{M}^H$. Für jedes $k\in\N$ gilt,
+\begin{align*}
+\lin{y,e_k}_H = \lin{x,e_k} - \sum\limits_{j=1}^{\infty}\lin{x,e_k}\delta_{jk}
+= 0.
+\end{align*}
+$y$ ist also orthogonal zu $e_k$ für $k\in\N$ und damit auch zu allen
+Linearkombinationen. Aufgrund der Stetigkeit des Skalarprodukts gilt also auch
+\begin{align*}
+\lin{y,u} = 0,\forall u\in\overline{M}^H.
+\end{align*}
+Da $y\in\overline{M}^H$ gilt insbesondere $\lin{y,y} = 0$ und daher ist $y =
+0$, also geht
+\begin{align*}
+\norm{\underbrace{x-\sum\limits_{j=1}^N
+\lin{x,e_j}e_j}_{\in L}}_H \to 0,
+\end{align*}
+für $N\to\infty$, wobei die $H$-Norm hier für endliches $N$ eine $L$-Norm
+ist.\qedhere
+\end{proof}
+
+\begin{bsp}
+\label{bsp:1.11}
+Sei $L:=C([0,\pi]\to\C)$ und $e_j: x\mapsto \sqrt{\frac{2}{\pi}}\sin(jx)$.
+
+\ref{prop:1.10:3} besagt nun, dass die Menge
+\begin{align*}
+\setdef{f\in C([0,\pi]\to\C)}{f(\cdot) = \sum\limits_{j=1}^\infty
+\lin{f,e_j}e_j(\cdot)}
+\end{align*}
+abgeschlossen in $L$ ist.
+
+\ref{prop:1.10:4} besagt, dass für jedes $f\in L$ die Reihe
+\begin{align*}
+\sum\limits_{j=1}^\infty \lin{f,e_j}\sqrt{\frac{2}{\pi}} \sin(j,\cdot)
+\end{align*}
+in $\LL^2([0,\pi])$ konvergiert. Das heißt aber nicht, dass sie auch punktweise
+gegen $f$ konvergiert!\bsphere
+\end{bsp}
+
+\begin{defn}
+\label{defn:1.12}
+Sei $(L,\lin{\cdot,\cdot})$ ein Prähilbertraum, $(e_j)$ ein ONS.
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Für $x\in L$ heißt
+\begin{align*}
+\sum\limits_{j=1}^\infty \lin{x,e_j}e_j
+\end{align*}
+die \emph{Fourierreihe} von $x$, $\lin{x,e_j}$ heißt $j$-ter
+\emph{Fourierkoeffizient}.
+\item $(e_j)$ heißt \emph{vollständiges Orthogonalsystem (VONS)}, falls
+\begin{align*}
+\forall x\in L\; :\; x = \sum\limits_{j=1}^\infty \lin{x,e_j}e_j.\fishhere
+\end{align*}
+\end{enumerate}
+\end{defn}
+
+\begin{prop}
+\label{prop:1.13}
+Sei $(H,\lin{\cdot,\cdot})$ ein Hilbertraum mit VONS $(e_j)$. Dann ist
+\begin{align*}
+\phi: H\to l_2,\; x\mapsto \left(\lin{x,e_j}\right)_{j\in\N},
+\end{align*}
+ein Hilbertraum-Isomorphismus\footnote{Ein Hilbertraumisomorphismus ist eine
+bijektive, lineare und Skalarprodukt erhaltende Abbildung.}.\fishhere
+\end{prop}
+
+\subsection{Operatoren und Eigenwerte}
+
+Wir wollen jetzt konkrekt mit Fourierreihen rechnen. Dazu werden wir die
+Zusammenhänge von Fourierreihen und Operatoren studieren und beispielsweise
+Ableitungsoperatoren durch Fourierreihen beschreiben.
+
+\begin{defn}
+\label{defn:1.14}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Sei $D(A)$ eine lineare Teilmenge von $L$. Ein Operator $A$ in $L$ ist
+  eine lineare Abbildung,
+\begin{align*}
+A: D(A) \to L.
+\end{align*}
+\item $A$ heißt \emph{symmetrisch}\footnote{Wir fordern hier
+hermitesch aber da wir hauptsächlich über $\C$ arbeiten, kürzen wir dies zu
+symmetrisch.}, falls $\forall x,y\in D(A)$ gilt,
+\begin{align*}
+\lin{Ax,y} = \lin{x,Ay}.
+\end{align*}
+\item $\lambda\in\C$ heißt \emph{Eigenwert} von $A$, falls
+\begin{align*}
+\exists x\in D(A)\setminus\{0\} : Ax = \lambda x.
+\end{align*}
+Ein solches $x$ heißt \emph{Eigenvektor} von $A$ zum Eigenwert $\lambda$.
+\begin{align*}
+N(\lambda) := \dim\ker (A-\lambda\Id),
+\end{align*}
+heißt \emph{geometrische Vielfachheit} von $\lambda$.\fishhere
+\end{enumerate}
+\end{defn}
+\begin{prop}
+\label{prop:1.15}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Ist $A$ symmetrisch, sind alle Eigenwerte reell.
+  \item Eigenvektoren zu verschiedenen Eigenräumen sind orthogonal.\fishhere
+\end{enumerate}
+\end{prop}
+
+\begin{bsp}
+\label{bsp:1.16}
+Sei $(e_n)$ ein ONS im Hilbertraum $(H,\lin{\cdot,\cdot})$ und $(\lambda_j)$
+Folge in $\C$ und,
+\begin{align*}
+&D(A) := \setdef{x\in H}{\sum\limits_{j=1}^\infty \abs{\lambda_j \lin{x,e_j}}^2
+< \infty},\\
+&Ax := \sum\limits_{j=1}^\infty \lambda_j \lin{x,e_j}e_j,\quad \text{für } x\in
+D(A).\tag{*}
+\end{align*}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $A$ ist linear.
+  \item Falls $(\lambda_j)$ reell ist $A$ symmetrisch
+\begin{align*}
+\lin{Ax,y} &= \lim\limits_{N\to\infty} \sum\limits_{j=1}^N
+\lin{\lambda_j\lin{x,e_j}e_j,y} = \lim\limits_{N\to\infty} \sum\limits_{j=1}^N
+\lambda_j\lin{x,e_j}\lin{e_j,y}\\
+ &= \lim\limits_{N\to\infty} \sum\limits_{j=1}^N \lin{x,\lambda_j
+ \lin{y,e_j}e_j}= \lin{x,Ay}.
+\end{align*}
+\item
+\begin{enumerate}[label=(\roman{*})]
+\item Alle $\lambda_j$ sind Eigenwerte.
+\item Falls $\exists x\in L\setminus\{0\} : \forall j\in\N \lin{x,e_j} = 0$
+gilt $Ax = 0$.
+\item Es gibt keine weiteren Eigenwerte außer $0,\lambda_j$.
+
+Sei $x\in D(A)\setminus\{0\}$ mit $Ax = \lambda x$ und $\lambda_j \neq\lambda$,
+dann
+\begin{align*}
+\lambda\lin{x,e_k}  = \lin{\lambda x,e_k} = \lin{Ax,e_k} = \lambda_k
+\lin{x,e_k}
+\end{align*}
+Daher ist $\lin{x,e_k} = 0\forall k\in\N$ und $\lambda = 0$.
+\end{enumerate}
+\item Falls $(\lambda_j)$ beschränkt, gilt $D(A) = H$. (Bessel)
+\item Falls $(e_j)$ ein VONS, folgt $D(A)$ liegt dicht in $H$. Denn sei $x\in
+H$, wähle $N$ mit
+\begin{align*}
+\norm{x-\underbrace{\sum\limits_{j=1}^N \lin{x,e_j}e_j}_{\in D(A)}} < \ep.
+\end{align*}
+\end{enumerate}
+\begin{bemn}[Ausblick.]
+$(e_j)$ VONS und $(\lambda_j)$ reell $\Rightarrow $ $A$ ist
+selbstadjungiert.\bsphere
+\end{bemn}
+\end{bsp}
+
+\begin{defn}
+\label{defn:1.17}
+Die Darstellung (*) heißt \emph{Spektraldarstellung} des Operators $A$. Der
+Abschluss der Menge aller Eigenwerte,
+\begin{align*}
+\sigma(A) = \overline{\setdef{\lambda\in\C}{\lambda\text{ ist Eigenwert von }A}}
+\end{align*}
+heißt \emph{Spektrum} von $A$.
+
+Ein Operator, der eine Spektraldarstellung besitzt, heißt \emph{diskreter
+Operator}.\fishhere
+\end{defn}
+
+Wir werden später sehen, dass es auch selbstadjungierte Operatoren gibt, die
+keine Spektraldarstellung besitzen.
+
+\begin{bsp}
+\label{bsp:1.18}
+Sei $H=\LL^2([0,\pi])$ sowie,
+\begin{align*}
+&D(A) = \setdef{f\in C^2([0,\pi]\to\C)}{f(0) = f(\pi) = 0},\\
+&Af = -f'',\qquad \text{für } f\in D(A).
+\end{align*}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $A$ ist symmetrisch, denn für $f,g\in D(A)$ gilt
+\begin{align*}
+\lin{Af,g} &= -\int_0^\pi f''\overline{g} \dx\\
+&= \underbrace{-\left[ f'(x)\overline{g(x)} - f(x)\overline{g'(x)}
+\right]\bigg|_0^\pi}_{=0} -\int_0^\pi f\overline{g''} \dx
+= \lin{f,Ag}
+\end{align*}
+wie mit zweifacher partieller Integration folgt.
+\item $A$ ist positiv definit, d.h. für $f\in D(A)$ gilt $\lin{Af,f} \ge 0$
+und $\lin{Af,f} = 0 \Leftrightarrow f=0$
+\begin{align*}
+\lin{Af,f} = \int_0^\pi f'(x)\overline{f'(x)}\dx = \int_0^\pi \abs{f'}^2\dx
+\end{align*}
+wie mit partieller Integration folgt.
+\item \textit{Eigenwerte}. Sei $Af = \lambda f$, dann folgt
+\begin{align*}
+-f'' = \lambda f
+\end{align*}
+dies ist eine Differentialgleichung mit Lösung,
+\begin{align*}
+f(x) = c_1 \cos\left(\sqrt{\lambda}x\right) + c_2
+\sin\left(\sqrt{\lambda}x\right)
+\end{align*}
+Die Randbedingungen erzwingen $c_1 = 0$ sowie
+$\lambda = j^2$ für $j\in\N$. Normierte Eigenfunktionen sind daher,
+\begin{align*}
+e_j(x) = \sqrt{\frac{2}{\pi}}\sin(jx),\qquad j\in\N.
+\end{align*}
+\item Definiere $\tilde{A}$ durch (*) mit $D(A)\subseteq D(\tilde{A})$:
+\begin{align*}
+\tilde{A}f = Af,\quad \text{für } f\in D(A).
+\end{align*}
+$\tilde{A}$ heißt die \emph{Fortsetzung} bzw. \emph{Erweiterung} von $A$. Da
+$\tilde{A}$ selbstadjungiert ist, spricht man von einer selbstadjungierten
+Erweiterung.
+
+Sei $f\in D(A)$, dann ist
+\begin{align*}
+\lin{f,e_j} = \frac{1}{\lambda_j} \lin{f,Ae_j} =
+\frac{1}{\lambda_j}\lin{Af,e_j} = -\frac{1}{\lambda_j}\lin{f'',e_j}  
+\end{align*}
+Damit ist
+\begin{align*}
+\sum\limits_{j=1}^\infty \abs{\lambda_j \lin{f,e_j}} = \sum\limits_{j=1}^\infty
+\abs{\lin{f'',e_j}} \le \norm{f''}^2 < \infty,
+\end{align*}
+und daher ist $f\in D(\tilde{A})$.
+\begin{align*}
+\tilde{A}f = \sum\limits_{j=1}^\infty \lambda_j \lin{f,e_j}e_j = -
+\sum\limits_{j=1}^\infty \lin{f'',e_j} = -f''.\bsphere
+\end{align*}
+\end{enumerate}
+\end{bsp}
+
+\begin{bem}
+\label{bem:1.19}
+$A$ besitze die Darstellung (*), dann gilt $A$ ist positiv definit genau dann
+wenn alle Eigenwerte positiv sind,
+\begin{align*}
+\lin{Ax,x} = \sum\limits_{j=1}^\infty \lambda_j
+\lin{x,e_j}\overline{\lin{x,e_j}} \ge 0 \Leftrightarrow \lambda_j \ge 0.\maphere
+\end{align*}
+\end{bem}
+
+\begin{defn}
+\label{defn:1.20}
+Ein linearer Operator $A$ in $(L,\lin{\cdot,\cdot})$ mit $D(A)=L$ heißt
+\emph{beschränkt}, falls
+\begin{align*}
+\forall x\in L: \norm{Ax} \le c\norm{x}.
+\end{align*}
+Dann heißt,
+\begin{align*}
+\norm{A}&:= \inf\setdef{c> 0}{\forall x\in L: \norm{Ax}\le c\norm{x}}\\
+&= \sup\limits_{\norm{x}\neq 0}\frac{\norm{Ax}}{\norm{x}} =
+\sup\limits_{\norm{x}=1}\norm{Ax} = \sup\limits_{\norm{x}\le 1} \norm{Ax},
+\end{align*}
+die \emph{Operatornorm} bzw. Norm von $A$. Insbesondere gilt,
+\begin{align*}
+\forall x\in L: \norm{Ax}\le\norm{A}\norm{x}.\fishhere
+\end{align*}
+\end{defn}
+
+\begin{lem}
+\label{prop:1.21}
+Besitzt $A$ die Darstellung (*), dann ist $A$ genau dann beschränkt, wenn
+$(\lambda_j)$ beschränkt ist.\fishhere
+\end{lem}
+\begin{proof}
+$\Rightarrow$: Sei $A$ beschränkt, dann gilt $\abs{\lambda_i} = \norm{Ae_i} \le
+\norm{A}$.\\
+$\Leftarrow$: Sei $\lambda_j\le M,\;\forall j\in\N$, so folgt mit der
+Besselschen Ungleichung,
+\begin{align*}
+\norm{Ax}^2 &= \lin{Ax,Ax} =
+\sum\limits_{j=1}^\infty\abs{\lambda_j}^2\abs{\lin{x,e_j}}^2
+\le M^2 \sum\limits_{j=1}^\infty \abs{\lin{x,e_j}}^2 \\
+&\le M^2\norm{x}^2.\qedhere
+\end{align*}
+\end{proof}
+
+\begin{prop}
+\label{prop:1.22}
+Sei $A$ ein Operator mit $D(A) = L$, dann ist äquivalent.
+\begin{enumerate}[label=(\roman{*})]
+  \item\label{prop:1.22:1} $A$ ist beschränkt.
+  \item\label{prop:1.22:2} $A$ ist stetig in $x=0$.
+  \item\label{prop:1.22:3} $A$ ist überall stetig.\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+\ref{prop:1.22:1}$\Rightarrow$\ref{prop:1.22:3}: Sei $(x_j)$ Folge in $L$ und
+$x_j\to x$, dann ist
+\begin{align*}
+\norm{Ax_j-Ax} \le \norm{A}\norm{x_j-x},
+\end{align*}
+also ist $A$ sogar lipschitz.
+
+\ref{prop:1.22:3}$\Rightarrow$\ref{prop:1.22:2}: Klar, denn Stetigkeit überall
+impliziert Stetigkeit in $x=0$.
+
+\ref{prop:1.22:2}$\Rightarrow$\ref{prop:1.22:1}: Sei $A$ stetig in $x=0$,
+unbeschränkt und $(x_j)$ eine Folge mit $\norm{Ax_j}>j\norm{x_j}$. Setze $y_j :=
+\frac{x_j}{\norm{Ax_j}}$, dann ist $\norm{y_j} < \frac{1}{j}$ und daher ist
+$(y_j)$ eine Nullfolge. Aber $\norm{Ay_j} = 1$ und damit ist $(Ay_j)$ keine
+Nullfolge und $A$ nicht stetig.\qedhere
+\end{proof}
+
+\begin{defn}
+\label{defn:1.23}
+Ein linearer Operator heißt \emph{kompakt}, falls $(Ax_j)$ eine konvergente
+Teilfolge enthält, wenn $(x_j)$ beschränkt ist, oder äquivalent $AM$ präkompakt
+ist (d.h. $\overline{AM}$ ist kompakt), wenn $M\subseteq L$ beschränkt
+ist.\fishhere
+\end{defn}
+
+\begin{prop}
+\label{prop:1.24}
+Jeder kompakte Operator ist beschränkt.\fishhere
+\end{prop}
+\begin{proof}
+Sei $A$ nicht beschränkt und $(x_j)$ Folge mit $\norm{Ax_j} > j\norm{x_j}$.
+Setze $y_j = \frac{x_j}{\norm{x_j}}$, dann ist $\norm{y_j} = 1$, also ist
+$(y_j)$ beschränkt. Es gilt jedoch
+\begin{align*}
+\norm{Ay_j} = \frac{\norm{Ax_j}}{\norm{x_j}} > j \to\infty,
+\end{align*}
+also divergiert $(Ay_{j_k})$ für jede Teilfolge von $(y_j)$ und  $A$ ist
+nicht kompakt.\qedhere
+\end{proof}
+
+\begin{bsp}
+\label{bsp:1.25}
+\begin{enumerate}[label=\arabic{*}.)]
+\item Seien $L=C([0,\pi]\to\C)$, $Af = -f''$ und $D(A) = $ wie in
+\ref{bsp:1.18}.
+
+Die Eigenwerte von $A$ sind $\lambda_j = j^2, j\in\N$, also ist $A$ nicht
+beschränkt und daher nicht kompakt.
+
+Wir werden später sehen, dass $A^{-1}$ existiert und kompakt ist.
+\item Seien $K\subseteq\R^n$ kompakt, $G\in C(K\times K\to\R)$,
+$L:=C(K\to\C)$, $D(A):=L$, sowie
+\begin{align*}
+Af(x) := \int_K G(x,y)f(y)\dy.
+\end{align*}
+$A$ ist ein Integraloperator, $G$ nennt man den Integralkern. Man kann zeigen,
+dass $A$ kompakt ist.
+\begin{proof}[Beweisskizze.]
+Sei $(f_n)$ beschränkt, dann ist
+\begin{align*}
+\norm{f_n}_2 = \left(\int_K \abs{f_n}^2 \right)^{\frac{1}{2}} \le M.
+\end{align*}
+Wir sehen daher,
+\begin{enumerate}[label=(\roman{*})]
+  \item $(Af_j)$ ist gleichmäßig beschränkt auf $K$.
+\begin{align*}
+\norm{Af_j(x)}^2 &= \norm{\lin{G(x,\cdot),\overline{f_j}}}^2
+\le \norm{G(x,\cdot)}^2\norm{\overline{f_j}}^2\\
+&= \int_K \underbrace{\abs{G(x,y)}^2}_{\le c}\dy \norm{f_j}^2
+\le cM^2\lambda^{(n)}(K).
+\end{align*}
+\item $(Af_j)$ ist gleichgradig stetig, d.h.
+\begin{align*}
+\forall\ep > 0 \exists \delta_\ep > 0 &: \forall x,y\in K, \forall j\in\N\\
+&: \abs{x-y} <\delta_\ep \Rightarrow \abs{Af_j(x)-Af_j(y)}<\ep.
+\end{align*}
+\begin{align*}
+\norm{Af_j(x)-Af_j(y)}^2 &= \norm{\lin{G(x,\cdot),f_j} -
+\lin{G(y,\cdot),f_j}}^2\\ &= \abs{\lin{G(x,\cdot)-G(y,\cdot),f_j}}^2\\
+&\le \norm{G(x,\cdot)-G(y,\cdot)}^2\norm{f_j}^2\\
+&\le \tilde{\ep}^2M^2\lambda^{(n)}(K) < \ep, 
+\end{align*}
+für $\abs{x-y}<\tilde{\delta}$. Wir können nun den Satz von Arzelá-Ascoli
+anwenden, der besagt, dass $(Af_j)$ eine Teilfolge $(Af_{j_k})$ enthält mit
+$Af_{j_k}\unito g\in L$ auf $K$. Damit erhalten wir,
+\begin{align*}
+\norm{Af_{j_k}-g}^2 = \int_K
+\underbrace{\abs{Af_{j_k}(x)-g(x)}^2}_{<\ep\text{ für } k>N_\ep}\dx \le
+\ep^2\lambda^{(n)}(K),
+\end{align*}
+also $Af_{j_k}\to g$ in $L$.\bsphere
+\end{enumerate}
+\end{proof}
+\end{enumerate}
+\end{bsp}
+
+\begin{prop}
+\label{prop:1.26}
+Sei $A$ ein Operator im Hilbertraum $H$. Dann sind äquivalent,
+\begin{enumerate}[label=(\roman{*})]
+  \item $A$ ist kompakt und symmetrisch.
+  \item $A$ besitzt die Darstellung (*) mit $(\lambda_j)\to 0$ und $\lambda_j$
+  reell.\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+``$\Leftarrow$'': Übung.\\ 
+``$\Rightarrow$'': Nächstes Kapitel.\qedhere
+\end{proof}
+
+\subsection{Kompakte Symmetrische Operatoren}
+
+\begin{defn}
+\label{defn:1.27}
+Sei $M\subseteq L$. Dann heißt
+\begin{align*}
+M^\bot := \setdef{x\in L}{\forall y\in M: \lin{x,y}=0},
+\end{align*}
+das \emph{orthogonale Komplement}.\fishhere
+\end{defn}
+
+\begin{prop}
+\label{prop:1.28}
+Sei $(L,\lin{\cdot,\cdot})$ ein Prähilbertraum, $A: L\to L$ symmetrisch und
+beschränkt. Dann gilt
+\begin{enumerate}[label=(\roman{*})]
+  \item\label{prop:1.28:1} $\forall x\in L : \lin{Ax,x}\in\R$.
+  \item\label{prop:1.28:2} $(\im A)^\bot = \ker A$.
+  \item\label{prop:1.28:3} $A\bigg|_{\overline{\im A}}$ ist injektiv.
+  \item\label{prop:1.28:4} $\norm{A} = \sup\limits_{\norm{x} = 1}
+  \abs{\lin{Ax,x}}$.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+\begin{enumerate}[label=(\roman{*})]
+  \item $\lin{Ax,x} = \lin{x,Ax} = \overline{\lin{Ax,x}}$.
+  \item Sei $x\in \im A^\bot$, dann gilt für alle $y\in L$:
+\begin{align*}
+0 = \lin{Ay,x} = \lin{y,Ax} \Rightarrow \lin{Ax,Ax} = 0 \Rightarrow x\in \ker A.
+\end{align*}
+Sei $x\in \ker A$, dann gilt für alle $y\in L$:
+\begin{align*}
+\lin{Ay,x} =\lin{y,Ax} = 0 \Rightarrow x\in\im A^\bot.
+\end{align*}
+\item Seien $x,y\in \overline{\im A}$, dann ist auch $x-y\in\overline{\im A}$.
+Sei $Ax = Ay$, dann gilt
+\begin{align*}
+A(x-y) = 0&\Rightarrow x-y\in \ker A = \im A^\bot\\
+&\Rightarrow \lin{x-y,z} = 0, \forall z\in \im A\\
+&\Rightarrow \lin{x-y,z} = 0,\forall z\in\overline{\im A}\\
+&\Rightarrow x-y = 0.
+\end{align*}
+\item Sei $A\neq 0$, also $\norm{A} > 0$, 
+$d:=\sup\limits_{\norm{x}=1}\abs{\lin{Ax,x}}$. Zeige $d=\norm{A}$.
+
+``$\le$'': Für $\norm{x} = 1$ gilt,
+$\abs{\lin{Ax,x}} \le \norm{Ax}\norm{x}\le
+\norm{A}\norm{x}^2 = \norm{A} \Rightarrow d\le\norm{A}$.
+
+``$\ge$'': Für $x\neq 0$ gilt,
+\begin{align*}
+\abs{\lin{Ax,x}} = \norm{x}^2\abs{\lin{A\frac{x}{\norm{x}},\frac{x}{\norm{x}}}}
+\le d\norm{x}^2.
+\end{align*}
+Die Ungleichung gilt offensichtlich für $x\in L$.
+
+Sei nun $\alpha > 0$, dann gilt
+\begin{align*}
+&\lin{A(\alpha x + \frac{1}{\alpha}Ax),\alpha x + \frac{1}{\alpha}Ax}
+- \lin{A(\alpha x - \frac{1}{\alpha}Ax),\alpha x - \frac{1}{\alpha}Ax}
+\\ &= 2\lin{Ax,Ax} + 2\lin{Ax,Ax} = 4\norm{Ax}^2
+\end{align*}
+Somit gilt,
+\begin{align*}
+4\norm{Ax}^2 &\le d\norm{\alpha x+ \frac{1}{\alpha}Ax}^2 +
+d\norm{\alpha x-\frac{1}{\alpha}Ax}\\
+&= 2d\left(\alpha^2\norm{x}^2 + \frac{1}{\alpha^2}\norm{Ax}^2\right)
+\end{align*}
+Sei nun $\norm{x} = 1$ und $\alpha^2 := \norm{Ax} > 0$, dann gilt
+\begin{align*}
+&4\norm{Ax}^2 \le 2d\left(\norm{Ax} + \norm{Ax}\right) = 4d\norm{Ax}.\\
+\Rightarrow\;&\norm{Ax} \le d,\\
+\Rightarrow\;&\norm{A} = \sup\limits_{\norm{x}=1}\norm{Ax} \le d.\qedhere
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{bem}
+\label{bem:1.29}
+Ist zusätzlich zu \ref{prop:1.28} $(L,\lin{\cdot,\cdot})$ ein Hilbertraum, so
+kann \ref{prop:1.28:2} in der Form,
+\begin{align*}
+L = \overline{\im A}\oplus \ker A,
+\end{align*}
+geschrieben werden. Dies bedeutet,
+\begin{align*}
+\forall x\in L \exists! y\in \overline{\im A} \exists! z\in \ker A : x =
+y+z.\maphere
+\end{align*}
+\end{bem}
+
+\begin{prop}[Hauptsatz]
+\label{prop:1.30}
+Sei $(L,\lin{\cdot,\cdot})$ ein unendlichdimensionaler Prähilbertraum. $A: L\to
+L$ symmetrisch und kompakt. Dann gilt
+\begin{enumerate}[label=(\roman{*})]
+  \item $\lambda = \norm{A}$ oder $\lambda = -\norm{A}$ ist ein Eigenwert.
+  \item Jeder Eigenwert $\lambda\neq 0$ ist reell und hat endliche Vielfachheit.
+  \item $A$ hat entweder nur endlich viele Eigenwerte, dann ist $\lambda=0$
+  Eigenwert mit Vielfachheit $\infty$ oder $A$ hat abzählbar viele Eigenwerte
+  $(\lambda_j)$ und $\lambda_j \to 0$.
+  \item Sei $(\lambda_j)$ die Folge der Eigenwerte $\lambda_j\neq 0$, in der
+  jeder Eigenwert so oft auftritt, wie es seiner Vielfachheit entspricht. Die
+  zugehörigen Eigenelemente $(e_j)$ können so normiert werden, dass sie ein 
+  ONS bilden. Dieses ONS ist vollständig in $\overline{\im
+  A}$.\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+Falls $A=0$, dann ist $\lambda = 0$ einziger Eigenwert mit Vielfachheit
+$\infty$, die übrigen Aussagen ergeben sich dann sofort.
+
+Sei nun $A\neq 0$, also $\norm{A} > 0$.
+\begin{enumerate}[label=(\roman{*})]
+  \item Nach \ref{prop:1.28} existiert eine Folge $(y_j)$ in $L$ mit
+\begin{align*}
+\norm{y_j} = 1 \land \abs{\lin{Ay_j,y_j}}\to\norm{A}.
+\end{align*}
+Eventuell Teilfolge bilden, dann erhalten wir
+\begin{align*}
+\abs{\lin{Ay_j,y_j}}\to\lambda = \pm \norm{A}\neq 0.
+\end{align*}
+$A$ ist kompakt und $\norm{y_j} = 1$ also $Ay_j \to y\in L$ und damit gilt,
+\begin{align*}
+0&\le \norm{Ay_j - \lambda y_j}^2 
+= \norm{Ay_j}^2  -2\lambda \lin{A y_j,y_j} + \lambda^2\norm{y_j}^2
+\\ &\le \underbrace{\norm{A}^2}_{=\lambda^2}\norm{y_j}^2 + \lambda^2 -
+2\lambda\underbrace{\lin{Ay_j,y_j}}_{\to\lambda}
+\to 0.
+\end{align*}
+$\lambda y_j \to y$ also $y_j\to\frac{1}{\lambda}y$.
+\begin{align*}
+\Rightarrow
+\begin{cases}
+&Ay_j\to y,\\
+&Ay_j\to\frac{1}{\lambda}Ay,
+\end{cases}
+\end{align*}
+da $A$ stetig, also ist $Ay = \lambda y$ und $y\neq 0$, da
+$1=\norm{y_j}\to\norm{\frac{1}{\lambda}y}$ und daher ist
+\begin{align*}
+\lambda =\pm \norm{A}
+\end{align*}
+ein Eigenwert von $A$.
+\item Sei $\lambda$ ein Eigenwert, dann ist $\lambda\in\R$.\\
+Angenommen $\lambda\neq 0$ mit Vielfachheit $\infty$. Sei $(x_j)$ eine Folge
+von linear unabhängigen Eigenelementen. Mit Gram-Schmidt erhalten wir dadurch
+eine orthonormale Folge $(e_j)$ mit $Ae_j = \lambda e_j$. Nun ist
+$\norm{e_j}=1$ also enthält $(Ae_j)$ eine konvergente Teilfolge aber
+\begin{align*}
+\norm{Ae_j - Ae_k}^2 = \abs{\lambda}^2\norm{e_j-e_k}^2 = 2\abs{\lambda}^2 =
+\const > 0.\dipper
+\end{align*}
+\item Sei $Ax_1 = \lambda_1x_1$, $\lambda_1 = \pm\norm{A}\neq 0$. Setze
+\begin{align*}
+&A_1 := \left.A\right|_{\left\{x_1\right\}^\bot} : \{x_1\}^\bot \to
+\{x_1\}^\bot,\\
+&y\bot x_1 \Rightarrow \lin{Ay,x_1} = \lin{y,Ax_1} =
+\lambda\lin{y,x_1} = 0\Rightarrow Ay\bot x_1.
+\end{align*}
+Also ist $A_1$ kompakt und symmetrisch und hat den Eigenwert $\lambda_2$ mit
+$\abs{\lambda_2} = \norm{A_1}\le\norm{A}$, also hat $A$ ebenfalls den Eigenwert
+$\lambda_2$.
+
+Führe das Verfahren mit,
+\begin{align*}
+A_2 := A|_{\{x_1,x_2\}^\bot}
+\end{align*}
+fort. Induktiv erhält man eine Folge von Eigenwerten
+$(\lambda_j)$ mit $(\abs{\lambda_j})$ monoton fallend, wobei jeder Eigenwert
+nur endliche Vielfachheit hat.
+\begin{enumerate}[label=Fall \alph{*})]
+  \item $\exists j\in\N: A_j = 0$, dann ist $\lambda_{j+1}=0$ mit Eigenraum
+  $\{x_1,\ldots,x_j\}^\bot$ also Vielfachheit $\infty$.
+  \item $\forall j\in\N: A_j\neq 0$ und daher ist $\lambda_{j+1}\neq 0$.
+  Eigenwerte zu verschiedenen Eigenwerten sind orthogonal. Führt man nun in
+  jedem Eigenraum Gram-Schmidt durch, erhält man ein ONS $(e_j)$ aus
+  Eigenfunktionen mit $Ae_j = \lambda_j e_j$ und $(\abs{\lambda_j})$ monton
+  fallend.
+  
+  Angenommen $\neg(\lambda_j \to 0)$ dann existiert ein $\ep > 0$ mit
+  $\abs{\lambda_j}\ge \ep, \forall j\in\N$, dann ist $\left(\frac{1}{\lambda_j}
+  e_j\right)$ eine beschränkte Folge aber $\left(A\frac{1}{\lambda_j}e_j\right)
+  = (e_j)$ enthält keine konvergente Teilfolge.\dipper
+\end{enumerate}
+Es gibt keine weiteren Eigenwerte als die soeben konstruierten, denn sei
+$\lambda$ ein weiterer Eigenwert, dann gilt
+\begin{align*}
+&Ax = \lambda x,\qquad x\neq 0\\
+&\forall j\in\N : \lin{x,e_j}=0.
+\end{align*}
+Dann gilt
+\begin{align*}
+\norm{Ax} = \norm{A_{\{e_1,\ldots,e_j\}^\bot}x}
+\le  \underbrace{\norm{A_{\{e_1,\ldots,e_j\}^\bot}}}_{\to 0}\norm{x},
+\end{align*}
+also ist $\norm{Ax} = 0$, d.h. $Ax = 0$ und damit ist $\lambda=0$.
+\item Sei $(\lambda_j)$ vorgegeben und $x_j$ Eigenelement zu $\lambda_j$.
+Eigenelemente zu verschiedenen Eigenwerten sind bereits orthogonal, wendet man
+außerdem Gram-Schmidt in jedem Eigenraum an und normiert alle Eigenelemente,
+erhält man ein ONS $(e_j)$ aus Eigenelementen.
+
+Sei $x\in L$, $x_J :=\sum\limits_{j=1}^J \lin{x,e_j}e_j$,
+\begin{align*}
+\norm{x-x_J}^2 = \underbrace{\norm{x}^2 - \norm{x_J}^2}_{\text{Pythagoras}} \le
+\norm{x}^2.
+\end{align*}
+Nun ist $x-x_J\in\{e_1,\ldots,e_J\}^\bot$ und
+\begin{align*}
+\norm{Ax - Ax_J} = \norm{A(x-x_J)}\le 
+\underbrace{\norm{A|_{\{e_1,\ldots,e_J\}}^\bot}}_{\to
+0}\underbrace{\norm{x-x_j}}_{\le\norm{x}}
+\end{align*}
+Daraus folgt $\forall x\in L : Ax_J\to Ax$ mit,
+\begin{align*}
+Ax_j = \sum\limits_{j=1}^\infty \lin{x,e_j}\lambda_je_j
+= \sum\limits_{j=1}^\infty \lin{x,Ae_j}e_j
+= \sum\limits_{j=1}^\infty \lin{Ax,e_j}e_j.
+\end{align*} 
+Daher gilt für alle $x\in L$,
+\begin{align*}
+&Ax = \sum\limits_{j=1}^\infty \lin{Ax,e_j}e_j,\\
+\overset{\ref{prop:1.10}}{\Rightarrow}\;&
+\forall y\in \overline{\im A} : y = \sum\limits_{j=1}^\infty
+\lin{y,e_j}e_j.\qedhere
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\subsection{Das Sturm-Liouville-Problem}
+\begin{bsp}
+\label{bsp:1.31}
+Eine schwingende Saite kann durch die Differentialgleichung 
+\begin{align*}
+\rho(x)\partial_t^2 u(t,x) - \sigma(x)\partial_x^2u(t,x) = 0,
+\end{align*}
+charakterisiert werden, wobei $\rho(x)>0$ die \emph{Massendichte} und
+$\sigma(x)> 0$ die \emph{Federkonstante} bezeichnen.
+\begin{figure}[!b]
+  \centering
+\begin{pspicture}(-1,-1)(4.5,2.5)
+ \psaxes[labels=none,ticks=none]{->}%
+ (0,0)(-0.5,-0.5)(4,2)[\color{gdarkgray}$x$,-90][\color{gdarkgray}$u$,0]
+ 
+ \psxTick(3.5){\color{gdarkgray}l}
+ 
+ \psline{<->}(1.75,0.5)(1.75,-0.5)
+
+ \psplot[linewidth=1.2pt,%
+	     linecolor=darkblue,%
+	     algebraic=true]%
+	     {0}{3.5}{sin(3.132/3.5*x)}
+ 
+ \rput[l](3,1){\color{gdarkgray}$u(t,x)$}
+ \rput[l](-0.4,-0.4){\color{gdarkgray}$0$}
+\end{pspicture}
+  \caption{Schwingende Saite.}
+\end{figure}
+Für die eingespannte Saite sind die Randbedingungen,
+\begin{align*}
+u(t,0) = u(t,l) = 0,\qquad t\ge 0.
+\end{align*}
+Geben wir Anfangsbedingungen in der Form,
+\begin{align*}
+&u(0,x) = u_0(x), &&\text{Auslenkung zur Zeit } t=0,\\
+&\partial_t u(t,x)\big|_{t=0} = u_1(x), &&\text{Anfangsgeschwindigkeit zur Zeit
+} t=0,
+\end{align*}
+an, so besagt der Satz von Picard-Lindelöff, dass eine eindeutige
+Lösung existiert. Wir sind nun daran interessiert diese Lösung zu finden.
+Setzten wir
+\begin{align*}
+c(x) = \sqrt{\frac{\sigma(x)}{\rho(x)}},
+\end{align*}
+nimmt die Differentialgleichung die aus der Physik bekannte Form der
+Wellengleichung an,
+\begin{align*}
+\partial_t^2 u(t,x) - c^2\partial_x^2u(t,x) = 0\tag{*}.
+\end{align*}
+Wir wollen nun beim Lösen ``naiv'' vorgehen und beginnen mit dem
+Separationsansatz
+\begin{align*}
+u(t,x) = v(t)w(x).
+\end{align*}
+So erhalten wir
+\begin{align*}
+v''w - c^2 vw'' = 0,
+\end{align*}
+wordurch sich für  $v,w\neq 0$ ergibt,
+\begin{align*}
+\frac{v''}{v} = c^2\frac{w''}{w} = \const := \lambda.
+\end{align*}
+Die Konstanz sieht man so ein, dass die linke Seite lediglich von $t$ und die
+rechte lediglich von $x$ abhängt. Wir erhalten dadurch zwei unabhängige
+Differentialgleichungen
+\begin{align*}
+&v''+\lambda v = 0, && \text{mit } v(0),v'(0) \text{ vorgegeben},\\
+&c^2w'' + \lambda w = 0, && \text{mit } w(0)=w(l)=0.
+\end{align*}
+Für den Spezialfall $c(x)=c=\const$ existieren Lösungen von $w$ nur für
+\begin{align*}
+&\lambda=\lambda_j = \left(\frac{j\pi c}{l}\right)^2,\\
+\Rightarrow\;&w_j(x) = \sqrt{\frac{2}{l}}\sin\left(\sqrt{\lambda_j}x\right),
+\end{align*}
+und Lösungen von $v$, für
+\begin{align*}
+v_j(t) = v_j(0)\cos\left(\sqrt{\lambda_j}t\right) +
+v_j'(0)\frac{\sin\left(\sqrt{\lambda_j}t \right)}{\sqrt{\lambda_j}}.
+\end{align*}
+Wir erhalten somit abzählbar viele Lösungen von (*),
+\begin{align*}
+u_j(t,x) = v_j(t)w_j(x).
+\end{align*}
+Die allgemeine Lösung von (*) kann man durch eine Fourierreihe angeben,
+\begin{align*}
+&u(t,x) = \sum\limits_{j=1}^\infty w_j(x)v_j(x),\\
+&u(0,x) = \sum\limits_{j=1}^\infty w_j(0)v_j(0) \overset{!}{=} u_0 \sim
+v_j(0),\\
+&\partial_t u(0,x) = \sum\limits_{j=1}^\infty w_j(x)v_j'(0) \overset{!}{=} u_1
+\sim v_j'(0).\bsphere
+\end{align*}
+\end{bsp}
+
+Im Folgenden sei mit $I$ stets das Intervall $[a,b]\subseteq\R$ gemeint. 
+
+\begin{prop}[Sturm-Liouville-Eigenwertproblem]
+\label{prop:1.32}
+Gesucht sind $u\in C^2([a,b]\to\R)$, $u\neq 0$ und $\lambda\in\R$ mit,
+\begin{align*}
+&(pu')' - qu + \lambda ru = 0,\tag{1.1}\\
+&R_1u := \alpha_1u(a) + \alpha_2p(a)u'(a) = 0,\\
+&R_2u := \beta_1u(b) + \beta_2p(b)u'(b) = 0,
+\end{align*}
+wobei
+\begin{align*}
+&p\in C^2([a,b]\to\R),\; p>0\text{ auf }[a,b],\\
+&q,r\in C^2([a,b]\to\R),\; r > 0,\\
+&\alpha_1^2 + \alpha_2^2 > 0 \land \beta_1^2+\beta_2^2 > 0,
+\end{align*}
+$\lambda$ heißt \emph{Eigenwert} und $u$ zugehörige
+\emph{Eigenfunktion}.\fishhere
+\end{prop}
+
+\begin{bem}
+\label{bem:1.33}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Spezialfälle mit besonderen Randbedindungen,
+\begin{align*}
+&\alpha_1 = \beta_1 = 1 \land \alpha_2 = \beta_2 = 0,&& \text{(Dirichlet)}\\
+&u(a) = u(b) = 0,\\
+&\alpha_1 = \beta_1 = 0 \land \alpha_2 = \frac{1}{p(a)} \land \beta_2 =
+\frac{1}{p(b)},&&\text{(Neumann)}\\
+&u'(a) = u'(b) = 0.
+\end{align*}
+\item $R_1u = 0$ was äquivalent ist mit,
+\begin{align*}
+\begin{pmatrix}
+u(a)\\
+u'(a)
+\end{pmatrix}
+\bot
+\begin{pmatrix}
+\alpha_1\\
+\alpha_2 p(a)
+\end{pmatrix}
+\end{align*}
+\item Jeder Eigenwert von (1.1) ist einfach.
+\begin{proof}
+Angenommen $u_1,u_2$ sind Eigenfunktionen von (1.1) zum Eigenwert $\lambda$ und
+$\{u_1,u_2\}$ ist linear unabhängig, dann ist $\{u_1,u_2\}$ ein
+Fundamentalsystem. Die Existenztheorie für Differentialgleichungen sagt, es
+existiert eine Lösung mit $u(a) = \alpha_1$ und $u'(a) = \frac{\alpha_2}{p(a)}$.
+
+Da $\{u_1,u_2\}$ ein Fundamentalsystem ist, folgt
+\begin{align*}
+u = c_1 u_1 + c_2 u_2
+\end{align*}
+ist ebenfalls Lösung, die die Randbedingungen erfüllt mit
+\begin{align*}
+R_1u &= \alpha_1u(a) + \alpha_2p(a)u'(a) = \alpha_1^2+\alpha_2^2\neq 0,\\
+R_1 u &= c_1R_1u_1 + c_2R_1u_2 \overset{!}{=} 0.\dipper
+\end{align*}
+Es kann also keine linear unabhängigen Eigenfunktionen zu einem Eigenwert
+geben.\qedhere\maphere
+\end{proof}
+\end{enumerate}
+\end{bem}
+
+\begin{prop}[Definition/Satz]
+\label{prop:1.34}
+Sei $I:=[a,b]$ und $\tilde{A}$ mit
+\begin{align*}
+\tilde{A}u = -(pu')' + qu,
+\end{align*}
+eine Abbildngsvorschrift. Sei $L:=C(I\to\R)$ und $\lin{\cdot,\cdot}$ das
+Skalarprodukt auf $\LL^2$,
+\begin{align*}
+&D(A) = \setdef{u\in C^2(I\to\R)}{R_1u=R_2u=0},\tag{1.2}\\
+&Au = \tilde{A}u,\qquad \text{für }u\in D(A).
+\end{align*}
+Dann ist $A$ symmetrisch.\fishhere
+\end{prop}
+\begin{proof}[Beweisskizze.]
+Partiell integrieren, geschickt Null ergänzen, zusammenfassen.\qedhere
+\end{proof}
+
+\begin{bem}[Achtung:]
+\label{bem:1.35}
+Falls $\lambda$ EW von (1.1) und $u$ Eigenfunktion, dann gilt $u\in D(A)$ und
+$Au = \lambda r u$. Nur im Fall $r=1$ ist $\lambda$ auch Eigenwert von $A$.
+\end{bem}
+
+\begin{defn}
+\label{defn:1.36}
+Eine Funktion $G: I\times I\to\R$ heißt \emph{Greensche Funktion} zum Operator
+$A$ (oder zu (1.1)), falls
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $G\in C(I\times I\to\R)$
+  \item $\partial_1 G, \partial_1^2 G\in C(\Delta_j\to\R)$ und $\partial_1 G,
+  \partial_1^2 G$ stetig fortsetzbar auf $\overline{\Delta}_1$ und
+  $\overline{\Delta}_2$
+  \item Für festes $\zeta\in I$ gilt,
+  \begin{align*}
+  \tilde{A}G(\cdot,\zeta) = 0,\text{ auf }
+  I\setminus\{\zeta\},\text{ sowie } R_1(G(\cdot,\zeta)) = R_2(G(\cdot,\zeta)) =
+  0.
+  \end{align*}
+  \item Für $\zeta\in(a,b) : \partial_1 G(\zeta+0,\zeta) - \partial_1
+  G(\zeta-0,\zeta) = \frac{1}{p(\zeta)}$.\fishhere
+\end{enumerate}
+\end{defn}
+\begin{figure}[!ht]
+  \centering
+\begin{pspicture}(-0.8,-0.8)(4.8,3)
+
+\psaxes[labels=none,ticks=none]{->}%
+ (0,0)(-0.5,-0,5)(3,3)[,-90][,0]
+
+\psxTick(0.5){a}
+\psxTick(2.5){b}
+
+\psyTick(0.5){a}
+\psyTick(2.5){b}
+
+\psdot(0,0)
+
+\psline(0.5,0.5)(2.5,0.5)(2.5,2.5)(0.5,2.5)(0.5,0.5)
+
+\psline[linestyle=dotted](0.5,0.5)(2.5,2.5)
+
+\psline[linecolor=darkblue]{->}(2.4,1.8)(2,1.8)
+
+\psline[linecolor=darkblue]{->}(1.4,0.8)(1.4,1.2)
+
+\psline[linecolor=darkblue]{->}(1.7,2.3)(2.1,2.3)
+
+\rput[l](2.7,1.8){\color{darkblue}$\partial_1 G(\zeta+0,\zeta)$}
+\rput[l](1.2,0.25){\color{darkblue}$\partial_1 G(\zeta,\zeta-0)$}
+\rput[l](0.6,2.8){\color{darkblue}$\partial_1 G(\zeta-0,\zeta)$}
+
+\rput(0.8,2.2){\color{yellow}$\Delta_1$}
+\rput(2.2,0.8){\color{yellow}$\Delta_2$}
+
+\end{pspicture} 
+  \caption{Definitionsbereich der Greenschen Funktion.}
+\end{figure}
+
+Die Greensche Funktion soll also auf die Dreiecke $\overline{\Delta}_1$ und
+$\overline{\Delta}_2$ zweimal stetig differenzierbar fortsetzbar sein, die
+homogene Differentialgleichung erfüllen und ihre erste partielle Ableitung soll
+auf der Diagonalen einen Sprung haben.
+
+\begin{prop}
+\label{prop:1.37}
+Sei $G$ eine Greensche Funktion zu $A$ und $\ph\in C(I\to\R)$. Dann sind
+äquivalent,
+\begin{enumerate}[label=(\roman{*})]
+  \item\label{prop:1.37:1} $Au = \ph$,
+  \item\label{prop:1.37:2} $u(x) = \int\limits_a^b G(x,y)\ph(y)\dy$.\fishhere
+\end{enumerate}
+\end{prop}
+Existiert $G$, so erhalten wir einen Umkehroperator zu $A$ und so für jedes
+$\ph$ mit $Au=\ph$ sofort $u$.
+\begin{proof}
+``\ref{prop:1.37:2}$\Rightarrow$\ref{prop:1.37:1}'':
+\begin{align*}
+u(x) = \int\limits_a^x G(x,y)\ph(y)\dy + \int\limits_x^b G(x,y)\ph(y)\dy.
+\end{align*}
+\begin{align*}
+u'(x) &= G(x,y)\ph(x) - G(x,y)\ph(x) \\
+&+\int\limits_a^x \frac{\partial}{\partial x}G(x,y)\ph(y)\dy +
+\int\limits_x^b \frac{\partial}{\partial x}G(x,y)\ph(y)\dy\\
+&= \int\limits_a^x \frac{\partial}{\partial x}G(x,y)\ph(y)\dy +
+\int\limits_x^b \frac{\partial}{\partial x}G(x,y)\ph(y)\dy
+\end{align*}
+\begin{align*}
+u''(x) &=
+\frac{\partial}{\partial x} G(x,x-0)\ph(x-0) + 
+\int\limits_a^x \frac{\partial^2}{\partial x^2} G(x,y)\ph(y)\dy \\
+ &-\frac{\partial}{\partial x} G(x,x+0)\ph(x+0) + 
+\int\limits_x^b \frac{\partial^2}{\partial x^2} G(x,y)\ph(y)\dy\\
+&= -\frac{\ph(x)}{p(x)} + 
+\int\limits_a^x \frac{\partial^2}{\partial x^2} G(x,y)\ph(y)\dy +
+\int\limits_x^b \frac{\partial^2}{\partial x^2} G(x,y)\ph(y)\dy\\
+&= -\frac{\ph(x)}{p(x)} + 
+\int\limits_a^b \frac{\partial^2}{\partial x^2} G(x,y)\ph(y)\dy
+\end{align*}
+Wir können damit $\tilde{A}u$ wie folgt auflösen,
+\begin{align*}
+\tilde{A}u &= -pu'' - p'u' + qu
+= p\frac{\ph(x)}{p} + \int\limits_a^b
+\underbrace{\tilde{A}G(x,y)\ph(y)}_{3.) \Rightarrow = 0}\dy = \ph(x).
+\end{align*}
+Offensichtlich ist $u\in D(A)$, denn $u\in C^2(I\to\R)$ und
+\begin{align*}
+R_1u &= \alpha_1 u(a) + \alpha_2p(a)u'(a) \\
+&=\int\limits_a^b \underbrace{\left(\alpha_1G(a,y) + \alpha_2p(a) \partial_1
+G(a,y) \right)\ph(y)\dy}_{=R_1G(\cdot,y)=0} = 0.
+\end{align*}
+``\ref{prop:1.37:1}$\Rightarrow$\ref{prop:1.37:2}'': Die Umkehrung zeigen wir
+später.\qedhere
+\end{proof}
+
+\begin{prop}
+\label{prop:1.38}
+\begin{enumerate}[label=(\roman{*})]
+  \item $G$ ist symmetrisch, d.h. $G(x,y)=G(y,x)$.
+  \item $G$ ist eindeutig, d.h. zu gegebenen Operator $A$ existiert höchstens
+  eine Eigenfunktion.\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+Seien $G,H$ Greensche Funktionen zu $A$ und $\ph,\psi\in C(I\to\R)$.
+\begin{align*}
+u(x) &:= \int\limits_a^b G(x,y)\ph(y)\dy,\\
+v(x) &:= \int\limits_a^b H(x,y)\psi(y)\dy.
+\end{align*}
+Mit \ref{prop:1.37} folgt,
+\begin{align*}
+Au = \ph,\text{ und } Av = \psi.
+\end{align*}
+\begin{align*}
+0 &= \lin{Au,v} - \lin{Au,v} = \lin{\ph,v} - \lin{u,\psi}
+\\ &= \int\limits_a^b \ph(x)\int\limits_a^b H(x,y)\psi(y)\dy \dx
+- \int\limits_a^b \int\limits_a^b G(x,y)\ph(y)\dy \psi(x)\dx.
+\end{align*}
+Wir können im ersten Term die Integrationsreihenfolge ändern und im zweiten die
+Variablen $x$ und $y$ vertauschen,
+\begin{align*}
+\ldots &= \int\limits_a^b\int\limits_a^b \ph(x)H(x,y)\psi(y) -
+G(y,x)\ph(x)\psi(y)\dx\dy
+\\ &= \int\limits_a^b \ph(x)\underbrace{\int\limits_a^b
+\underbrace{\left(H(x,y)-G(y,x)\right)}_{(*)}\psi(y)\dy}_{(**)}\dx.
+\end{align*}
+Da $\ph\in C(I\to\R)$ beliebig ist, kann man 
+$\ph=(**)$ setzten, dann verschwindet das Betragsquadrat, also ist (**) Null.
+$\psi\in C(I\to\R)$ ist ebenfalls beliebig und daher ist ebenfalls $(H-G)$
+Null, es gilt also $H(x,y) = G(y,x)$.
+\begin{enumerate}[label=(\roman{*})]
+  \item Setze $H(x,y)=G(x,y)$, dann gilt $G(x,y)=G(y,x)$.
+  \item $G$ ist symmetrisch es gilt daher $H(x,y) = G(y,x) = G(x,y)$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{proof}[Beweis von \ref{prop:1.37}.]
+``\ref{prop:1.37:1}$\Rightarrow$\ref{prop:1.37:2}'': Sei $Au = \ph$.
+\begin{align*}
+\int\limits_a^b G(x,y)\ph(y)\dy &= \int\limits_a^b G(y,x)((-pu')'+qu)(y)\dy\\
+&= \int\limits_a^x G(y,x)((-pu')'+qu)(y)\dy \\
+&+ \int\limits_x^b G(y,x)((-pu')'+qu)(y)\dy \\
+&\overset{\text{2x part.}}{=}
+\left[-G(y,x)p(y)u(y) + \partial_1 G(y,x)
+p(y)u(y)\right]\bigg|_{y=a}^x\bigg|_{y=x}^b\\ &+ \int\limits_a^b
+\underbrace{\left(\frac{\partial}{\partial y}(p(y)\partial_1 G(y,x)) - q(y)G(y,x) \right)}_{:=\tilde{A}G(\cdot,x)=0}u(y)\dy.
+\end{align*}
+Wir wissen aus dem Beweis der Symmetrie von $G(x,y)$, dass der Term aufgrund
+der Randbedingung auf dem Rand verschwindet,
+\begin{align*}
+&\underbrace{\left[\ldots\right]_{y=a}^b}_{=0,\text{ wegen
+}R_ju=R_jG(\cdot,x)=0} +
+\underbrace{(-G(y,x)p(y))u(y)\bigg|_{y=x}^x}_{=0,\text{ da stetig}.}\\
+&+ \partial_1G(x-0,x)p(x)u(x) - \partial_1 G(x+0,x)p(x)u(x) \\
+&= -\left(-\frac{1}{p}\right)p u(x) = u(x).\qedhere
+\end{align*}
+\end{proof}
+
+\begin{prop}[Konstruktion der Greenschen Funktion]
+\label{prop:1.39}
+Folgende Aussagen sind äquivalent,
+\begin{enumerate}[label=(\roman{*})]
+  \item\label{prop:1.39:1} Zu $A$ existiert eine Greensche Funktion.
+  \item\label{prop:1.39:2} $\lambda = 0$ ist kein Eigenwert von $A$
+  $\Leftrightarrow$ $\lambda=0$ ist kein Eigenwert von (1.1).\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+``\ref{prop:1.39:1}$\Rightarrow$\ref{prop:1.39:2}'':
+Aus $Au=0$ folgt, $u=\int G\cdot 0\dy = 0$. $u=0$ ist die eindeutige Lösung
+dieser Gleichung aber kein Eigenvektor und daher ist $\lambda=0$ kein Eigenwert.
+
+``\ref{prop:1.39:2}$\Rightarrow$\ref{prop:1.39:1}'':
+Sei $\lambda=0$ kein Eigenwert von $A$ und $u_1,u_2\in C^2(I\to\R)$ Lösungen von
+$\tilde{A}u=0$ mit $u_1,u_2\neq 0$ und $R_1u_1 = 0$ und $R_2u_2 = 0$. Die
+Existenz folgt aus dem Satz von Picard-Lindelöff.
+
+Angenommen $u_1 = c u_2$, dann gilt $R_1u_1 = 0$ nach Voraussetzung und
+\begin{align*}
+&R_2u_1 = cR_2 u_2 = 0,\\
+\Rightarrow\;& Au_1 = 0,
+\Rightarrow\; u_1 = 0.\dipper
+\end{align*}
+
+Die \emph{Wronskideterminante} ist gegeben durch
+\begin{align*}
+W(x) = \begin{vmatrix}
+u_1(x) & u_2(x)\\
+u_1'(x) & u_2'(x)
+\end{vmatrix}.
+\end{align*}
+Nun ist
+\begin{align*}
+W'(x) &= \frac{\partial}{\partial x}\left(u_1(x)u_2'(x) - u_2(x)u_1'(x) \right)
+= u_1u_2'' - u_2u_1''\\
+&= u_1\frac{1}{p}\left(-p'u_2' + qu_2 -\lambda ru_2\right) -
+u_2\frac{1}{p}\left(-p'u_1'+qu_1 -\lambda ru_1\right)\\
+&= -\frac{1}{p}\left(u_1u_2' p' - u_1'u_2 p'\right)
+= -\frac{p'}{p}W(x),\\
+W'(x) &= -\frac{p'}{p}W(x).
+\end{align*}
+Dies ist eine spearierbare Differentialgleichung. Durch Nachrechnen erhält man
+$W(x) = \frac{c}{p(x)}$. $\{u_1,u_2\}$ ist linear unabhängig, also ist
+$W(x)\neq 0$ und daher $c\neq 0$. Setze
+\begin{align*}
+G(x,\xi) =
+\begin{cases}
+-\frac{1}{c}u_2(\xi)u_1(x), & a \le x \le \xi \le b,\\
+-\frac{1}{c}u_2(x)u_1(\xi), & a \le \xi \le x \le b.
+\end{cases}
+\end{align*}
+Dann ist $G$ eine Greensche Funktion, denn
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $G\in C(I\times I\to\R)$ ist offensichtlich.
+  \item $\partial_1 G,\partial_1^2 G$ ist stetig auf $\Delta_1$, $\Delta_2$ und
+  stetig fortsetzbar auf $\overline{\Delta}_1$, $\overline{\Delta}_2$.
+  \item Sei $\xi\in I$ fest, dann gilt
+\begin{align*}
+&x < \xi \Rightarrow G(\cdot,\xi) = -\frac{1}{c}u_2(\xi)u_1 \Rightarrow
+\tilde{A}G(\cdot,\xi) = 0,\; R_1G(\cdot,\xi) = 0,\\
+&x > \xi \Rightarrow G(\cdot,\xi) = -\frac{1}{c}u_1(\xi)u_2 \Rightarrow
+\tilde{A}G(\cdot,\xi) = 0,\; R_2G(\cdot,\xi) = 0.
+\end{align*}
+\item Für den Sprung an der Diagonlen erhält man,
+\begin{align*}
+\partial_1 G(\xi+0,\xi)- \partial_1G(\xi-0,\xi) &=
+-\frac{1}{c}\left(u_1(\xi)u_2'(\xi) - u_1'(\xi)u_2(\xi)\right) \\ &=
+-\frac{1}{p(x)}.\qedhere
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{lem}
+\label{prop:1.40}
+$\exists c\in\R \forall u\in D(A) : \lin{Au,u} \ge -c\norm{u}^2$.\fishhere
+\end{lem}
+\begin{proof}
+Übung.\qedhere
+\end{proof}
+
+\begin{prop}
+\label{prop:1.41}
+\begin{enumerate}[label=\arabic{*}.)]
+\item Es gilt $\inf\setdef{\lambda\in\R}{\lambda\text{ ist EW von (1.1)}} >
+-\infty$.
+\item Falls $\alpha_1 = \beta_1 = 0$ (Neumann) oder $\alpha_2=\beta_2=0$
+(Dirichlet), so gilt
+\begin{align*}
+\inf\setdef{\lambda\in\R}{\lambda\text{ ist EW von (1.1)}} \ge \frac{\min
+q(x)}{\max r(x)}.\fishhere
+\end{align*}
+\end{enumerate}
+\end{prop}
+
+\begin{prop}
+\label{prop:1.42}
+Sei $d\in\R$ kein Eigenwert von (1.1) und $G'$ die Greensche Funktion von
+\begin{align*}
+A' := A- dr.
+\end{align*}
+und seien
+\begin{align*}
+&G(x,y) := \sqrt{r(x)}G'(x,y)\sqrt{r(y)},\\
+&D(K) := C(I\to\R),\\
+&K\ph(x) := \int_I G(x,y)\ph(y)\dy,
+\end{align*}
+dann ist $\mu=0$ kein Eigenwert von $K$ und es sind äquivalent
+\begin{enumerate}[label=(\roman{*})]
+\item\label{prop:1.42:1} $\lambda\left(=\frac{1}{\mu}+d\right)$ ist Eigenwert
+von (1.1) mit Eigenfunktion $u\left(=\frac{1}{\sqrt{r}}v\right)$.
+\item\label{prop:1.42:2} $\mu\left(=\frac{1}{\lambda - d}\right)$ ist Eigenwert
+von $K$ mit Eigenfunktion $v=\left(\sqrt{r}u\right)$.\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+$G'$ existiert da das Sturm-Liouville nicht $d$ als Eigenwert hat und
+daher das ``verschobene" Problem
+\begin{align*}
+(pu')' - qu + \lambda ru - dru = 0,
+\end{align*}
+nicht $(\lambda-d)=0$ als Eigenwert besitzt.
+
+Angenommen $K\ph(x) = 0$, dann gilt
+\begin{align*}
+&0 = \int_I G(x,y)\ph(y)\dy = \underbrace{\sqrt{r(x)}}_{>0}\int_I
+G'(x,y)\sqrt{r(y)}\ph(y)\dy\\ \Leftrightarrow & 0=\int_I
+G'(x,y)\sqrt{r(y)}\ph(y)\dy.
+\end{align*}
+Aus \ref{prop:1.37} folgt, $A0 = \sqrt{r}\ph$ und daher ist $\ph=0$ also kann
+$\mu=0$ kein Eigenwert von $K$ sein.
+\begin{align*}
+\ref{prop:1.42:1}
+&\Leftrightarrow Au = \lambda ru
+\Leftrightarrow (A-dr)u = (\lambda - d)ru\\
+&\Leftrightarrow u(x) = \int_I G'(x,y)(\lambda-d)r(y)u(y)\dy\\
+&\Leftrightarrow \underbrace{\sqrt{r(x)}u(x)}_{:=v(x)} =
+(\lambda-d)\int_I\sqrt{r(x)}G'(x,y)\sqrt{r(y)}\sqrt{r(y)} u(y)\dy\\
+&\Leftrightarrow v(x) = \int_I G(x,y)v(y)\dy
+\Leftrightarrow v = (\lambda-d)Kv\\
+&\Leftrightarrow \underbrace{\frac{1}{\lambda-d}}_{:=\mu}v = Kv
+\Leftrightarrow \ref{prop:1.42:2}\qedhere
+\end{align*}
+\end{proof}
+
+\begin{lem}
+\label{prop:1.43}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $K$ ist symmetrisch und kompakt in $L:=C(I\to\R)$.
+  \item $\im K = \setdef{\sqrt{r}u}{u\in D(A)}$.\fishhere
+\end{enumerate}
+\end{lem}
+\begin{proof}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Die Symmetrie folgt direkt aus $G(x,y)=G(y,x)$. Zur Kompaktheit
+  siehe \ref{bsp:1.25}.
+  \item
+\begin{align*}
+v\in \im K &\Leftrightarrow \exists \ph \in C(I\to\R) : v(x) = \int_I
+G(x,y)\ph(y)\dy\\
+& \Leftrightarrow v(x)=\sqrt{r(x)}\int_I
+G'(x,y)\underbrace{\sqrt{r(y)}\ph(y)}_{\in L(I\to\R)}\dy.
+\end{align*}
+In \ref{prop:1.37} haben wir gesehen, dass $\int_I
+G'(x,y)\underbrace{\sqrt{r(y)}\ph(y)}_{\in L(I\to\R)}\dy\in D(A)$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{prop}[Satz von Sturm-Liouville]
+\label{prop:1.44}
+(1.1) besitzt abzählbar viele Eigenwerte $\lambda_j, j\in\N$. Es gilt
+\begin{enumerate}[label=\arabic{*}.)]
+  \item\label{prop:1.44:1} $\lambda_j\to+\infty$ für $j\to\infty$.
+  \item\label{prop:1.44:2} Jeder Eigenwert hat Vielfachheit $1$.
+  \item\label{prop:1.44:3} Die Eigenfunktionen $(u_j)$ können so normiert
+  werden, dass die $(\sqrt{r}u_j)$ ein ONS bilden. Dieses ist vollständig in
+  $\LL^2(I)$.\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+``\ref{prop:1.44:2}'': Siehe \ref{bem:1.33}.
+
+``\ref{prop:1.44:1}'': $\lambda$ ist Eigenwert von (1.1) ist äquivalent zu
+$\mu=\frac{1}{\lambda-d}$ ist Eigenwert von $K$. $K$ ist symmetrisch und
+kompakt besitzt daher abzählbar viele Eigenwerte $\mu_j$ und $\mu_j\to0$.
+
+``\ref{prop:1.44:3}'': Da Eigenwerte von (1.1) einfach sind, sind auch die
+Eigenwerte von $K$ einfach. Da $K$ symmetrisch, sind die Eigenfunktionen $(v_j)$
+orthogonal. Normiert man diese, bilden sie ein ONS. Da $r>0$ bilden auch die
+$v_j=\sqrt{r}u_j$ ein ONS. 
+Der Hauptsatz sagt nun, dass dieses ONS vollständig in $\overline{\im K}$ ist.
+Satz \ref{prop:1.37} besagt,
+\begin{align*}
+\overline{\im K} =
+\overline{\setdef{\sqrt{r}u}{u\in D(A)}}
+\end{align*}
+Der Abschluss hängt nun vom umgebenden Raum ab,
+\begin{align*}
+&\overline{\im K}^{C(I\to\R)} = C(I\to\R),\\
+&\overline{\im K}^{\LL^2(I\to\R)} = \LL^2(I\to\R).\qedhere
+\end{align*}
+\end{proof}
+
+\begin{prop}[Bessere Konvergenz]
+\label{prop:1.45}
+Sei $K\subseteq \R^n$ kompakt, $G\in C(K\times K\to\R)$, $L:=C(K\to\C)$,
+$G(x,y)=G(y,x)$,
+\begin{align*}
+Bf(x) := \int_K G(x,y)f(y)\dy,\quad y\in D(B) := L,
+\end{align*}
+$(e_j)$ Folge der orthonormierten Eigenfunktionen mit zugehörigen Eigenwerten
+$\lambda_j$. Dann konvergiert für $f\in\im B$ die Fourierreihe
+\begin{align*}
+f = \sum\limits_{j=1}^\infty \lin{f,e_j}e_j,
+\end{align*}
+gleichmäßig und absolut in $K$.\fishhere
+\end{prop}
+\begin{proof}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $e_j\in C(K\to\C)$, denn
+\begin{align*}
+\lambda_j e_j(x) = \int_K G(x,y)e_j(y)\dy,
+\end{align*}
+ist stetig in $x$ und daher ist $e_j$ stetig.
+\item Sei $f=Bg$ und $g\in L$, dann ist
+\begin{align*}
+\lin{f,e_j} = \lin{Bg,e_j} = \lin{g,Be_j} = \lambda_j\lin{g,e_j} 
+\end{align*}
+\begin{align*}
+\abs{\sum\limits_{j=N}^{M+N} \abs{\lin{f,e_j}e_j(x)}}^2
+&= \abs{\sum\limits_{j=N}^{M+N} \abs{\lambda_j\lin{g,e_j}e_j(x)}}^2\\
+&\le \underbrace{\sum\limits_{j=N}^{N+M} \abs{\lin{g,e_j}}^2}_{\le \ep
+\text{ für } N>N_\ep \text{ Bessel}} \underbrace{\sum\limits_{j=N}^{M+N}
+\abs{\lambda_j e_j(x)}^2}_{\le c s.u.}
+\end{align*}
+Betrachte zur Abschätzung des 2. Faktors,
+\begin{align*}
+&\lambda_j e_j(x) = Be_j(x) = \int_K G(x,y)e_j(y)\dy = \lin{G(x,\cdot),e_j},\\
+&\sum\limits_{j=N}^{M+N} \abs{\lambda_j e_j(x)}^2
+= \sum\limits_{j=N}^{M+N}\abs{\lin{G(x,\cdot),e_j}}^2
+\le \norm{G(x,\cdot)}_{\LL^2(K)} < \infty.\qedhere
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\subsubsection{Lösung der Wellengleichung}
+
+Wir wollen nun die entwickelte Theorie dazu verwenden, das Motivationsproblem
+der schwingenden Saite zu Beginn des Kapitels zu lösen. Betrachte dazu das
+Rand- und Anfangswertproblem,
+\begin{align*}
+&\partial_t^2 u(t,x) - c(x)^2\partial_x^2u(t,x) = 0,\quad t\ge 0, x\in
+I,\tag{1.3}\\
+&\partial_x u(t,a) = \partial_x u(t,b) = 0,\\
+&u(0,x) = g_0(x),\quad \partial_t u(0,x) = 0,\qquad t\ge 0, x\in I.
+\end{align*}
+Die Randbedingungen entsprechen also einer Saite mit freien Enden. $g_0$
+gibt ihre Anfangsauslenkung an.
+
+Zur Lösung betrachten wir folgendes Sturm-Liouville Problem
+\begin{align*}
+&u''(x) + \lambda\frac{1}{c^2(x)}u(x) = 0,\tag{1.4}\\
+&u'(a) = u'(b)
+\end{align*}
+Obwohl dieses Problem nicht mehr zeitabhängig ist, werden wir sehen, dass wir
+damit (1.3) lösen können.
+
+Wenden wir den Satz von Sturm-Liouville auf (1.4) an, so erhalten wir als
+Lösungen die Eigenfunktionen $(u_j)$ mit Eigenwerten $(\lambda_j)$ und
+$\lambda_j\to\infty$. Die $(\frac{1}{c}u_j)$ bilden ein VONS von $\LL^2(I)$,
+wir können also $g_0$ entwickeln zu,
+\begin{align*}
+&\frac{1}{c}g_0 = \sum\limits_{j=1}^\infty
+\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}\frac{1}{c}u_j\\
+\Leftrightarrow & g_0 = \sum\limits_{j=1}^\infty
+\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}u_j.
+\end{align*}
+Wir wissen von die Fourierreihe jedoch nur, dass sie bezüglich $\norm{\cdot}_2$
+konvergiert, über die punktweise Konvergenz können wir noch keine Aussage
+machen.
+
+\begin{propn}[Proposition]
+Die Reihe
+\begin{align*}
+u(t,x) = \sum\limits_{j=1}^\infty
+\cos\left(\sqrt{\lambda_j}t\right)\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}u_j(x)\tag{1.5},
+\end{align*}
+konvergiert unter möglichen Zusatzvoraussetzungen punktweise für $t\ge 0$ und
+$x\in I$ und löst (1.3).\fishhere
+\end{propn}
+
+Im Folgenden wollen wir die Aussage beweisen und die Zusatzvoraussetzungen,
+die wir an das Problem stellen müssen, erarbeiten. Wir werden daher in einigen
+Fällen annehmen, dass Eigenschaften erfüllt sind, über die wir noch nichts
+aussagen können.
+
+\begin{proof}[Beweis der Propostion.]
+\begin{enumerate}[label=\arabic{*}.)]
+\item \textit{Anfangsbedinung}.
+\begin{align*}
+u(0,x) = \sum\limits_{j=1}^\infty
+1\cdot \lin{\frac{1}{c}g_0,\frac{1}{c}u_j}u_j(x) \overset{!}{=} g_0(x),
+\end{align*} 
+falls die Reihe punktweise für jedes $x\in I$ konvergiert.
+\begin{align*}
+\partial_t u(t,x)\bigg|_{t=0} \overset{!}{=} -\sum\limits_{j=1}^\infty
+\sqrt{\lambda_j}\sin\left(\sqrt{\lambda_j}t\right)\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}u_j(x)\bigg|_{t=0}
+= 0,
+\end{align*}
+falls die Reihe mit $\partial_t$ vertauscht.
+\item \textit{Randbedingungen}.
+\begin{align*}
+u(t,a) = \sum\limits_{j=1}^\infty
+\cos\left(\sqrt{\lambda_j}t\right)\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}\underbrace{u_j(a)}_{=0}
+= 0,
+\end{align*}
+da $u_j$ Lösung von (1.4) ist. $u(t,b)$ analog.
+\item \textit{Differentialgleichung}. Falls $\partial_t^2$ und $\partial_x^2$
+mit der Reihe vertauschen, gilt
+\begin{align*}
+&\partial_t^2 u(t,x) = -\sum\limits_{j=1}^\infty \lambda_j
+\cos\left(\sqrt{\lambda_j}t\right)\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}u_j(x),\\
+&\partial_x^2 u(t,x) = \sum\limits_{j=1}^\infty 
+\cos\left(\sqrt{\lambda_j}t\right)\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}u_j''(x).
+\end{align*}
+$u_j''$ erfüllt die Gleichung (1.4) und daher gilt
+\begin{align*}
+&\partial_x^2 u(t,x) = -\sum\limits_{j=1}^\infty 
+\cos\left(\sqrt{\lambda_j}t\right)\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}\frac{\lambda_j}{c^2(x)}u_j(x).
+\end{align*}
+Damit ist $\partial_t^2 u(t,x) - c(x)^2\partial_x^2u(t,x) = 0$ und $u$ löst
+(1.3).
+\item \textit{Konvergenzfragen}. Wir betrachten zunächst die Vertauschung der
+Reihe mit $\partial_t^2$. Es gilt 
+\begin{align*}
+\lambda_j\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}
+&= \lin{\frac{1}{c}g_0,\frac{\lambda_j}{c}u_j}
+= -\lin{\frac{1}{c}g_0,cu_j''}
+= -\lin{g_0,u_j''} \\ 
+&= \lin{g_0,Au_j} = -\lin{g_0'',u_j},
+\end{align*}
+falls $g_0\in D(A)$. Somit gilt,
+\begin{align*}
+&\abs{\cos\left(\sqrt{\lambda_j}t\right)\lambda_j\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}u_j(x)}
+\le 1\abs{\lin{g_0'',u_j}u_j(x)}.\\
+\Rightarrow & \sum \abs{\lin{g_0'',u_j}u_j(x)}
+= c(x)\sum
+\abs{\lin{cg_0'',\underbrace{\frac{1}{c}u_j}_{=e_j}}\underbrace{\frac{1}{c}u_j}_{=e_j}}
+\end{align*}
+% ist eine konvergente Majorante. \ref{prop:1.45} besagt nun, sie konvergiert
+% gleichmäßig. Setzte nun
+% \begin{align*}
+% \sum \lin{g_0'',u_j}u_j(x) = 
+% c(x)\sum\lin{cg_0'',\underbrace{\frac{1}{c}u_j}_{=e_j}}\underbrace{\frac{1}{c}u_j}_{=e_j},
+% \end{align*}
+ist eine Majorante, wobei $e_j$ das ONS aus Eigenfunktionen zu $K$
+ist\footnote{Siehe Beweis zu Satz von Sturm Liouville}. Mit \ref{prop:1.45} folgt, dass
+\begin{align*}
+\sum\lin{cg_0'',e_j}e_j(x)
+\end{align*} 
+gleichmäßig bezüglich $x\in I$ konvergiert, falls $cg_0''\in\im K$. Nun ist
+\begin{align*}
+\im K = \setdef{\sqrt{r}u}{u\in D(A)},
+\end{align*}
+wobei $\sqrt{r}=\frac{1}{c}$, also muss $g_0\in D(A)$
+vorausgesetzt werden. Mit dem Weierstraß-Kriterium folgt daher, dass die Reihe,
+\begin{align*}
+-\underbrace{\sum\limits_{j=1}^\infty \lambda_j
+\cos\left(\sqrt{\lambda_j}t\right)\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}u_j(x)}_{(*)},
+\end{align*}
+gleichmäßig bezüglich $x\in I$ konvergiert. Die gefundene Majorante hängt aber
+nicht mehr von $t$ ab, also konvergiert (*) auch gleichmäßig für $t\ge 0$. Wir
+haben bereits gezeigt, dass die Reihe
+\begin{align*}
+-\underbrace{\sum\limits_{j=1}^\infty
+\sqrt{\lambda_j}\sin\left(\sqrt{\lambda_j}t\right)\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}u_j(x)}_{(**)}
+\end{align*}
+für $t=0$ konvergiert. Mit dem Satz aus der Analysis folgt somit, dass man
+$\partial_t$ und (**) vertauschen kann und (**) ebenfalls gleichmäßig
+konvergiert. Nun konvergiert auch (1.5) absolut und gleichmäßig bezüglich
+$x\in I$ und $t\ge 0$, da sich (1.5) und (*) nur durch den Faktor $\lambda_j$
+unterscheiden und $\lambda_j\to\infty$, also ist (*) eine Majorante von (1.5). $\partial_t^2$
+lässt sich somit mit (1.5) vertauschen.
+\begin{align*}
+\sum\limits_{j=1}^\infty
+\cos\left(\sqrt{\lambda_j}t\right)\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}u_j''(x)
+\end{align*}
+konvergiert ebenfalls gleichmäßig (siehe (*)), da $u_j$ die
+Differentialgleichung efüllt. Setze
+\begin{align*}
+\underbrace{\sum\limits_{j=1}^\infty
+\cos\left(\sqrt{\lambda_j}t\right)\lin{\frac{1}{c}g_0,\frac{1}{c}u_j}u_j'(x)}_{(***)},
+\end{align*}
+dann konvergiert (***) aufgrund der Randbedingung für $x=a$ und $x=b$, wir
+können also wieder den Satz aus der Analysis anwenden und erhalten, dass (***)
+absolut und gleichmäßig konvergiert. Wir können somit $\partial_x^2$ und (1.5)
+vertauschen.\qedhere
+\end{enumerate}
+\end{proof}
+
+Der folgende Satz fasst die Voraussetzungen an (1.5) zusammen.
+\begin{prop}
+\label{prop:1.46}
+Seien
+\begin{align*}
+D(A):= \setdef{u\in C^2(I\to\R)}{u'(a) = u'(b)= 0},
+\end{align*}
+$g_0$ und $c^2g_0''\in D(A)$, dann besitzt (1.3) eine Lösung gegeben
+durch (1.5).\fishhere
+\end{prop}
+
+\begin{prop}[Offene Fragen]
+\label{prop:1.47}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Ist die Lösung von (1.3) eindeutig?
+  \item Wie verhält es sich mit anderen Randbedingungen?
+  \item Können die Voraussetzungen weiter abgeschwächt werden?\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Ja, man kann dies zeigen.
+  \item Für unseren Beweis war es maßgeblich, dass $u'(a) = 0$. Der Beweis
+  klappt jedoch auch für andere Randbedingungen, man muss in diesem Fall $u'$
+  durch $u$ und $u''$ interpolieren.
+  \item Ja, näheres sagt der Satz von Merces.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{bem}
+\label{bem:1.48}
+Die Funktionen $\cos\left(\sqrt{\lambda_j}t\right)u_j(x)$ sind die
+Eigenfunktionen des Systems. Die Lösungsstruktur (1.5) ist sehr allgemein und
+ergibt sich auch bei viel allgemeineren Problemen.\maphere
+\end{bem}
+
+\subsection{Sinus-Cosinus-Reihen}
+
+Sei $L:=\LL^2([-\pi,\pi])$ und
+\begin{align*}
+e_j = \begin{cases}
+\frac{1}{\sqrt{2\pi}}, & j=0,\\
+\frac{1}{\sqrt{\pi}}\cos\left(\frac{j+1}{2}x\right), & \frac{j-1}{2}\in\N,\\
+\frac{1}{\sqrt{\pi}}\sin\left(\frac{j}{2}x\right), & \frac{j}{2}\in\N.
+\end{cases}
+\end{align*}
+Die $(e_j)$ bilden ein ONS in $L$. Man kann mit Hilfe des
+Sturm-Liouville-Problems zeigen, dass dieses ONS vollständig in $L$ ist, d.h.
+\begin{align*}
+x = \sum\limits_{j=1}^\infty \lin{x,e_j}e_j,\quad \forall x\in L.
+\end{align*}
+Dies ist äquivalent dazu, dass die Parsevallsche Gleichung für jedes $x\in L$
+gilt,
+\begin{align*}
+\sum\limits_{j=1}^\infty \abs{\lin{x,e_j}}^2 = \norm{x}^2,\quad \forall x\in L.
+\end{align*}
+Die für unseren Fall übliche Notation für Fourier-Koeffizienten der
+Fourierentwicklung von $f$ ist
+\begin{align*}
+&a_j = \frac{1}{\pi}\int\limits_{-\pi}^\pi f(t)\cos(jt)\dt,\qquad j\in\N,\\
+&b_j = \frac{1}{\pi}\int\limits_{-\pi}^\pi f(t)\sin(jt)\dt,\qquad j\in\N.
+\end{align*}
+Die $n$-te Partialsumme der Fourierreihe ist gegeben durch
+\begin{align*}
+&s_n(x) := \frac{a_0}{2} + \sum\limits_{j=1}^n \left(a_j\cos(jx) + b_j\sin(jx)
+\right)\\
+&s(x) = \lim\limits_{j\to\infty} s_n(x).
+\end{align*}
+Die Vollständigkeit besagt nun, dass $\norm{s_n-f}\to0$. Im Folgenden wollen
+wir zusätzlich die punktweise Konvergenz $s_n(x)\to f(x)$ betrachten. Für
+$f\in C^2$ haben wir bereits gesehen, dass die Reihe auch punktweise
+konvergiert.
+
+\begin{bem}[Beobachtungen.]
+\label{bem:1.49}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Ist $f$ auf $\R$ definiert und $2\pi$-periodisch, so können die
+  Integrale beliebig verschoben werden,
+\begin{align*}
+a_j = \frac{1}{\pi}\int\limits_{-\pi}^\pi f(t)\cos(jt)\dt
+= \frac{1}{\pi}\int\limits_{-\pi+c}^{\pi+c} f(t)\cos(jt)\dt,\quad c\in\R.
+\end{align*}
+\item $a_j,b_j$ und damit $s$ ändern sich nicht, wenn $f$ auf einer Nullmenge
+abgeändert wird.
+\item Zur Definition von $a_j,b_j$ zu $f$ reicht $f\in
+\LL^1([-\pi,\pi])\varsupsetneq \LL^2([-\pi,\pi])$.
+\end{enumerate}
+\end{bem}
+
+\begin{lem}
+\label{prop:1.50}
+Falls $f\in C^1([-\pi,\pi]\to\C)$, dann gilt
+\begin{align*}
+&\lim\limits_{\omega\to\infty} \int\limits_{-\pi}^\pi f(t)\cos(\omega t)\dt =
+0,\tag{*}\\
+&\lim\limits_{\omega\to\infty} \int\limits_{-\pi}^\pi f(t)\sin(\omega t)\dt =
+0.\fishhere
+\end{align*} 
+\end{lem}
+\begin{proof}
+Wir zeigen die Behauptung nur für den Sinus, sie folgt für den Cosinus analog.
+\begin{align*}
+\int\limits_{-\pi}^\pi f(t)\sin(\omega t)\dt
+= -\frac{1}{\omega}\underbrace{f(t)}_{\abs{\cdot}\le C_f}\underbrace{\cos(\omega
+t)}_{\le 1} + \int\limits_{-\pi}^\pi \frac{1}{\omega}
+\underbrace{f'(t)}_{\abs{\cdot}\le C_{f'}}\underbrace{\cos(\omega t)}_{\le
+1}\dt\to 0\qedhere
+\end{align*}
+\end{proof}
+
+\begin{lem}[Lemma von Riemann]
+\label{prop:1.51}
+Falls $f\in\LL^1([-\pi,\pi])$ gilt ebenfalls (*).\fishhere
+\end{lem}
+\begin{proof}
+Sei $f\in\LL^1([-\pi,\pi])$, $\ep>0$ fest. $C^1([-\pi,\pi])$ liegt dicht in
+$\LL^1([-\pi,\pi])$, d.h.
+\begin{align*}
+\exists f_\ep\in C^1([-\pi,\pi]) : \norm{f-f_\ep} <\ep.
+\end{align*}
+Es gilt nun unabhängig für $\omega > 0$,
+\begin{align*}
+\abs{\int\limits_{-\pi}^\pi (f(t)-f_\ep(t))\sin(\omega t)\dt}
+\le \int\limits_{-\pi}^\pi \abs{f(t)-f_\ep(t)}\dt = \norm{f-f_\ep}_1 < \ep.
+\end{align*}
+Aus \ref{prop:1.50} folgt,
+\begin{align*}
+\abs{\int\limits_{-\pi}^\pi f_\ep(t)\sin(\omega t)\dt} <\ep,
+\end{align*}
+für $\omega > \omega_\ep$. Insgesamt ergibt sich,
+\begin{align*}
+\abs{\int\limits_{-\pi}^\pi f(t)\sin(\omega t)\dt}
+&= \abs{\int\limits_{-\pi}^\pi (f-f_\ep)(t)\sin(\omega t)\dt +
+\int\limits_{-\pi}^\pi f_\ep(t)\sin(\omega t)\dt} \\ &< 2\ep,
+\end{align*}
+für $\omega > \omega_\ep$.\qedhere
+\end{proof}
+
+\begin{lem}
+\label{prop:1.52}
+Für $f\in \LL^1([-\pi,\pi])$, $2\pi$-periodisch fortgesetzt gilt,
+\begin{align*}
+s_n(x)-f(x) = \int\limits_{-\pi}^\pi \left[f(x+t) -
+f(x)\right]\underbrace{\frac{\sin\left(\left(n+\frac{1}{2}\right)t\right)}
+{2\pi\sin\left(\frac{t}{2}\right)}}_{(**)},
+\end{align*}
+wobei (**) stetig ergänzbar bei $t=0$.\fishhere
+\end{lem}
+
+Für den Beweis benötigen wir noch etwas Vorbereitung.
+
+\begin{prop}[Krierium von Dini]
+\label{prop:1.53}
+Es sei $f\in\LL^1([-\pi,\pi])$, $2\pi$-periodisch fortgesetzt, $x\in[-\pi,\pi]$
+und
+\begin{align*}
+\exists \delta > 0 : \int\limits_{-\delta}^\delta \frac{f(x+t)-f(x)}{t}\dt <
+\infty.
+\end{align*}
+Dann gilt $f(x) = \lim\limits_{n\to\infty} s_n(x)$.\fishhere
+\end{prop}
+\begin{proof}
+Wegen $f\in\LL^1$ und der Integrationsbedingung gilt
+\begin{align*}
+g(t) = \frac{f(x+t)-f(x)}{t} \in \LL^1([-\pi,\pi]).
+\end{align*}
+Mit \ref{prop:1.52} folgt
+\begin{align*}
+s_n(x)-f(x) = \frac{1}{2\pi}\int\limits_{-\pi}^\pi
+g(t)\frac{t}{\sin\left(\frac{t}{2}\right)}\sin\left(\left(n+\frac{1}{2}\right)t\right)\dt
+\end{align*}
+Nun ist $g\in\LL^1$ und $\dfrac{t}{\sin\left(\frac{t}{2}\right)}$ ist stetig
+fortsetzbar, also ist auch das Produkt in $\LL^1$ und damit ist der ganze
+Integrand $\LL^1$ und das Integral verschwindet nach dem Lemma von Riemann.\qedhere
+\end{proof}
+
+\begin{proof}[Beweis von \ref{prop:1.52}.]
+\begin{align*}
+s_n(x) &= \frac{1}{2\pi}\int\limits_{-\pi}^\pi f(t)\dt\\
+&+ \frac{1}{\pi}\sum\limits_{j=1}^n \int\limits_{-\pi}^\pi
+f(t)\cos(jt)\cos(jx) + f(t)\sin(jt)\sin(jx)\dt\\
+&= \frac{1}{2\pi}\left[ 
+\int\limits_{-\pi}^\pi f(t)\dt + \sum\limits_{j=1}^n \int\limits_{-\pi}^\pi 
+f(t)\left(e^{ij(x-t)} + e^{ij(t-x)}\right)\dt\right]\\
+&= \int\limits_{-\pi}^\pi \underbrace{\frac{1}{2\pi}\sum\limits_{j=-n}^n
+e^{ij(x-t)}}_{=: D_n(x-t)}f(t)\dt
+\end{align*}
+Nun gilt für $D_n$,
+\begin{align*}
+2\pi D_n(\xi) &= \sum\limits_{j=-n}^n e^{ij\xi}
+\overset{j\mapsto j+n}{=} e^{-in\xi}\sum\limits_{j=0}^{2n} e^{ij\xi}
+= e^{-in\xi}\left(\frac{1-e^{i(2n+1)\xi}}{1-e^{i\xi}}\right)\\
+&= \underbrace{e^{-in\xi}
+\frac{e^{i(n+\frac{1}{2})\xi}}{e^{i\frac{1}{2}\xi}}}_{=1} 
+\frac{e^{-i(n+\frac{1}{2})\xi}-e^{i(n+\frac{1}{2})\xi}}{e^{-i\frac{1}{2}\xi}-e^{i\frac{1}{2}\xi}}
+= \frac{-2i\sin\left(\left(n+\frac{1}{2}\right)\xi\right)}
+{-2i\sin\left(\frac{1}{2}\xi\right)}\\
+&= \frac{\sin\left(\left(n+\frac{1}{2}\right)\xi\right)}
+{\sin\left(\frac{1}{2}\xi\right)}
+\end{align*}
+$D_n(\xi)$ nennt man den \emph{Dirichlet-Kern}. Für die Partialsumme gilt daher
+\begin{align*}
+s_n(x) = \int\limits_{-\pi}^\pi f(t)D_n(x-t)\dt.
+\end{align*}
+Für den Spezialfall $f=1$ konstant, sind alle $a_j,b_j = 0$ außer
+$\frac{a_0}{2}$, d.h.
+\begin{align*}
+s_n(x) = 1 \Rightarrow \int\limits_{-\pi}^\pi D_n(x-t)\dt = 1.
+\end{align*}
+Nun ist $D_n$ $2\pi$-periodisch, d.h. $D_n(\xi+2\pi) = D_n(\xi)$, also gilt auch
+\begin{align*}
+\int\limits_{-\pi}^\pi D_n(\xi)\dxi = 1.\tag{*}
+\end{align*}
+$f$ ist ebenfalls $2\pi$-periodisch, wir können also das Integral verschieben,
+\begin{align*}
+s_n(x) &= \int\limits_{-\pi}^\pi f(t)D_n(x-t)\dt
+= \int\limits_{-\pi+x}^{\pi+x} f(t)D_n(x-t)\dt\\
+&\overset{\xi=t-x}{=} \int\limits_{-\pi}^{\pi}
+f(\xi+x)\underbrace{D_n(-\xi)}_{=D_n(\xi)}\dxi\qedhere
+\end{align*}
+\end{proof}
+
+\begin{prop}
+\label{prop:1.54}
+Das Kriterium von Dini ist erfüllt, falls $f\in\LL^1([-\pi,\pi])$,
+$2\pi$-periodisch fortgesetzt, \emph{hölderstetig} in $x$ ist, d.h.
+\begin{align*}
+\exists\delta > 0 \exists\alpha > 0 \exists c > 0 \forall t\in[-\delta,\delta]
+: \abs{f(x-t)-f(x)} \le c\abs{t}^\alpha.
+\end{align*}
+und
+\begin{align*}
+\int\limits_{-\delta}^\delta \abs{\frac{f(x+t)-f(x)}{t}}\dt \le
+c\int\limits_{-\delta}^\delta \abs{t}^{\alpha-1}\dt =
+2c\frac{\delta^\alpha}{\alpha} <\infty.\fishhere
+\end{align*}
+\end{prop}
+
+\begin{prop}[Erweitertes Kriterium von Dini]
+\label{prop:1.55}
+Sei $f\in\LL^1([-\pi,\pi])$, $2\pi$-periodisch fortgesetzt und $x\in[-\pi,\pi]$
+eine \emph{Unstetigkeitsstelle 1. Art}, d.h.
+\begin{align*}
+&\int\limits_{0}^\delta \abs{\frac{f(x+t)-f(x+0)}{t}} \dt < \infty,\\
+&\int\limits_{-\delta}^0 \abs{\frac{f(x+t)-f(x-0)}{t}} \dt < \infty,
+\end{align*}
+so konvergiert die Fourierreihe in $x$ und es gilt,
+\begin{align*}
+\lim\limits_{n\to\infty} s_n(x) =
+\frac{1}{2}\left[f(x+0)+f(x-0)\right].\fishhere
+\end{align*}
+\end{prop}
+%TODO: Bild, Unstetigkeitsstelle
+\begin{bspn}
+\begin{align*}
+&f(x) =
+\begin{cases}
+0, & -\pi\le x <0,\\
+1, & 0\le x\le \pi,
+\end{cases}\\
+\Rightarrow &
+\lim\limits_{n\to\infty} s_n(x)
+=
+\begin{cases}
+\frac{1}{2}, & x = -\pi,0,\pi,\\
+0, & -\pi< x <0,\\
+1, & 0< x< \pi.\bsphere 
+\end{cases}
+\end{align*}
+\end{bspn}
+\begin{proof}
+Der Dirichletkern ist symmetrisch, $D(\xi) = D(-\xi)$ und es gilt,
+\begin{align*}
+\int\limits_{-\pi}^\pi D_n(\xi)\dxi = 1\Rightarrow \int\limits_{0}^\pi =
+\frac{1}{2} = \int\limits_{-\pi}^0 =\frac{1}{2}.
+\end{align*}
+Wir können somit schreiben,
+\begin{align*}
+\frac{1}{2}\left[f(x+0)+f(x-0)\right] = \int\limits_0^\pi f(x+0)D_n(\xi)\dxi
+ + \int\limits_{-\pi}^0 f(x-0)D_n(\xi)\dxi.
+ \end{align*}
+Satz \ref{prop:1.52} besagt nun,
+\begin{align*}
+&s_n(x) = \int\limits_{-\pi}^\pi f(x+t)D_n(t)\dt,
+\end{align*}
+es folgt somit,
+\begin{align*}
+&s_n(x) - \frac{1}{2}\left[f(x+0)+f(x-0)\right]\\
+&= \int\limits_0^\pi \left[f(x+t) - f(x+0)\right]D_n(t)\dt
++ \int\limits_{-\pi}^0 \left[f(x+t) - f(x-0)\right]D_n(t)\dt\\
+&\overset{\ref{prop:1.53}}{\to} 0 \text{ für } n\to\infty.\qedhere
+\end{align*}
+\end{proof}
+
+\begin{prop}[Lipschitzkriterium]
+\label{prop:1.56}
+Sei $f\in C(\R\to\R)$, $2\pi$-periodisch fortgesetzt und
+\begin{align*}
+\exists \alpha > 0, c > 0 : \forall x,x'\in\R : \abs{f(x)-f(x')} \le
+c\abs{x-x'}^\alpha.
+\end{align*}
+Dann konvergiert $(s_n)$ auf $\R$ gleichmäßig gegen $f$.\fishhere
+\end{prop}
+\begin{proof}
+Sei $x\in[-\pi,\pi]$, und $\ep > 0$.
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Aus \ref{prop:1.52} folgt
+\begin{align*}
+\int\limits_{-\delta}^\delta
+&\abs{f(x+t)-f(x)}\abs{\frac{\sin\left(\left(n+\frac{1}{2}\right)t
+\right)}{2\pi\sin\frac{t}{2}}}\dt\le \frac{c}{2\pi} \int\limits_{-\delta}^\delta
+\abs{t}^{\alpha-1} \frac{\abs{t}}{\abs{\sin\frac{t}{2}}} \dt.
+\end{align*}
+$\dfrac{\abs{t}}{\abs{\sin\frac{t}{2}}}$ kann stetig in Null fortgesetzt werden
+und hat daher ein Maximum $d$ auf $[-\delta,\delta]$. Es gilt
+\begin{align*}
+\le \frac{cd}{2\pi}\int\limits_{-\delta}^\delta \abs{t}^{\alpha-1}\dt =
+\frac{2cd}{2\pi}\frac{\delta^\alpha}{\alpha}.
+\end{align*}
+Und daher ist
+\begin{align*}
+\int\limits_{-\delta}^\delta \abs{f(x+t)-f(x)}\abs{D_n(t)}\dt < \ep,
+\end{align*}
+für $0<\delta<\delta_\ep$.
+\item Wähle nun $\delta\in(0,\delta_\ep)$ fest. $f$ ist stetig auf
+$[-\delta,\delta]$, das Intervall ist kompakt, also ist $f$ dort gleichmäßig
+stetig, die $2\pi$-periodische Fortsetzung ist somit gleichmäßig stetig auf
+ganz $\R$. Wähle nun eine Zerlegung des Intervalls,
+\begin{align*}
+-\pi = \tau_0 < \tau_1 < \ldots < \tau_m = -\delta < \delta < \tau_{m+1} <
+\ldots < \tau_{2m+1} = \pi,
+\end{align*}
+so dass
+\begin{align*}
+\abs{f(x+\tau_j)- f(x+t)} < \ep,
+\end{align*}
+für $\tau_j \le t \le \tau_{j+1}$, $j\neq m$.
+% Definiere die Treppenfunktion,
+% \begin{align*}
+% g(t) = f(x-\tau_j),\quad\text{für } \tau_j \le t\le  
+% \end{align*}
+Dann gilt
+\begin{align*}
+&\sum\limits_{j=1}^{m-1} \int\limits_{\tau_j}^{\tau_{j+1}}
+\abs{f(x+\tau_j)-f(x+t)}\abs{D_n(t)}\dt\\
+ +& \sum\limits_{j=m}^{2m+1}
+\int\limits_{\tau_j}^{\tau_{j+1}} \abs{f(x+\tau_j)-f(x+t)}\abs{D_n(t)}\dt\\
+ \le&\ep \frac{1}{\abs{\sin\frac{\delta}{2}}}
+\end{align*}
+\item Definiere für festes $x$ die Treppenfunktion
+\begin{align*}
+g_x(t) = f(x+\tau_j),\quad\text{für } \tau_j \le t < \tau_{j+1}.
+\end{align*}
+Dann erhalten wir,
+\begin{align*}
+&\abs{\int\limits_{[-\pi,-\delta]}^{[\delta,\pi]} \left(g_x(t) - f(x)\right)
+D_n(t)\dt}\\
+&= \bigg|\sum\limits_{j=1}^{m-1}\int\limits_{\tau_j}^{\tau_{j+1}}
+\left(f(x+\tau_j)-f(x)\right)D_n(t) + 
+\sum\limits_{j=m}^{2m-1}\int\limits_{\tau_j}^{\tau_{j+1}}
+\ldots
+\bigg|\\
+&\le 2\max\limits_{\R} \abs{f}
+\left[
+\sum\limits_{j=1}^{m-1} \abs{\int\limits_{\tau_j}^{\tau_{j+1}} D_n(t)\dt}
++
+\sum\limits_{j=m}^{2m-1}\abs{\int\limits_{\tau_j}^{\tau_{j+1}} D_n(t)\dt}
+\right]\tag{*}
+\end{align*}
+ %= \abs{\sum\limits_{j=1}^{m-1}\int\limits_{\tau_j}^{\tau_{j+1}}
+%\ldots + \sum\limits_{j=m}^{2m-1}\int\limits_{\tau_j}^{\tau_{j+1}} \ldots}\\
+Der Dirichletkern ist unabhängig von $x$ und es gilt,
+\begin{align*}
+\int\limits_{\tau_j}^{\tau_{j+1}} D_n(t)\dt =
+\int\limits_{\tau_j}^{\tau_{j+1}}
+\underbrace{\frac{1}{2\pi\sin\frac{t}{2}}}_{\in\C^\infty}
+\sin\left(\left(n+\frac{1}{2}\right)t\right) \dt \to 0
+\end{align*}
+nach dem Lemma von Riemann. Damit ist $\abs{*} < \ep$ für $n > N_\ep$ und
+\begin{align*}
+\abs{s_n(x)-f(x)} <\ep,
+\end{align*}
+für $n > N_\ep$ und unabhängig von $x$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{bem}
+\label{bem:1.57}
+Wenn $f\in C^1(\R^\to\R)$ und $2\pi$-periodisch, dann gilt
+\begin{align*}
+\abs{f(x)-f(x')} \overset{\text{MWS}}{\le} \abs{f'(xi)}\abs{x-x'} \le
+\max\limits_\R \abs{f'}\abs{x-x'},
+\end{align*}
+und damit ist die Lipschitz-Bedingung erfüllt.\maphere
+\end{bem}
+
+\begin{prop}[Komplexe Darstellung]
+\label{prop:1.58}
+\begin{align*}
+&s_n(x) = \sum\limits_{j=-n}^n \lin{f,e_j}e_j(x),
+\end{align*}
+mit
+\begin{align*}
+&e_{j}(x) = \frac{1}{\sqrt{2\pi}}e^{ijx}.
+\end{align*}
+Die $(e_j)$ bilden ein vollständiges ONS von $\LL^2([-\pi,\pi])$.\fishhere
+\end{prop}
+\begin{proof}
+
+Aus dem Beweis von \ref{prop:1.52} wissen wir,
+\begin{align*}
+s_n(x) = \int\limits_{-\pi}^\pi \frac{1}{2\pi}\sum\limits_{j=-n}^n
+e^{ij(x-t)}f(t)\dt
+= \sum\limits_{j=-n}^n \int\limits_{-\pi}^\pi \frac{e^{-ijt}}{\sqrt{2\pi}}
+f(t) \frac{e^{ijx}}{\sqrt{2\pi}}\dt.
+\end{align*}
+Anders angeschaut erhalten wir so
+\begin{align*}
+&e_{j}(x) = \frac{1}{\sqrt{2\pi}}e^{ijx},\\
+&s_n(x) = \sum\limits_{j=-n}^n \lin{f,e_j}e_j(x).
+\end{align*}
+$(e_j)$ ist ein ONS in $\LL^2([-\pi,\pi])$, denn
+\begin{align*}
+\lin{e_j,e_k} = \frac{1}{2\pi}\int\limits_{-\pi}^\pi e^{i(j-k)x} = 
+\begin{cases}
+1, & j=k,\\
+\frac{1}{2\pi}\frac{e^{(j-k)x}}{i(j-k)}\bigg|_{x=-\pi}^\pi = 0, & j\neq k.
+\end{cases}
+\end{align*}
+
+$C_0^1((-\pi,\pi)\to\C)$ liegt dicht in $\LL^2([-\pi,\pi])$, wähle nun zu
+$f\in\LL^2$ ein $\tilde{f}\in C_0^1$ mit $\norm{f-\tilde{f}}_2<\ep$. Setzt man
+$\tilde{f}$ $2\pi$-periodisch fort, erhält man $f\in C^1(\R\to\C)$. Sei
+$\tilde{s}_n$ die Fouriersumme zu $\tilde{f}$, dann gilt,
+\begin{align*}
+\abs{\tilde{s}_n - \tilde{f}} < \frac{\ep}{2\pi}, 
+\end{align*}
+für $N>N_\ep$ und daher ist,
+\begin{align*}
+\norm{\tilde{s}_n - \tilde{f}}^2 = \int\limits_{[-\pi,\pi]} \abs{\tilde{s}_n(x)
+-\tilde{f}(x)}\dx \le \ep^2.
+\end{align*}
+Damit gilt,
+\begin{align*}
+\norm{f-s_n} \le \underbrace{\norm{f-\tilde{f}}}_{<\ep} +
+\underbrace{\norm{\tilde{f}-\tilde{s}_n}}_{\le \ep, n>N_\ep} +
+\norm{\tilde{s}_n - s_n}.
+\end{align*}
+Der letzte Summand ist die Fouriersumme von $\tilde{f}-f$, da die Fouriersumme
+linear in $f$ ist. Die Besselungleichung besagt nun, dass
+\begin{align*}
+\norm{\tilde{s}_n - s_n} \le \norm{\tilde{f}-f} < \ep,
+\end{align*}
+somit ist
+\begin{align*}
+\norm{f-f_n} < 3\ep,\quad\text{für } n> N_\ep.
+\end{align*}
+Also ist das ONS $(e_j)$ vollständig.\qedhere
+\end{proof}
+Wir haben also drei Konvergenzmöglichkeiten.
+\begin{enumerate}
+  \item Ist $f\in\LL^2$, so konvergiert $s_n\to f$ bezüglich $\norm{\cdot}_2$.
+  \item Erfüllt $f$ das Dinikriterium in $x$, so konvergiert
+  $s_n(x)\to f(x)$ punktweise.
+  \item Erfüllt $f$ das Lipschitzkriterium, so konvergiert $s_n\unito f$ glm.
+  bezüglich $x$.
+\end{enumerate}
+
+\begin{prop}[Andere Intervalle]
+\label{prop:1.59}
+Sei $f$ $2\pi$-periodisch und erfülle das Lipschitzkriterium, so ist auch
+\begin{align*}
+g(x) = f\left(\frac{Lx}{\pi}\right)
+\end{align*}
+$2\pi$-periodisch und erfüllt ebenfalls das Lipschitzkriterium.\fishhere
+\end{prop}
+\begin{proof}
+Sei $s_n$ die Fouriersumme von $g$,
+\begin{align*}
+f\left(\frac{Lx}{\pi}\right) := g(x) = \lim\limits_{n\to\infty} s_n(x) = 
+\lim\limits_{n\to\infty} \sum\limits_{j=-n}^n \frac{1}{2\pi}
+\int\limits_{-\pi}^\pi e^{-ijt}f\left(\frac{Lt}{\pi}\right)e^{ijx}\dt.
+\end{align*}
+Substituiere $s = \frac{Lt}{\pi}$, so ist $\dt = \frac{\pi}{L}\ds$,
+\begin{align*}
+f\left(\frac{Lx}{\pi}\right) = \lim\limits_{n\to\infty} \sum\limits_{j=-n}^n
+\frac{1}{2L}\int\limits_{-L}^L
+e^{-ij\frac{\pi s}{L}}f(s)e^{ijx}\ds.
+\end{align*}
+Setzen wir nun $y = \frac{Lx}{\pi}$,
+\begin{align*}
+f(y) = \lim\limits_{n\to\infty} \sum\limits_{j=-n}^n
+\frac{1}{2L}\int\limits_{-L}^L
+e^{-ij\frac{\pi s}{L}}f(s)\ds e^{ij\frac{\pi y}{L}}.
+\end{align*}
+Es gelten nun dieselben Sätze mit $f_j(y) := e^{ij\frac{\pi}{L}y}$ anstelle von
+$e_j$. $(f_j)$ ist ein VONS in $\LL^2([-L,L])$.\qedhere
+\end{proof}
+
+\begin{bsp}
+\label{bsp:1.60}
+Löse die Differentialgleichung,
+\begin{align*}
+ay''(x) + by'(x) + y(x) = f(x),\quad -L\le x\le L,
+\end{align*}
+mit
+\begin{align*}
+y(-L) = y(L),\quad y'(-L) = y'(L),\quad a,b\in\R.
+\end{align*}
+Entwickle $f,y,y'$ und $y''$ und rechne formal, d.h. man geht davon aus, dass
+die Objekte die Voraussetzungen für alle verwendeten Operationen erfüllen und prüft erst
+abschließend welche Bedingungen gestellt werden müssen.
+\begin{align*}
+&f(x) = \sum\limits_{j=-\infty}^\infty \lin{f,f_j} f_j(x),\\
+&y(x) = \sum\limits_{j=-\infty}^\infty \lin{y,f_j} f_j(x),\\
+&y'(x) = \sum\limits_{j=-\infty}^\infty \lin{y,f_j} f_j'(x) =
+\sum\limits_{j=-\infty}^\infty \lin{y,f_j} \frac{ij\pi}{L}f_j(x),\\
+&y'(x) = \sum\limits_{j=-\infty}^\infty \lin{y,f_j} f_j''(x) =
+\sum\limits_{j=-\infty}^\infty \lin{y,f_j} \frac{i^2j^2\pi^2}{L^2}f_j(x).
+\end{align*}
+Wir gehen hier davon aus, dass Ableitung und Reihe vertauschbar sind. Setze
+nun die Entwicklung in die Differentialgleichung ein,
+\begin{align*}
+\sum\limits_{j=-\infty}^\infty \left(-\frac{j^2\pi^2}{L^2}a +
+\frac{ij\pi}{L}b + 1\right)\lin{y,f_j} = \sum\limits_{j=-\infty}^\infty
+\lin{f,f_j}f_j(x).
+\end{align*}
+Wir wissen bereits, dass wenn die Fourierreihen in jedem $x$ übereinstimmen,
+die Koeffizienten gleich sind. Es gilt daher,
+\begin{align*}
+&\lin{y,f_j} = \underbrace{\frac{1}{-a\frac{j^2\pi^2}{L^2} +
+b\frac{ij\pi}{L}+1}}_{:=\alpha_j}\lin{f,f_j},\\
+\Rightarrow & y(x) = \sum\limits_{-\infty}^\infty \alpha_j \lin{f,f_j}f_j(x).
+\end{align*}
+Wir wollen nun die Voraussetzungen an $f$ erarbeiten. Sei $f\in\C^1(\R\to\R)$
+$2\pi$-periodisch, dann konvergiert die Fouriersumme von $f$ gleichmäßig. Durch
+partielle Integration erhält man, $\lin{f,f_j} \le \frac{c}{j}$. Die Reihe
+\begin{align*}
+y(x) = \sum\limits_{j=-\infty}^\infty \alpha_j \lin{f,f_j} f_j(x),
+\end{align*}
+konvergiert gleichmäßig, denn 
+\begin{align*}
+\abs{\alpha_j \lin{f,f_j}f_j(x)} \le \frac{c}{j^3},
+\end{align*}
+Weierstrass Kriterium. Die Reihe
+\begin{align*}
+y'(x) = \sum\limits_{j=-\infty}^\infty \frac{ij\pi}{L}\alpha_j \lin{f,f_j}
+f_j(x),
+\end{align*}
+konvergiert gleichmäßig, denn 
+\begin{align*}
+\abs{\frac{ij\pi}{L}\alpha_j \lin{f,f_j}f_j(x)} \le \frac{c}{j^2}.
+\end{align*}
+Nun ist
+\begin{align*}
+y'' = \frac{1}{a}\left(f - by' - y\right)
+\end{align*}
+und die rechte Seite konvergiert gleichmäßig, also konvergiert auch $y''$
+gleichmäßig.
+
+Somit sind alle Voraussetzungen zur Vertauschung von Ableitung und Reihe
+erfüllt und $y\in C^2$ erfüllt die Differentialgleichung.
+\begin{align*}
+y(x) = \int\limits_{-L}^L \underbrace{\left(\sum\limits_{j=-\infty}^\infty
+\alpha_j e^{ij(x-t)} \right)}_{:=G(x,t)}f(t)\dt.
+\end{align*}
+$G(x,t)$ ist die Greensche Funktion zum Operator,
+\begin{align*}
+Lu := au'' + bu' + u.
+\end{align*}
+Die Greensche Funktion ist im Komplexen nicht mehr symmetrisch sondern
+hermitesch.\bsphere
+\end{bsp}
+

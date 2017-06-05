@@ -1,0 +1,1260 @@
+\section{Distributionen}
+
+Betrachte die Funktion
+\begin{align*}
+&f: \R^3\setminus\setd{0} \to \R,\; x\mapsto \frac{1}{\abs{x}},\\
+&\nabla f = -\frac{x}{\abs{x}^3}\\
+&\Delta f = 0.
+\end{align*}
+Aus der Physik wissen wir jedoch, dass
+\begin{align*}
+-\Delta \frac{1}{\abs{x}} = 4\pi \delta_0,
+\end{align*}
+die \emph{Dirac-Delta-Funktion} ist, d.h.
+\begin{align*}
+\int_{\R^3}\delta_0(x)\ph(x)\dx = \ph(0).
+\end{align*}
+Die Delta-Funktion weißt also jeder stetigen Funktion eine Zahl zu.
+
+Im Folgenden wollen wir das Notwendige erarbeiten, um die Funktion zu
+beschreiben.
+\begin{bemn}[Arbeitsgebiet.]
+Erweitere den Raum $C^1(\R^n\to\C)$ zu einem linearen topologischen Raum
+$D'(\R^n)$ mit dem Ziel,
+\begin{enumerate}[label=(\roman{*})]
+  \item $D_j : C^1(\R^n\to\C) \to C^0(\R^n\to\C),\; \ph\mapsto \partial_{x_j}
+  \ph$ ist eine stetige Abbildung,
+  \item Setze $D_j$ auf $D'(\R^n)$ fort.
+  \item Zeige $f: x\mapsto \frac{1}{\abs{x}}$ und $\delta_0\in D'(\R^n)$, sowie
+\begin{align*}
+-\Delta f = 4\pi \delta_0.
+\end{align*}
+\end{enumerate}
+\end{bemn}
+
+\subsection{Konstruktion des Raums}
+
+\begin{defn}[Notation]
+\label{defn:3.1}
+Der Träger einer Funktion $\ph$ ist definiert als,
+\begin{align*}
+\supp\ph = \overline{\setdef{x}{\ph(x)\neq 0}}.
+\end{align*}
+Der Raum der $C^\infty$-Funktionen mit kompaktem Träger ist
+\begin{align*}
+C_0^\infty(\R^n) := \setdef{\ph\in C^\infty(\R^n\to\C)}{\supp \ph \text{ ist
+kompakt}}.
+\end{align*}
+Für die Ableitung schreiben wir,
+\begin{align*}
+\nabla^\alpha \ph :=
+\frac{\partial^{\abs{\alpha}}}{\partial_{x_1}^{\alpha_1}\cdots
+\partial_{x_n}^{\alpha_n}}.\fishhere
+\end{align*}
+\end{defn}
+
+\begin{defn}
+\label{defn:3.2}
+Seien $\ph_j,\ph\in C_0^\infty(\R^n)$. Dann heißt $(\ph_j)$
+\emph{$D$-konvergent} gegen $\ph$, falls gilt
+\begin{enumerate}[label=(\roman{*})]
+  \item $\exists K\subseteq \R^n$ kompakt, so dass $\forall j\in\N_0$ gilt
+  $\supp \ph_j \subseteq K$,
+  \item $\forall \alpha\in\N_0^n$ gilt $\nabla^\alpha \ph_j(x) \to \nabla^\alpha
+  \ph(x)$ gleichmäßig bezüglich $x\in\R^n$.
+\end{enumerate}
+Schreibe $\ph_j \Dto \ph$. Der lineare Raum
+$C_0^\infty(\R^n)$ versehen mit diesen Konvergenzeigenschaften heißt \emph{Raum
+der Testfunktionen} $D(\R^n)$.\fishhere
+\end{defn}
+
+\begin{prop}
+\label{prop:3.3}
+$D(\R^n)$ ist vollständig.\fishhere
+\end{prop}
+\begin{proof}
+Sei $(\ph_j)$ Cauchyfolge in $D(\R^n)$, d.h.
+\begin{enumerate}[label=(\roman{*})]
+  \item $\exists K\subseteq \R^n$ kompakt, so dass $\forall j\in\N_0$ gilt
+  $\supp \ph_j \subseteq K$,
+  \item $\forall \ep > 0 \forall \alpha\in\N_0^n\exists J_\ep \in\N \forall j,k
+  > J_\ep\forall x\in\R^n$.
+\begin{align*}
+\abs{\nabla^\alpha \ph_j(x) - \nabla^\alpha \ph_k(x)} <\ep.
+\end{align*}
+\end{enumerate}
+D.h. $(\nabla^\alpha \ph_j(x))$ ist Cauchy in $\C$, also existiert
+\begin{align*}
+\psi_\alpha(x) = \lim\limits_{j\to\infty} \nabla^\alpha \ph_j(x) \in \C.
+\end{align*}
+Da $\nabla^\alpha \ph_j$ stetig und die Konvergenz bezüglich $x$ gleichmäßig
+ist, its $\psi_\alpha$ stetig, mehr noch, alle Ableitungen konvergieren
+gleichmäßig, d.h. $\nabla^\alpha \psi_0 = \psi_\alpha$.
+
+Für alle $j\in\N$ ist $\supp\ph_j\subseteq K$ und daher ist auch
+$\supp\psi_\alpha\subseteq K$. Somit folgt $\ph_j \Dto \psi_0$.\qedhere
+\end{proof}
+
+$D$ ist ein Beispiel für einen vollständigen aber nicht metrisierbaren Raum.
+
+\begin{defn}
+\label{defn:3.4}
+Eine \emph{Schwartzsche Distribution} ist eine lineare stetige Abbildung
+\begin{align*}
+T: D(\R^n)\to \C,
+\end{align*}
+d.h.
+\begin{align*}
+&T(\alpha \ph + \beta \psi) = \alpha T(\ph) + \beta T(\psi),\\
+&\ph_j \Dto \ph \Rightarrow T(\ph_j) \to T(\ph).
+\end{align*}
+Durch $(T+S)(\ph) = T(\ph) + S(\ph)$ und $(\alpha T)(\ph) = \alpha (T(\ph))$
+wird
+\begin{align*}
+\setdef{T: D(\R^n)\to \C}{T\text{ ist linear und stetig}}
+\end{align*}
+zu einem linearen Raum $D'(\R^n)$ mit dem Konvergenzbegriff
+\begin{align*}
+T_n\to T \Leftrightarrow \forall \ph\in C_0^\infty(\R^n) : T_n(\ph) \to
+T(\ph).\fishhere
+\end{align*}
+\end{defn}
+
+\begin{bsp}
+\label{bsp:3.5}
+\begin{enumerate}[label=\alph{*})]
+  \item Diracsche $\delta$-Distribution $\delta_{x_0}$ mit $x_0\in\R^n$ fest,
+\begin{align*}
+\delta_{x_0}\ph = \ph(x_0).
+\end{align*}
+Sie ist offenbar linear, denn
+\begin{align*}
+\delta_{x_0}(\alpha\ph + \beta\psi) = \alpha\ph(x_0) + \beta\psi(x_0) = \alpha
+\delta_{x_0}(\ph) + \beta \delta_{x_0}(\psi),
+\end{align*}
+und stetig denn sei $(\ph_j)$ Folge in $D$ mit $\ph_j \Dto \ph$, so gilt
+\begin{align*}
+\delta_{x_0}(\ph_j) = \ph_j(x_0) \to \ph(x_0) = \delta_{x_0}(\ph).
+\end{align*}
+\item Betrachte den Raum der lokalen $\LL^1$-Funktionen,
+\begin{align*}
+\LL^1_\loc(\R^n) = \setdef{u\in \R^n \to \C \text{ messbar}}{\forall
+K\subseteq \R^n\text{ kompakt} : u\in\LL^1(K)}.
+\end{align*}
+Beachte, dass $u\in\LL^p(K)\Rightarrow u\in\LL^1(K)$.
+
+Zu $u\in \LL^1_{\text{loc}}$ setze
+\begin{align*}
+T_u(\ph) := \int_{\R^n} u\ph\dmu.
+\end{align*}
+Die Linearität der Abbildung folgt direkt aus der Linearität des Integrals, zur
+Stetigkeit betrachte eine Folge $(\ph_j)$ in $D$ mit $\ph_j \Dto \ph$ und
+\begin{align*}
+\abs{T_u(\ph_j)-T_u(\ph)} &\le \int_{\R^n} \abs{u}\abs{\ph_j - \ph}\dmu = 
+\int_K \abs{u}\abs{\ph_j-\ph}\dmu \\ &\le
+\underbrace{\norm{\ph_j - \ph}_\infty}_{\to 0} \underbrace{\int_K
+\abs{u}\dmu}_{< \infty} \to 0.\bsphere
+\end{align*}
+\end{enumerate}
+\end{bsp}
+
+\begin{prop}
+\label{prop:3.6}
+$D'(\R^n)$ ist vollständig.\fishhere
+\end{prop}
+\begin{proof}
+Siehe Walter.\qedhere
+\end{proof}
+
+\subsection{Einbettung der klassischen Funktionen}
+
+\begin{prop}
+\label{prop:3.7}
+Die Abbildung $\LL_\loc^1(\R^n)\ni u\mapsto T_u\in D'(\R^n)$ ist linear,
+injektiv und stetig.\fishhere
+\end{prop}
+\begin{proof}
+\textit{Linearität}.
+\begin{align*}
+T_{\alpha u + \beta v}(\ph)  &= \int_{\R^n} \left(\alpha u + \beta v\right)\ph
+\dmu = \alpha\int_{\R^n} u\ph \dmu + \beta\int_{\R^n} v\ph\dmu \\ &= \alpha
+T_u(\ph) + \beta T_v(\ph).
+\end{align*}
+\textit{Injektivität}. Zeige $T_u = T_v \Leftrightarrow u=v$.
+
+``$\Leftarrow$'': Offensichtlich.
+
+``$\Rightarrow$'': Sei $T_u = T_v$, so ist dies aufgrund der Linearität 
+äquivalent mit $T_{u-v} = 0$. Wir müssen also lediglich zeigen, dass der Kern
+der Abbildung trivial ist.
+
+Sei $T_w(\ph) = 0$, für alle $\ph\in C_0^\infty$.
+
+\begin{enumerate}[label=\arabic{*})]
+  \item \textit{Abschneiden}. Sei $\psi_R\in C_0^\infty(\R^n)$ mit $\psi(x) =
+  1$ für $\abs{x}\le R$, dann ist
+  \begin{align*}
+  \forall \ph\in C_0^\infty 0 = T_w(\psi_R \ph) = T_{\psi_R w}(\ph),
+  \end{align*}
+und $\psi_R w\in \LL^1(\R^n)$.
+\item \textit{Approximieren}. Für festes $x\in\R^n$ ist $j_\ep(x-\cdot)\in
+C_0^\infty(\R^n)$
+\begin{align*}
+\Rightarrow &0 = T_{\psi_R w}(j_\ep)(x-\cdot) = \int\limits_{\R^n}
+\psi_R(y)w(y)j_\ep(x-y)\dy \\ &= (j_\ep*(\psi_Rw))(x).
+\end{align*}
+Da $\psi_r w\in \LL^1$ folgt mit \ref{prop:2.22},
+\begin{align*}
+&\norm{\psi_Rw - j_\ep(\psi_Rw)}_1 \to 0,\quad \text{für }\ep\downarrow 0,\\
+\Rightarrow &\psi_R w = 0,\mufu\\
+\Rightarrow &w = 0 \mufu\text{ in }\setdef{x}{\abs{x}<}R.
+\end{align*}
+\item \textit{Zusammenfassen}.
+\begin{align*}
+\mu\setdef{x\in\R^n}{w(x)\neq 0} &= \mu\left(\bigcup\limits_{j\in\N}
+\setdef{x\in\R^n}{\abs{x}\le j\land w(x)\neq 0}\right)
+\\ &\le \sum\limits_{j=1}^\infty \mu\setdef{x\in\R^n}{\abs{x}\le j\land w(x)\neq
+0} = 0.\qedhere
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{defn}
+\label{defn:3.8}
+Identifiziere $u$ und $Tu$, dadurch ist $\LL_\loc^1\subseteq D'(\R^n)$.
+$T\in D'(\R^n)$ heißt \emph{regulär}, falls $\exists u\in \LL_\loc^1(\R^n) : T
+= T_u$, sonst \emph{singulär}. Falls $T=T_u$ schreibe auch $T_u(\ph) =: (u,\ph)
+=: (T_u,\ph)$.
+\fishhere
+\end{defn}
+
+\begin{bsp}
+\label{bsp:3.9}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $\delta_{x_0}(\ph) = \ph(x_0)$ ist eine singuläre Distribution.
+  \item Sei $S\subseteq \R^n$ eine $k$-dimensionale Mannigfaltigkeit $k\le
+  n-1$, so ist
+  \begin{align*}
+  T\ph := \int_S \ph\dV^{(k)}      
+  \end{align*}
+eine singuläre Distribution.
+\item Sei $n=1$ und
+\begin{align*}
+T\ph := \lim\limits_{\ep\downarrow 0} \left( \int\limits_{-\infty}^\ep
+\frac{\ph(x)}{x}\dx + \int\limits_{\ep}^\infty \frac{\ph(x)}{x}\dx \right)
+= \mathrm{CH}\left(\int\limits_{-\infty}^\infty \frac{\ph(x)}{x} \right), 
+\end{align*}
+der Cauchysche Hauptwert. So ist $T$ eine singuläre Distribution.\bsphere
+\end{enumerate}
+\end{bsp}
+
+\begin{prop}
+\label{prop:3.10}
+$C_0^\infty(\R^n)$ ist dicht in $D'(\R^n)$.\fishhere
+\end{prop}
+\begin{proof}
+Sei $T\in D'(\R^n)$ und $\psi_k\in C_0^\infty$ eine Abschneidefunktion mit
+\begin{align*}
+\psi_k(x) =
+\begin{cases}
+1, & \abs{x}\le k,\\
+0, & \abs{x}\ge k+1,\\
+\in[0,1], &\text{sonst}.
+\end{cases}
+\end{align*}
+Setze nun
+\begin{align*}
+t_k(x) := \psi_k(x) T\left(j_{1/k}(x-\cdot) \right) =
+T\left(\psi_k(x)j_{1/k}(x-\cdot) \right).
+\end{align*}
+Dann gilt
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $t_k\in C_0^\infty(\R^n)$.
+  \item $t_k\to T$ in $D'(\R^n)$, d.h. $\forall\ph\in C_0^\infty$ gilt
+\begin{align*}
+T_{t_k}\ph \to T\ph.
+\end{align*}
+\begin{enumerate}[label=\alph{*})]
+  \item $\supp t_k \subseteq \supp \psi_k \subseteq K_{k+1}(0)$, also hat $t_k$
+  kompakten Träger. Zur Differenzierbarkeit von $t_k$ betrachte
+  \begin{align*}
+  &\frac{T\left(j_{1/k}(x + he_j-\cdot)
+  \right)-T\left(j_{1/k}(x-\cdot) \right)}{h} \\ 
+  &\quad = T\left(\frac{j_{1/k}(x +
+  he_j-\cdot)-j_{1/k}(x-\cdot) }{h}\right)\\
+  &\quad
+  \overset{\text{z.Z.}}{\longrightarrow} T\left(\partial_{x_j}
+  j_{1/k}(x-\cdot)\right).
+  \end{align*} 
+Da $T$ stetig ist, genügt es zu zeigen,
+\begin{align*}
+\frac{j_{1/k}(x + he_j-\cdot)-j_{1/k}(x-\cdot)
+  }{h} \longrightarrow \partial_{x_j}
+  j_{1/k}(x-\cdot). 
+\end{align*}
+Dann folgt
+\begin{align*}
+\nabla^\alpha t_k(x) = T\left(\nabla^\alpha j_{1/k}(x-\cdot) \right),
+\end{align*}
+insbesondere ist $t_k\in C_0^\infty(\R^n)$.
+\item Zur Konvergenz von $T_{t_k}$ betrachte
+\begin{align*}
+T_{t_k}(\ph) &= \int_{\R^n} t_k(x)\ph(x)\dx\\
+&= \int_{\R^n}
+T\left(j_{1/k}(x-\cdot)\right)\psi_k(x)\ph(x)
+\dx\\
+&= \int_{\R^n}T\left(j_{1/k}(x-\cdot)\right)\ph(x)
+\dx,\qquad \text{für $k$ groß}.
+\end{align*}
+interpretiere dies als Riemannsumme und verwende die Stetigkeit von $T$,
+\begin{align*}
+=T\left(\underbrace{\int_{\R^n} j_{1/k}(x-\cdot)\ph(x)
+\dx}_{\Dto \ph(\cdot)}\right) \to T(\ph).\qedhere
+\end{align*}
+\end{enumerate}
+\end{enumerate}
+\end{proof}
+
+\subsection{Differentiation}
+
+\begin{lem}
+\label{prop:3.11}
+Für $u\in C_0^\infty(\R^n)$ und $\alpha\in\N_0^n$ gilt
+\begin{align*}
+T_{\nabla^\alpha u}(\ph) = (-1)^\alpha T_u(\nabla^\alpha \ph).\fishhere
+\end{align*}
+\end{lem}
+\begin{proof}
+Sei $\alpha=e_j$,
+\begin{align*}
+T_{\partial_{x_j} u}(\ph) = \int\limits_{\R^n} (\partial_{x_j} u)\ph\dx
+\end{align*}
+nun ist $\supp\ph\subseteq [-R,R]^n$, es gilt also
+\begin{align*}
+&= \int\limits_{[-R,R]^{n-1}}\int\limits_{[-R,R]} (\partial_{x_j} u)\ph
+\dx_{j}\dx_{j+1}\cdots\dx_{n}\\
+&= \int\limits_{[-R,R]^{n-1}}\left[\underbrace{u\ph\bigg|_{-R}^R}_{=0}
+-\int\limits_{-R}^R u\partial_{x_j} \ph\dx_j\right]\dx_{j+1}\cdots\dx_{n}\\
+&= -T_u(\partial_{x_j}\ph ).\qedhere
+\end{align*}
+\end{proof}
+
+\begin{prop}
+\label{prop:3.12}
+Die Abbildung
+\begin{align*}
+\nabla^\alpha : C_0^\infty(\R^n)\to C_0^\infty(\R^n)
+\end{align*}
+ist stetig bezüglich der Topologie auf $D'(\R^n)$.\fishhere
+\end{prop}
+\begin{proof}
+Zu zeigen ist,
+\begin{align*}
+u_j\Dto u \Rightarrow \nabla^\alpha u_j \to \nabla^\alpha u.
+\end{align*}
+Sei also $(u_j)$ Folge in $C_0^\infty(\R^n)$ und $u_j\Dto u$, d.h.
+$T_{u_j}\to Tu$.
+\begin{align*}
+\Rightarrow T_{\nabla^\alpha u_j}(\ph) \overset{\ref{prop:3.11}}{=}
+(-1)^{\abs{\alpha}}
+T_{u_j}(\underbrace{\nabla^\alpha \ph}_{\in C_0^\infty(\R^n)}) 
+\end{align*}
+D.h. $\nabla^\alpha u_j \to \nabla^\alpha u$ in $D'(\R^n)$.\qedhere
+\end{proof}
+
+\begin{prop}
+\label{prop:3.13}
+Für $\alpha\in\N_0^n$ ist die Abbildung $\nabla^\alpha$ eindeutig fortsetzbar
+zu einer stetigen Abbildung
+\begin{align*}
+\D^\alpha : D'(\R^n)\to D'(\R^n).
+\end{align*}
+Für $\ph\in D'(\R^n)$ gilt,
+\begin{align*}
+\D^\alpha T(\ph) = (-1)^{\abs{\alpha}}T(\nabla^\alpha \ph)\tag{*}.
+\end{align*}
+$\D^\alpha$ heißt \emph{Distributionenableitung} oder \emph{schwache
+Ableitung}.\fishhere
+\end{prop}
+\begin{proof}
+\textit{Wohldefiniertheit}. Durch (*) wird eine Abbildung $\D^\alpha T\in
+D'(\R^n)$ definiert.
+
+\textit{Linearität}. Seien $\ph,\psi\in D(\R^n)$ und $a,b\in\C$,
+\begin{align*}
+\D^\alpha T(a\ph + b\psi) &= (-1)^{\abs{\alpha}} T(a\nabla^\alpha \ph +
+b\nabla^\alpha \psi) \\ &= a (-1)^{\abs{\alpha}} T(\nabla^\alpha \ph) +
+b(-1)^{\abs{\alpha}} T(\nabla^\alpha \psi) \\ &= a\D^\alpha T(\ph) +
+b\D^\alpha(\psi)
+\end{align*}
+
+\textit{Stetigkeit}. Sei $\ph_n\Dto \ph$, dann gilt für alle $\alpha\in\N_0^n$
+$\nabla^\alpha \ph_n \Dto \nabla^\alpha \ph$ und daher,
+\begin{align*}
+\D^\alpha(\ph_n) = (-1)^{\abs{\alpha}}
+T(\nabla^\alpha \ph_n) \overset{T\text{
+stet.}}{\to} (-1)^{\abs{\alpha}} T(\nabla^\alpha \ph) = \D^\alpha T(\ph).
+\end{align*}
+
+\textit{Eindeutigkeit}. Aufgrund der Stetigkeit ist die Fortsetzung
+eindeutig.\qedhere
+\end{proof}
+
+\begin{bem}[Bemerkungen.]
+\label{bem:3.14}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Jede Distribution ist beliebig oft differenzierbar.
+  \item Es gilt der Satz von H.A. Schwarz\footnote{Hermann Amandus Schwarz (*
+  25. Januar 1843 in Hermsdorf, Schlesien; † 30. November 1921 in Berlin)}.
+\begin{align*}
+\forall \alpha,\beta \in \N_0^n : \D^\alpha (\D^\beta T) = \D^\beta(\D^\alpha T)
+= \D^{\alpha+\beta}T.
+\end{align*}
+\begin{proof}
+Seien $T\in D'(\R^n)$ und $\ph\in D(\R^n)$,
+\begin{align*}
+\D^\alpha (\D^\beta T)(\ph) &= (-1)^{\abs{\alpha}}(\D^\beta T)(\nabla^\alpha
+\ph) = (-1)^{\abs{\alpha}+\abs{\beta}}T(\nabla^\beta(\nabla^\alpha\ph))\\
+&= (-1^{\abs{\alpha+\beta}} T(\nabla^{\alpha+\beta}\ph) =
+\D^{\alpha+\beta}T(\ph).\qedhere\maphere
+\end{align*}
+\end{proof}
+\end{enumerate}
+\end{bem}
+
+\begin{bsp}
+\label{bps:3.15}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Setze $f(x) = \begin{cases} x, & x > 0,\\ 0, & x\le 0,\end{cases}$ dann
+  gilt für die Distributionenableitung,
+  \begin{align*}
+  \D f = h,\qquad h(x) = \begin{cases}
+                         1, & x> 0,\\
+                         0, & x< 0.
+                         \end{cases}
+  \end{align*}
+$h$ ist die \emph{Heaviside-Funktion}\footnote{Oliver Heaviside (* 18. Mai 1850
+in London; † 3. Februar 1925 in Homefield bei Torquay) war ein britischer
+Mathematiker und Physiker.}. Der Wert an der Stelle $x=0$ ist ohne Bedeutung
+da $f$ eine reguläre Distribution ist, d.h. $h\in\LL_\loc^1$.
+\begin{proof}
+\begin{align*}
+\D T_f(\ph) &= -T_f(\ph' = -\int\limits_0^\infty x\ph'(x)\dx = 
+-\underbrace{x\ph(x)\bigg|_{0}^\infty}_{=0} + \int\limits_{0}^\infty \ph(x)\dx\\
+&= T_h(\ph).\qedhere
+\end{align*}
+\end{proof}
+Für die zweite Ableitung ergibt sich, $\D^2 f = \D h = \delta_0$.
+\begin{proof}
+$\D T_h(\ph) = -T_h(\ph') = -\int\limits_0^\infty 1 \ph'(x)\dx =
+\delta_0(\ph)$.\qedhere
+\end{proof}
+Die $k$-te Ableitung ist $\D^k f = (-1)^k\ph^{(k-2)}(0)$ für $k\ge2$.
+\item Sei $f: \R\to\C$, $f\in C^1((-\infty,x_0))$ und $f\in C^1((x_0,\infty))$
+und $f(x_0+0)$ sowie $f(x_0-0)$ existieren. Dann gilt
+\begin{align*}
+\D f = f' + \left(f(x_0 +0) - f(x_0-0)\right)\delta_{x_0}.
+\end{align*}
+$f'$ bezeichnet hier die klassische Abbleitung von $f$. Der Wert bei $x_0$
+spielt wieder keine Rolle.
+
+Wir erkennen das folgende Schema,
+\begin{align*}
+&\text{Knick} &&\overset{\text{Ableitung}}{\longrightarrow} &&\text{Sprung},\\
+&\text{Endlicher Sprung} &&\overset{\text{Ableitung}}{\longrightarrow}
+&&\delta\text{-Distribution}.
+\end{align*}
+\item $\D^\alpha \delta_0(\ph) = (-1)^\alpha \delta_0(\nabla^\alpha \ph$.
+\item Setze $f(x) = \begin{cases}\frac{1}{\abs{x}},&\text{für
+}x\in\R^3\setminus\setd{0}\\ 0, & x = 0\end{cases}$.
+\begin{enumerate}[label=\alph{*})]
+  \item $f$ ist stetig für $x\neq 0$ und es gilt,
+\begin{align*}
+\int_{K_1(0)} f(x)\dx \overset{\text{Kugelkoord.}}{=} \int\limits_{r=0}^1
+\frac{1}{r} r^2 \dr \int\limits_{\ph=0}^{2\pi}\int\limits_{\th=0}^\pi \sin\th
+\dth\dph < \infty.
+\end{align*}
+Also ist $f\in\LL_\loc^1$ und daher die Distribution $f\in D'(\R^n)$.
+\item 
+\begin{align*}
+(\Delta f)(\ph) &= \Delta T_f (\ph) = \partial_{x_1}^2 T_f(\ph) + \ldots +
+\partial_{x_3}^2 T_f(\ph)\\
+&= (-1)^2 T_f(\partial_{x_1}^2 \ph+ \ldots +\partial_{x_3}^2 \ph) = T_f(\Delta
+\ph)\\
+&= \int\limits_{\R^3} \frac{1}{\abs{x}}\Delta \ph(x)\dx
+\end{align*}
+Wähle $R$ so, dass $\supp\ph \subseteq K_{R}(0)$ und verwende $\Delta
+\frac{1}{\abs{x}}  = 0$,
+\begin{align*}
+\ldots &= \lim\limits_{\ep\downarrow 0} \int\limits_{\ep < \abs{x} < R}
+\frac{1}{\abs{x}}\Delta \ph(x) - \Delta\frac{1}{\abs{x}}\ph(x)\dx\\
+&\overset{\text{Green}}{=}
+\lim\limits_{\ep\downarrow 0} \int\limits_{\abs{x}=\ep,R}
+\frac{1}{\abs{x}}n_0(x) \nabla\ph(x) -
+n_0(x)\nabla\frac{1}{\abs{x}}\ph(x)\dV^{(2)}
+\end{align*}
+Da $\supp\ph \subseteq K_{R}(0)$, verschwindet der Ausdruck auf $\abs{x}=R$,
+\begin{align*}
+\ldots = \lim\limits_{\ep\downarrow 0} \int\limits_{\abs{x}=\ep}
+\frac{1}{\abs{x}}n_0(x) \nabla\ph(x) -
+n_0(x)\nabla\frac{1}{\abs{x}}\ph(x)\dV^{(2)}
+\end{align*}
+%TODO: Skizze Normalenvektor
+Nun ist $n_0(x) = -\frac{x}{\abs{x}}$ für $\abs{x}=\ep$. Für den ersten
+Summanden ergibt sich,
+\begin{align*}
+&\abs{\int\limits_{\abs{x}=\ep}
+\frac{1}{\abs{x}}n_0(x) \nabla\ph(x) \dV^{(2)}} \le
+\int\limits_{\abs{x}=\ep} \frac{\abs{x}\abs{\nabla \ph}}{\abs{x}^2}\dV^{(2)}\\
+&\le \norm{\nabla \ph} \int\limits_{\abs{x}=\ep} \frac{1}{\abs{x}}\dV^{(2)} =
+\norm{\nabla \ph}\frac{4\pi\ep^2}{\ep} \to 0.
+\end{align*}
+Für den zweiten Summanden verwende $\nabla \frac{1}{\abs{x}} =
+-\frac{x}{\abs{x}^3}$,
+\begin{align*}
+&-\int\limits_{\abs{x}=\ep}
+n_0(x)\nabla\frac{1}{\abs{x}}\ph(x)\dV^{(2)}
+= -\int\limits_{\abs{x}=\ep}
+\frac{x}{\abs{x}}\frac{x}{\abs{x}^3}\ph(x)\dV^{(2)}\\
+&-\int\limits_{\abs{x}=\ep}
+\frac{1}{\abs{x}^2}\ph(x)\dV^{(2)}\\
+&= -\frac{1}{\ep^2}\left[ 
+\underbrace{\int\limits_{\abs{x}=\ep}
+\ph(x)-\ph(0)\dV^{(2)}}_{\to 0}
++ \int\limits_{\abs{x}=\ep}
+\ph(0)\dV^{(2)}
+ \right]\\
+ &\to -4\pi \ph(0)
+\end{align*}
+Somit ist $\Delta T_f(\ph) = -4\pi\ph(0) = -4\pi \delta_0(\ph)$, d.h. $-\Delta
+f = 4\pi\delta_0$.\bsphere
+\end{enumerate}
+\end{enumerate}
+\end{bsp}
+
+\begin{prop}
+\label{prop:3.16}
+Sei $(T_j)$ Folge in $D'(\R^n)$.
+\begin{enumerate}[label=(\roman{*})]
+  \item\label{prop:3.16:1} Sei $T_j\to T$, so gilt
+\begin{align*}
+\forall \alpha\in\N_0^n : \D^\alpha T_j \to \D^\alpha T.
+\end{align*}
+\item\label{prop:3.16:2} Sei $\sum_j T_j = T$, so gilt
+\begin{align*}
+\forall \alpha\in\N_0^n : \D^\alpha \sum_j T_j \to \D^\alpha T.\fishhere
+\end{align*}
+\end{enumerate}
+\end{prop}
+\begin{proof}
+``\ref{prop:3.16:1}'': $T_j\to T$ heißt,
+\begin{align*}
+\forall \ph\in C_0^\infty(\R^n) : T_j(\ph)\to T(\ph).
+\end{align*}
+Sei also $\ph\in C_0^\infty(\R^n)$, so gilt
+\begin{align*}
+\D^\alpha T_j(\ph) = (-1)^{\abs{\alpha}}T_j(\nabla^\alpha \ph) =
+\to  (-1)^{\abs{\alpha}}T(\nabla^\alpha \ph) = \D^\alpha T(\ph).
+\end{align*}
+``\ref{prop:3.16:2}'': Folgt aus \ref{prop:3.16:1} mit
+\begin{align*}
+\D^\alpha \sum_j T_j = \D^\alpha \lim\limits_{J\to\infty} \sum\limits_{j=1}^J
+T_j
+\overset{\ref{prop:3.16:1}}{=}
+ \lim\limits_{J\to\infty} \D^\alpha  \sum\limits_{j=1}^J T_j = \D^\alpha
+ T.\qedhere
+\end{align*}
+\end{proof}
+
+\begin{bsp}
+\label{bsp:3.17}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Betrachte
+\begin{align*}
+f_j(x) = 
+\begin{cases}
+0, & x < 0,\\
+x^j, & x \le 1,\\
+1, & x > 1,
+\end{cases}
+\overset{\text{punktw.}}{\to}
+f(x) =
+\begin{cases}
+0, & x < 1,\\
+1, & x\ge 1.
+\end{cases}
+\end{align*}
+\begin{enumerate}[label=\alph{*})]
+  \item $f_j\to f$ in $D'(\R)$.
+\begin{align*}
+T_{f_j}(\ph) = \int\limits_1^\infty \ph(x)\dx + \int\limits_0^1
+x^j\ph(x)\dx
+\end{align*}
+Nun gilt
+\begin{align*}
+\abs{\int\limits_0^1
+x^j\ph(x)\dx} \le \norm{\ph}_\infty \int\limits_0^1 x^j\dx =
+\frac{\norm{\ph}_\infty}{j+1} \to 0.
+\end{align*}
+\item $\D f_j \to \D f = \delta_1$.
+\begin{align*}
+(\D f_j)(\ph) = -T_{f_j}(\ph') = -\underbrace{\int\limits_0^1
+x^j\ph'(x)\dx}_{\to 0} + \underbrace{\int\limits_{1}^\infty
+\ph'(x)\dx}_{=\ph(1)} \to \delta_1(\ph).
+\end{align*} 
+\end{enumerate}
+\item Betrachte $f(x) = \frac{\pi}{4}\abs{x}$ für $-\pi\le \pi$,
+$2\pi$-periodisch fortgesetzt.
+\begin{figure}[H]
+\centering
+\begin{pspicture}(-4,-1)(4,2)
+\psaxes[labels=none,ticks=none]{->}%
+ (0,0)(-3.5,-0.5)(3.5,1.5)%
+ [\color{gdarkgray}$x$,-90][\color{gdarkgray}$f(x)$,0]
+
+\psplot[linewidth=1.2pt,%
+	     linecolor=darkblue,%
+	     algebraic=true]%
+	     {-3}{-2}{-x-2}
+\psplot[linewidth=1.2pt,%
+	     linecolor=darkblue,%
+	     algebraic=true]%
+	     {-2}{-1}{x+2}
+\psplot[linewidth=1.2pt,%
+	     linecolor=darkblue,%
+	     algebraic=true]%
+	     {-1}{0}{-x}
+\psplot[linewidth=1.2pt,%
+	     linecolor=darkblue,%
+	     algebraic=true]%
+	     {0}{1}{x}
+ \psplot[linewidth=1.2pt,%
+	     linecolor=darkblue,%
+	     algebraic=true]%
+	     {1}{2}{2-x}
+\psplot[linewidth=1.2pt,%
+	     linecolor=darkblue,%
+	     algebraic=true]%
+	     {2}{3}{x-2}
+
+ \psxTick(-2){\color{gdarkgray}-2\pi}
+ \psxTick(-1){\color{gdarkgray}-\pi} 
+ \psxTick(1){\color{gdarkgray}\pi}
+ \psxTick(2){\color{gdarkgray}2\pi}
+ \psyTick(1){\color{gdarkgray}\frac{\pi}{4}}
+\end{pspicture} 
+  \caption{Graph der Funktion $f$.}
+\end{figure}
+
+Die Fourierreihe von $f$ ist gegeben durch,
+\begin{align*}
+g_n(x) = \frac{\pi^2}{8} - \left(\cos x + \frac{\cos 3x}{x} + \frac{\cos 5x}{x}
++  \ldots\right).
+\end{align*}
+$f$ ist hölderstetig, d.h. $g_n\unito f$ glm.
+\begin{align*}
+T_{g_n}(\ph) &= \int_\R g_n(x)\ph(x)\dx \to
+\lim\limits_{n\to\infty} \int_\R g_n(x)\ph(x)\dx\\
+&\overset{\text{glm. konv.}}{=} \int_\R f(x)\ph(x)\dx = T_f(\ph).
+\end{align*}
+D.h. $g_n\to f$ in $D'(\R)$. Mit dem erweiterten Dini Kriterium folgt,
+\begin{align*}
+\D g = \sin x + \frac{\sin 3x}{3} + \frac{\sin 5x}{5} + \ldots
+= 
+\begin{cases}
+\frac{\pi}{4}, & 0< x < \pi,\\
+-\frac{\pi}{4}, & -\pi < x < 0,\\
+0, & \text{sonst}.
+\end{cases}
+\end{align*}
+Mit dem soeben gezeigten gilt,
+\begin{align*}
+\D g = \D f = 
+\begin{cases}
+\frac{\pi}{4}, & 0< x < \pi,\\
+-\frac{\pi}{4}, & -\pi < x < 0.
+\end{cases}
+\end{align*}
+Für die zweite Ableitung gilt,
+\begin{align*}
+\D^2 g= \cos x + \cos 3x + \cos 5x + \ldots
+\end{align*}
+offensichtlich haben wir keine Konvergenz im Definitionsbereich. Im
+Distributionensinn lässt sich die Ableitung jedoch darstellen,
+\begin{align*}
+\D^2 g = \D^2 f = \frac{\pi}{2} \sum\limits_{j=-\infty}^\infty (-1)^j
+\delta_{j\pi}.\bsphere
+\end{align*}
+\end{enumerate}
+\end{bsp}
+
+\subsubsection{Multiplikation von Distributionen}
+
+\begin{prop}[Definition/Satz]
+\label{prop:3.18}
+Sei $a\in C^\infty(\R^n\to\C)$
+\begin{enumerate}[label=\arabic{*}.)]
+  \item\label{prop:3.18:1} Für $T\in D'(\R^n)$ ist $a\cdot T$ definiert durch,
+\begin{align*}
+a\cdot T(\ph) := T(a\ph).
+\end{align*}
+\item Für $u\in\LL_\loc^1(\R^n)$ gilt $a T_u = T_{au}$, d.h. auf der Menge der
+regulären Distributionen ist die Multiplikation wohlbekannt.
+\item Die Abbildung $T\mapsto a\cdot T$ ist stetig, d.h. die Definition in
+\ref{prop:3.18:1} ist die stetige Fortsetzung der Multiplikation.\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Zu zeigen ist, dass $a\cdot T$ wieder eine 
+ Distribution ist.
+ 
+ \textit{Linearität.} Ist offensichtlich.
+  
+  \text{Stetigkeit}. Sei $\ph_j\Dto\ph$, dann ist auch $a\ph_j\Dto a\ph$ und
+  daher,
+\begin{align*}
+aT(\ph_J) = T(a\ph_j) \overset{T\text{ stet.}}{=} T(a\ph) = aT(\ph).
+\end{align*}
+\item $a\cdot T_u(\ph) = T_u(a\ph) = \int_{\R^n} u(x)a(x)\ph(x)\dx =
+T_{ua}(\ph)$.
+\item Sei $T_j\to T$ in $D'(\R^n)$, so gilt,
+\begin{align*}
+a\cdot T_j(\ph) = T_j(a\ph) \to T(a\ph) = a\cdot T(\ph).\qedhere
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{prop}[Leibnitzregel]
+\label{prop:3.19}
+$\forall \alpha\in\N_0^n : D^\alpha(a\cdot T) = \sum\limits_{\beta\le \alpha}
+\binom{\alpha}{\beta} \left(\nabla^{\alpha-\beta} a\right)\D^\beta T$.\fishhere
+\end{prop}
+\begin{proof}
+Zu $T\in D'(\R^n)$ sei $(\ph_j)\in C_0^\infty(\R^n)$ mit $\ph_j\to T$.
+Mit \ref{prop:3.18} folgt, $a\ph_j \to aT$. Aufgrund der Stetigkeit der
+Distributionenableitung gilt nun,
+\begin{align*}
+&\D^\alpha (a\ph_j) \to \D^\alpha(a\ph)\\ \Rightarrow &
+\sum\limits_{\beta\le\alpha} \binom{\alpha}{\beta} \left(\nabla^{\alpha-\beta} a
+\right)\nabla^\beta \ph_j \to \sum\limits_{\beta\le\alpha}
+\binom{\alpha}{\beta} \left(\nabla^{\beta-\alpha} a \right)\D^\beta \ph.\qedhere
+\end{align*}
+\end{proof}
+
+\subsection{Lokales Verhalten}
+
+\begin{defn}
+\label{defn:3.20}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Für $M\subseteq \R^n$ sei,
+\begin{align*}
+C_0^\infty(M) := \setdef{\ph\in C^\infty(M\to C)}{\supp \ph \text{ kompakt und
+}\supp\ph \subseteq M}.
+\end{align*}
+\item Für $O\subseteq \R^n$ offen und $\ph\in C_0^\infty(O)$ sei
+\begin{align*}
+\tilde{\ph}(x) := 
+\begin{cases}
+\ph(x), & x\in O,\\
+0, &\text{sonst}.
+\end{cases}
+\end{align*}
+Es gilt $\tilde{\ph}\in C_0^\infty(\R^n)$.
+\item Seien $T,S\in D'(\R^n)$, $O\subseteq \R^n$ offen. Dann heißt $T=S$ in
+$O$, falls,
+\begin{align*}
+\forall \ph\in C_0^\infty(O) : T(\tilde{\ph}) = S(\tilde{\ph}).\fishhere
+\end{align*}
+\end{enumerate}
+\end{defn}
+
+\begin{bsp}
+\label{bsp:3.21}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Seien $u,v\in\LL_\loc^1(\R^n)$, $u=v$ $\fu$ in $O$. Für $\ph\in
+  C_0^\infty(O)$ gilt dann,
+\begin{align*}
+T_u(\tilde{\ph}) - T_v(\tilde{\ph}) = T_{u-v}(\tilde{\ph}) = \int\limits_{\R^n}
+(u-v)\tilde{\ph}\dmu = \int\limits_O (u-v)\tilde{\ph}\dmu.
+\end{align*}
+D.h. $T_u = T_v$ in $O$.
+\item Sei $O:= \R^n\setminus\setd{0}$, dann ist $\delta_0 = 0$ in $O$, d.h.
+\begin{align*}
+\ph\in C_0^\infty(O) \Rightarrow \delta_0(\tilde{\ph}) = \tilde{\ph}(0) =
+0.\bsphere
+\end{align*}
+\end{enumerate}
+\end{bsp}
+
+\begin{prop}[Ableitung ist lokale Opperation]
+\label{prop:3.22}
+Wenn $T=S$ in $O$, dann gilt
+\begin{align*}
+\forall \alpha\in\N_0^n : \D^\alpha T = \D^\alpha
+S \text{ in }O.\fishhere
+\end{align*}
+\end{prop}
+\begin{proof}
+Offensichtlich ist $\nabla^\alpha \tilde{\ph} = \widetilde{\nabla^\alpha \ph}$
+und daher,
+\begin{align*}
+\D^\alpha T(\tilde{\ph}) &= (-1)^{\abs{\alpha}} T(\nabla^\alpha\tph) =
+(-1)^{\abs{\alpha}} T\left(\widetilde{\nabla^\alpha \ph} \right) =
+(-1)^{\abs{\alpha}} S\left(\widetilde{\nabla^\alpha \ph} \right) \\ &= \D^\alpha
+S(\tph).\qedhere
+\end{align*}
+\end{proof}
+
+\begin{prop}
+\label{prop:3.23}
+Sei $T\in D'(\R^n)$, $G:= \bigcup\setdef{O\in\R^n\text{ offen}}{T = 0\text{
+in } O}$. Dann ist $T$ offen und $T=0$ in $G$.\fishhere
+\end{prop}
+\begin{proof}
+Die Offenheit von $G$ ist klar. Sei $\ph\in C_0^\infty(G)$. Da der Träger von
+$\ph$ kompakt ist existiert eine endliche Überdeckung von $\supp\ph$,
+\begin{align*}
+\supp\ph \subseteq \bigcup\limits_{j=1}^J O_j,\quad T=0\text{ in }O_j.
+\end{align*}
+Verwende nun eine Zerlegung der Eins: $\exists \psi_j \in C_0^\infty(O_j) :
+\sum\limits_{j=1}^J \psi_j = 1$ auf $\supp\ph$.
+\begin{align*}
+\Rightarrow \tph = \sum\limits_{j=1}^J \tph\psi_j \Rightarrow
+T\tph = \sum\limits_{j=1}^J T\left(\widetilde{\ph\psi_j}\right) = 0.\qedhere
+\end{align*}
+\end{proof}
+
+\begin{defn}
+\label{defn:3.24}
+Für $T\in D'(\R^n)$ ist
+\begin{align*}
+\supp T:= \R^n\setminus \bigcup \setdef{O\subseteq
+\R^n\text{ offen}}{T=0\text{ in }O}
+\end{align*}
+der Träger von $T$. $x\in \supp T$ heißt \emph{wesentlicher Punkt} von $T$.
+Falls $\supp T$ kompakt, heißt $T$ \emph{finit}.\fishhere
+\end{defn}
+
+\begin{bsp}
+\label{bsp:3.25}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $\supp \delta_0 = \setd{0}$.
+  \item $\ph\in C_0^\infty(\R^n) \Rightarrow \supp T_\ph = \supp\ph$.
+  \item Sei $u\in\LL_\loc^1(\R^n)$.
+  \begin{align*}
+  \supp T_u &=
+  \R^n\setminus\setdef{O\subseteq\R^n\text{ offen}}{u=0\mufu \text{ auf } O} \\
+  &= \R^n\setminus\setdef{x\in\R^n}{\exists U(x)  : u=0\mufu \text{ in }
+  U(x)}.\bsphere
+  \end{align*}
+\end{enumerate}
+\end{bsp}
+
+\begin{prop}
+\label{prop:3.26}
+Sei $T\in D'(\R^n)$, $K\subseteq\R^n$ kompakt. Dann gilt
+\begin{align*}
+\exists k\in\N \exists c > 0 \forall\ph\in C_0^\infty(\R^n) : \supp
+\ph\subseteq K\Rightarrow \abs{T(\ph)} \le c \max\limits_{\abs{\alpha}\le k}
+\norm{\nabla^\alpha\ph}_\infty.\fishhere
+\end{align*}
+\end{prop}
+\begin{proof}
+Angenommen die Aussage wäre falsch, d.h.
+\begin{align*}
+\forall k\in\N \forall c > 0 \exists \ph\in C_0^\infty(\R^n) : \supp\ph
+\subseteq K \land \abs{T(\ph)} > c\max\limits_{\abs{\alpha}\le k}
+\norm{\nabla^\alpha \ph}_\infty.
+\end{align*}
+Wähle $c=k$, dann gibt es ein $\ph_k\in C_0^\infty(\R^n)$ mit
+$\supp\ph_k\subseteq K$ und
+\begin{align*}
+\abs{T(\ph_k)} > k\max\limits_{\abs{\alpha}=k} \norm{\nabla^\alpha
+\ph_k}_\infty.
+\end{align*}
+Setze $\psi_k = \frac{1}{k\max\norm{\nabla^\alpha \ph_k}_\infty}\ph_k$, dann
+ist $\psi_k\in C_0^\infty(\R^n)$, $\psi_k\subseteq K$ und
+\begin{align*}
+\max\limits_{\abs{\alpha}\le k} \norm{\nabla^\alpha \psi_k}_\infty = \frac{1}{k}
+\to 0.
+\end{align*}
+Insbesondere geht für festes $\alpha$, $\nabla^\alpha \psi_k \unito 0$ glm. auf
+$\R^n$, d.h. $\psi_k \Dto 0$ und daher $T(\psi_k)\to 0$. Aber $T(\psi_k) >
+1$.\dipper\qedhere
+\end{proof}
+
+\begin{cor}
+\label{prop:3.27}
+Ist $T$ finit, so gilt \ref{prop:3.26} ohne die Einschränkung $\supp
+\ph\subseteq K$.\fishhere
+\end{cor}
+\begin{proof}
+Wähle $\psi\in C_0^\infty(\R^n)$ mit $\psi = 1$ auf $\supp T$. Dann ist
+\begin{align*}
+T(\ph) = T(\psi\ph) + T(\underbrace{(1-\psi)\ph}_{\in
+C_0^\infty(\R^n\setminus\supp T))}) = T(\psi\ph).
+\end{align*}
+Wende nun \ref{prop:3.26} an mit $K=\supp\psi$, $\supp\ph\psi\subseteq
+\supp\psi = K$, dann folgt
+\begin{align*}
+\abs{T(\ph)} \le c\max\limits_{\abs{\alpha}\le k} \norm{\nabla^\alpha
+(\psi\ph)}_\infty \le c \max\limits_{\abs{\alpha}\le k} \norm{\nabla^\alpha
+\ph}_\infty.\qedhere
+\end{align*}
+\end{proof}
+
+\begin{defn}
+\label{defn:3.28}
+$T\in D'(\R^n)$ heißt von \emph{endlicher Ordnung}, falls \ref{prop:3.26} ohne
+die Einschränkung $\supp\ph\subseteq K$ gilt.
+Das kleinstmögliche $k\in\N$ heißt \emph{Ordnung} von $T$.\fishhere
+\end{defn}
+
+\begin{bsp}
+\label{bsp:3.29}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $\abs{\delta_{x_0}(\ph)} = \abs{\ph(x_0)} \le \norm{\ph}_\infty$. D.h.
+  die Ordnung ist $0$.
+  \item Sei $u\in\LL_\loc^1(\R^n)$, dann ist
+\begin{align*}
+\abs{T_u(\ph)} \le \int\limits_{\R^n} \abs{u}\abs{\ph}\dmu \le
+\norm{\ph}_\infty \int\limits_{\R^n} \abs{u}\dmu = \norm{\ph}_\infty\norm{u}_1.
+\end{align*}
+\item In $\R$ ist für
+\begin{align*}
+T = \sum\limits_{j=0}^J c_j D^j\delta_0,
+\end{align*}
+die Ordnung $J$, falls $c_J\neq 0$.
+\item Betrachte $u: \R\to\R$ mit $u(x) = x$. Setze $\ph_k = j_1(\cdot-k)$, dann
+folgt
+\begin{align*}
+\abs{T_u(\ph_k)} = \abs{\int\limits_\R j_1(x-k)x\dx} =
+\abs{\int\limits_{k-1}^{k+1} j_1(x-k)x\dx } > k-1 \to \infty.
+\end{align*}
+Das heißt,
+\begin{align*}
+\norm{\nabla^\alpha \ph_k}_\infty = \norm{\nabla^\alpha j_1(\cdot-k)}_\infty =
+\norm{\nabla^\alpha j_1}_\infty = \const,
+\end{align*}
+unabhängig von $k$. D.h. die Ordnung von $T_u$ ist $\infty$.\bsphere
+\end{enumerate}
+\end{bsp}
+
+\begin{bem}
+\label{bem:3.30}
+Sei $T\in D'(\R^n)$ und $O\in\R^n$ offen und beschränkt. Dann existiert ein
+$\alpha\in \N_0$ und ein $u\in C(\R^n\to\C)$ mit $T = D^\alpha u$.\maphere
+\end{bem}
+
+\subsection{Faltung}
+
+\begin{bemn}[Erinnerung.]
+Die Faltung von zwei Funktionen $f,g$ ist definiert als,
+\begin{align*}
+f*g := \int\limits_{\R^n} f(x-y)g(y)\dy.
+\end{align*}
+Sind $f,g\in\LL^1$ folgt mit Fubini, dass $f*g\in\LL^1$. Ist aber $f=g=1$, so
+ist $f*g$ nicht mehr definiert.
+
+\textit{Abhilfe}. Definiere $f*g$ nur für solche $f,g$ für die bei festem $z$,
+\begin{align*}
+&\setdef{(z,y)\in\R^{2n}}{f(z-y) \neq 0\land g(y)\neq 0}\text{beschränkt}\\
+\Leftrightarrow &
+\setdef{(x,y)\in\R^{2n}}{f(x) \neq 0\land g(y)\neq 0\land
+x=z-y}\text{beschränkt}\\ \Leftrightarrow &
+\supp f\times \supp g \cap
+\setdef{(x,y)\in\R^{2n}}{x=z-y}\text{beschränkt}\maphere
+\end{align*}
+\end{bemn}
+
+\begin{defn}
+\label{defn:3.31}
+$(T,S)\in D'(\R^n)^2$ erfüllt die \emph{Streifenbedingung}, falls
+\begin{align*}
+\forall a> 0 : \supp T \times \supp S \cap \sigma_a\text{ beschränkt},
+\end{align*}
+wobei $\sigma_a := \setdef{(x,y)\in\R^{2n}}{\abs{x+y}\le a}$.\fishhere
+\end{defn}
+
+\begin{bsp}
+\label{bsp:3.32}
+$\supp T$ beschränkt $\Rightarrow$ $(T,S)$ erfüllt die Streifenbedingung.
+%TODO: Bild Streifenbedingung \supp T\times \R^n.
+\end{bsp}
+
+\begin{bem}
+\label{bem:3.33}
+Seien $f,g,\ph\in C_0^\infty(\R^n)$, dann ist
+\begin{align*}
+T(\ph) &= \int_{\R^n} (f*g)(x)\ph(x)\dx
+= \int_{\R^n}\int_{\R^n} f(x-y)g(y)\ph(x)\dy\dx\\
+&= \int_{\R^n}\int_{\R^n} f(x-y)g(y)\ph(x)\dx\dy\\
+&\overset{x-y = z}{=}
+\int_{\R^n}\int_{\R^n} f(z)\ph(z+y)g(y)\diffd(z,y)
+\end{align*}
+Wähle $R$ so, dass $\supp\ph\in K_R(0)$. Dann ist der Integrand höchstens für
+$\abs{z+y}<R$ von Null verschieden und $f(z)g(y)\neq 0$ höchstens in $\supp
+f\times\supp g$.\maphere
+\end{bem}
+
+\begin{defn}
+\label{defn:3.34}
+$(T,S)\in D'(\R^n)^2$ erfülle die Streifenbedingung, dann ist $T*S$ definiert
+durch,
+\begin{align*}
+(T*S)(\ph) := T_x\left(S_y(\ph(x+y)) \right) = \left(T_x \times
+S_y\right)(\ph(x+y)),
+\end{align*}
+für $\ph\in C_0^\infty(\R^n)$.\fishhere
+\end{defn}
+\begin{bemn}[Probleme.]
+Was ist $T\times S$? $\tilde{\ph}: (x,y)\mapsto \ph(x+y)$ hat stets
+unbeschränkten Träger.
+\end{bemn}
+
+\begin{lem}
+\label{prop:3.35}
+Sei $S\in D'(\R^n)$, $\ph\in C_0^\infty(\R^{n+m})$. Setze
+\begin{align*}
+\psi(x) := S(\ph(x,\cdot)),\qquad\text{für }x\in \R^n. 
+\end{align*}
+Dann gilt
+\begin{enumerate}[label=(\roman{*})]
+  \item\label{prop:3.35:1} $\nabla^\alpha\psi(x) = S\left(\nabla^\alpha
+  \ph(x,\cdot)\right)$.
+  \item $\psi\in C_0^\infty(\R^n)$.
+  \item $\ph_j\Dto 0\Rightarrow \psi_j \Dto 0$.
+\end{enumerate}
+\end{lem}
+\begin{proof}
+\begin{enumerate}[label=(\roman{*})]
+  \item Es genügt die Behauptung für die erste partielle Ableitung zu zeigen,
+\begin{align*}
+&\frac{\psi(x+he_j)-\psi(x)}{h} =
+S\left(\frac{\ph(x+he_j,\cdot)-\ph(x,\cdot)}{h} \right)\\ & \overset{S\text{
+stetig}}{\to} S(\partial_{x_j}\ph(x,\cdot) ).\\ \Rightarrow &
+\partial_{x_j}\psi(x) = S\left(\partial_{x_j} \ph(x,\cdot) \right)
+= S\left(\nabla^{e_j,0} \ph(x,\cdot) \right)
+\end{align*}
+\item Mit \ref{prop:3.35:1} folgt, $\psi\in C^\infty(\R^n)$.  Sei
+$\supp\ph\subseteq [-R,R]^{n+m}$, dann ist $\ph(x,\cdot) =0$ für $\abs{x_j}>R$
+unabhängig von $\cdot$ und daher ist auch $\psi(x) = S(\ph(x,\cdot)) = 0$ außerhalb von
+$[-R,R]^n$.
+\item $\supp\ph_j \subseteq [-R,R]^{n+m}$ daher ist $\supp\psi_j\subseteq
+[-R,R]^n$. Mit \ref{prop:3.36} folgt,
+\begin{align*}
+S(\xi) \le c\max\limits_{\abs{\beta}\le k}\norm{\nabla^\beta \xi}_\infty,
+\end{align*}
+für $\xi\in C_0^\infty(\R^n)$ mit $\supp\xi\subseteq [-R,R]^m$. Setze $\xi_j :=
+\nabla^{(\alpha,0)}\ph_j(x,\cdot)$, so folgt,
+\begin{align*}
+\abs{\nabla^\alpha \ph_j(x)} &= \abs{S(\nabla^{(\alpha,0)} \ph_j(x,\cdot))} \le
+c \max\limits_{\abs{\beta}\le k}\norm{\nabla^{(\alpha,\beta)}
+\ph_j(x,\cdot)}_\infty\\
+&\to 0\text{ glm. bezgl. } x.\qedhere
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+\begin{prop}[Definition/Satz]
+\label{prop:3.36}
+Seien $T\in D'(\R^n)$, $S\in D'(\R^m)$. Dann ist das direkte Produkt definiert
+als,
+\begin{align*}
+(T\times S)(\ph) := T_x(S_y(\ph)),\quad \text{für }\ph\in C_0^\infty(\R^{n+m}).
+\end{align*}
+Es gelten,
+\begin{enumerate}[label=(\roman{*})]
+  \item\label{prop:3.36:1} $T\times S\in D'(\R^n\times \R^m)$.
+  \item\label{prop:3.36:2} Für $u\in\LL_\loc^1(\R^n)$, $v\in\LL_\loc^1(\R^m)$
+  gilt,
+\begin{align*}
+T_u\times T_v = T_{u(x)\cdot v(y)}.
+\end{align*}
+\item\label{prop:3.36:3} Seien $\ph_1\in C_0^\infty(\R^n)$, $\ph_2\in
+C_0^\infty(\R^m)$ und $\ph(x,y)=\ph_1(x)\ph_2(y)$, so gilt
+\begin{align*}
+T(\ph_1)S(\ph_2).
+\end{align*}
+\item\label{prop:3.36:4} $\supp T\times S = \supp T\times \supp S$.\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}
+``\ref{prop:3.36:1}'': $T\times S$ ist nach \ref{prop:3.35} definiert. Die
+Lineartität ist offensichtlich. Zum Nachweis der Stetigkeit sei $\ph_j\Dto 0$,
+so folgt mit \ref{prop:3.35}, dass $\psi_j(x):= S_y(\ph(x,\cdot)\Dto 0$ und
+damit,
+\begin{align*}
+T\times S(\ph_j) = T(\psi_j) \to 0.
+\end{align*}
+$T\times S$ ist linear, d.h. Stetigkeit in $0$ impliziert die Stetigkeit
+überall.
+
+``\ref{prop:3.36:2}, \ref{prop:3.36:3}'': Übung.
+
+``\ref{prop:3.36:4}'': 
+\begin{enumerate}[label=(\alph{*})]
+  \item Sei $(x,y)\in\supp T\times \supp S$ und $U(x,y)$ Umgebung im
+  $\R^{n+m}$, dann gilt
+\begin{align*}
+\exists U_1(x), U_2(y) : U_1(x)\times U_2(y) \subseteq U(x,y).
+\end{align*}
+Nun gilt,
+\begin{align*}
+&x\in\supp T\Rightarrow \exists \ph_1 \in C_0^\infty(U_1(x)) : T(\ph_1)\neq 0,\\
+&y\in \supp S\Rightarrow \exists \ph_2 \in C_0^\infty(U_2(y)) : S(\ph_2)\neq 0.
+\end{align*}
+Setze $\ph(x,y) = \ph_1(x)\ph_2(y)$, dann gilt,
+\begin{align*}
+&\ph\in C_0^\infty(U(x,y)) \land
+T\times S(\ph)  = T(\ph_1)S(\ph_2) \neq 0\\
+\Rightarrow &(x,y)\in \supp T\times S.
+\end{align*}
+\item Sei $(x,y)\notin \supp T\times \supp S$. Ohne Einschränkung sei $x\notin
+\supp T$, dann gilt
+\begin{align*}
+\exists U(x) \subseteq \R^n\text{ offen } : \forall \ph\in C_0^\infty(U(x)) :
+T\ph = 0.
+\end{align*}
+$U(x)\times \R^m$ ist Umgebung von $(x,y)$ und $T=0$ auf $U(x)\times \R^m$,
+denn für $\phi\in C_0^\infty(U(x)\times\R^m)$ gilt
+\begin{align*}
+T\times S(\phi) = T_x(\underbrace{S_y(\phi(x,y))}_{\in C_0^\infty(U(x))}) = 0.
+\end{align*}
+Also ist $(x,y)\notin \supp T\times S$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{prop}[Fortsetzung der Distributionen]
+\label{prop:3.37}
+\begin{enumerate}[label=(\roman{*})]
+  \item Zu $M\subseteq \R^n$ abgeschlossen sei,
+\begin{align*}
+C_M^\infty := \setdef{\ph\in C^\infty(\R^n\to C)}{\supp\ph\cap M\text{
+beschränkt}}.
+\end{align*}
+$C_M^\infty$ ist ein linearer Raum und $C_0^\infty(\R^n)\subseteq C_M^\infty$.
+
+Ist $M$ kompakt so ist $C_M^\infty = C^\infty(\R^n\to\C)$. Ist $M=\R^n$, so ist
+$C_M^\infty = C_0^\infty(\R^n)$.
+\item Sei $T\in D'(\R^n)$, $M:=\supp T$. Zu $\ph\in C_M^\infty$ wähle $\psi\in
+C_0^\infty(\R^n)$ mit $\psi=1$ auf $K=\supp T\cap \supp\ph$. Setze
+\begin{align*}
+T\ph = T(\psi\ph).
+\end{align*}
+Diese Definition ist unabhängig vom gewählten $\psi$, denn sei $\tilde{\psi}$
+ebenfalls $=1$ auf $K$, so gilt
+\begin{align*}
+T(\psi\ph) - T(\tilde{\psi}\ph) =T((\psi-\tilde{\psi})\ph)  = 0.
+\end{align*}
+\item \textit{Eigenschaften}. 
+\begin{enumerate}[label=(\alph{*})]
+  \item $T: C_M^\infty \to \C$ ist linear.
+\item Die Ableitungsdefinition gilt weiterhin,
+\begin{align*}
+\D^\alpha T(\ph) &:= \D^\alpha T(\psi\ph) = (-1)^{\abs{\alpha}}
+T(\underbrace{\nabla^\alpha \psi\ph}_{=\psi\nabla^\alpha\ph\text{ in }K}) \\ &=
+(-1)^{\abs{\alpha}} T(\nabla^\alpha \ph).
+\end{align*}
+\item $T_j\to T$ in $D'(\R^n)$ und $\exists K$ kompakt mit $\supp T_j\subseteq
+K$, so gilt,
+\begin{align*}
+\forall \ph\in C_K^\infty : T_j(\ph)\to T.
+\end{align*}
+\item $\supp \ph\cap \supp T=\varnothing \Rightarrow T(\ph) = 0$.\fishhere
+\end{enumerate}
+\end{enumerate}
+\end{prop}
+
+\begin{prop}
+\label{prop:3.38}
+Falls $(T,S)\in D'(\R^n)^2$ die Streifenbedingung erfüllt, dann ist $T*S\in
+D'(\R^n)$.\fishhere
+\end{prop}
+\begin{proof}
+$T*S(\ph) = (T_x\times S_y)(\ph(x+y))$
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Sei $\ph\in C_0^\infty(\R^n)$, $\supp\ph\subseteq K_R(0)$,
+  $\tilde{\ph}:= \ph(x+y)$, so ist $\supp\tph \subseteq \sigma_R$ und daher,
+\begin{align*}
+\supp T\times S\cap \supp\tph \subseteq \supp T\times\supp S \cap \sigma_R
+\text{ beschränkt}.
+\end{align*}
+D.h. $\tph\in C_{\supp T\times S}^\infty\Rightarrow T*S(\tph)$ ist definiert.
+\item $T*S$ ist offensichtlich linear.
+\item Sei $\ph_j\Dto 0$, dann
+\begin{align*}
+\exists R > 0: \forall j\in\N : \supp \ph_j \subseteq K_R(0).
+\end{align*}
+Also ist $\supp T\times S\cap \supp\ph_j\subseteq K:=\supp T\times S\cap
+\sigma_R$.
+
+Sei $\psi\in C_0^\infty(\R^n)$, $\psi=1$ auf $K$ und $\tph_j(x,y) =
+\ph_j(x+y)$, dann gilt
+\begin{align*}
+T*S(\ph_j) = T\times S(\tph_j) = T\times S(\underbrace{\psi\tphi_j}_{\Dto 0})
+\to 0,
+\end{align*}
+denn $\supp\psi\tph_j\subseteq \supp\psi$ und $\nabla^\alpha (\psi\ph_j)
+(x,y)\unito 0$ glm.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{bsp}
+\label{bsp:3.39}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $T*\delta_0 = T$: $\delta_0$ ist finit und erfüllt daher die
+  Streifenbedingung. Es gilt
+\begin{align*}
+&\delta_{0,y} \ph(x+y) = \ph(x),\\
+&T*\delta_{0}(\ph) = T(\ph).
+\end{align*}
+\item Seien $\ph_1,\ph_2\in C_0^\infty(\R^n)$, so gilt $T_{\ph_1}* T_{\ph_2} =
+T_{\ph_1*\ph_2}$.\bsphere
+\end{enumerate}
+\end{bsp}
+
+\begin{prop}[Eigenschaften]
+\label{prop:3.40}
+\begin{enumerate}[label=\arabic{*}.)]
+  \item $T*S = S*T$.
+  \item $\forall\alpha\in\N_0^k : \D^\alpha T*S = (\D^\alpha T)*S =
+  T*(\D^\alpha S)$.\fishhere
+\end{enumerate}
+\end{prop}
+\begin{proof}[Beweisskizze.]
+\begin{enumerate}[label=\arabic{*}.)]
+  \item Zu $\ph\in C_0^\infty(\R^n)$ sei $\psi\in C_0^\infty(\R^{2n})$ mit
+  $\psi=1$ auf $K\cup \setdef{(x,y)}{(y,x)\in K}$, $K=\supp T\times \supp S\cap
+  \sigma_R$, wobei $\supp \ph \subseteq K_R(0)$.
+\begin{align*}
+T*S(\ph) &= T_x\times T_y(\psi(x,y)\ph(x+y)) \\ &\overset{\text{z.Z.}}{=}
+S_y(T_x(\psi(x,y)\ph(y+x))) = S*T(\ph).
+\end{align*}
+Für $\ph_1,\ph_2\in C_0^\infty(\R^n)$ gilt
+\begin{align*}
+T_x(S_y(\ph_1(x)\ph_2(y))) &\overset{\ref{prop:3.30:3}}{=} T(\ph_1)S(\ph_2) =
+S(\ph_2)T(\ph_1) \\ &= S_y\times T_x(\ph_1(x)\ph_2(y)),
+\end{align*}
+$\Rightarrow T_x\times S_y(\ph) = S_y\times T_x(\ph)$
+für alle Linearkombinationen. Die Menge aller
+\begin{align*}
+\setdef{\sum\limits_{j=1}^N c_j \ph_j(x) \psi_j(y)}{N\in\N, \ph_j,\psi_j\in
+C_0^\infty(\R^n)}
+\end{align*}
+ist dicht in $C_0^\infty(\R^n)$. (Siehe Walter Kap. 7)
+\item
+\begin{align*}
+\D^\alpha (T*S) &= (-1)^{\abs{\alpha}}(T*S)(\nabla^\alpha \ph) \\ &=
+(-1)^{\abs{\alpha}} T_x\times S_y(\psi(x,y)\nabla^\alpha\psi(x+y)) \\ &=
+(-1)^{\abs{\alpha}} T_x(S_y(\nabla_y^\alpha(\psi(x,y)\psi(x+y)))) \\ &=
+T_x(\D^\alpha S_y(\psi\ph)) = T*\D^\alpha S.\qedhere
+\end{align*}
+\end{enumerate}
+\end{proof}
+
+Es lässt sich also für $1\le p\le \infty$ jeder $\LL^p$ in
+$D'(\R^n)$ einbetten und daher lässt sich jede $\LL^p$-Funktion im $\D$-Sinne
+ableiten. Diejenigen $\LL^p$-Funktionen, deren Ableitungen wieder im $\LL^p$
+sind, heißen \emph{Sobolev-Räume}.
